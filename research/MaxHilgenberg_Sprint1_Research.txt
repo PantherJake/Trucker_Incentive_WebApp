@@ -1,0 +1,20 @@
+
+Max Hilgenberg 
+Research file for Sprint 1
+
+first I needed to learn how to work with the DevOps repo, so I went through Microsofts tutorial:
+- before cloning the repo I needed to create a user, so that I can actually push stuff onto that repository
+- now it is cloned on my laptop and hence I pushed this file and others onto the repo from my testing
+
+Vue Practice: 
+I created a public Github repository to learning how vue.js works. Each commit is a part from the same tutorial on learning how Vue.js works:
+    https://www.youtube.com/watch?v=FXpIoQ_rT_c
+My repo: https://github.com/mhilgen/VuePractice
+
+I also practiced some basic javascript, css tab practice: 
+    I deployed that on github: https://mhilgen.github.io/WebTabPractice/
+
+Turns out that the only package you need to connect your database with python is pymysql, which is a lot simpler than Java. 
+
+I also needed to find some tutorials for lambda functions, which are uploaded in the /back-end/testing/Lamba directory
+- the addUser lamba function basically adds a user to my testing database on aws. That function also connects to the database obviously  
