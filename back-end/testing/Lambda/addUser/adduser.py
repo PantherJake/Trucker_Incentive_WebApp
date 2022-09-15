@@ -33,10 +33,11 @@ def sql(event, context):
         print(query)
         conn.commit()
         
-        test = cur.execute("select * from testusers")
-        print(test)
+        cur.execute("select * from testusers")
+        result = cur.fetchall()
+        
         item_count = 0
-        for row in cur:
+        for row in result:
             item_count += 1
             logger.info(row)
        
