@@ -17,4 +17,14 @@ I also practiced some basic javascript, css tab practice:
 Turns out that the only package you need to connect your database with python is pymysql, which is a lot simpler than Java. 
 
 I also needed to find some tutorials for lambda functions, which are uploaded in the /back-end/testing/Lamba directory
-- the addUser lamba function basically adds a user to my testing database on aws. That function also connects to the database obviously  
+- the addUser lamba function basically adds a user to my testing database on aws. That function also connects to the database obviously
+
+Research for finding good API Catalogs:
+	I looked for a bunch of APIs like best buy and etsy but most of them would not allow "free" or ".edu" emails so I could not use them.
+	However, I found 2 APIs which might work. 
+	- the ebay APIs: https://developer.ebay.com/develop/apis?mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=5337487966&customid=&toolid=10001
+		for that one I requested a dev ops accound and I hope I will figure out how the API key token stuff will work, if I get a developer account from ebay
+	- I also found a dummy catalog API: https://dummyproducts-api.herokuapp.com/#form
+		but I do not know if it works since when I insert my email to get a token, it gives me an undefined message but an image the sent an email. So I hope 
+		that it worked...
+
