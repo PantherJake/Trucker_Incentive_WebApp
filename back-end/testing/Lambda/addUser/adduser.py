@@ -3,9 +3,8 @@ import sys
 import logging
 import rds_config
 import pymysql
-import userinfo
-
-
+import boto3
+import json
 
 rds_host  = rds_config.db_endpoint
 name = rds_config.db_username
@@ -24,22 +23,47 @@ except:
     sys.exit()
 
 logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
+client = boto3.client("lambda")
 def sql(event, context):
     
     with conn.cursor() as cur:
-        #insert specific data into the user table which is grabbed from a userinfo.py file at the moment
-        query = 'insert into testusers(user_fname, user_lname, user_org_id) values("'+ str(userinfo.userfname) + '","'+str(userinfo.userlname)+'",'+str(userinfo.user_org_id)+')'
-        cur.execute(query)
-        print(query)
+        # data from the json input file 
+        userfname = event['fname']
+        usermname = event['mname']
+        userlname = event['lname']
+        roleID = event['roleID']
+        userEmail = event['email']
+        orgID = event['orgID']
+        # insert query to insert to user table with param array
+        query = 'insert into users(user_fname, user_mname, user_lname, user_role_id, user_email, user_org_id) values(%s, %s, %s, %s, %s, %s)'
+        param = (userfname, usermname, userlname, roleID, userEmail, orgID)
+        cur.execute(query, param)
         conn.commit()
-        
-        cur.execute("select * from testusers")
-        result = cur.fetchall()
-        
+        # find the last inserted ID in the user table 
+        query2 = "select LAST_INSERT_ID()"
+        cur.execute(query2)
+        result = cur.fetchone()
+        logger.info(result)
+        returnresult = "no user found"
         item_count = 0
         for row in result:
             item_count += 1
             logger.info(row)
-       
+            returnresult = getuser({'id' : row})
+            logger.info(returnresult)
+        # conn.close
+    return returnresult
+
+def getuser(inputParams):
+        #inputParams = { 'id' : '1'}
     
-    return event
+    user = client.invoke(
+        FunctionName = "arn:aws:lambda:us-east-1:274815321855:function:getusers",
+        InvocationType = "RequestResponse",
+        Payload = json.dumps(inputParams)
+    )
+    
+    responsefromorg = json.load(user['Payload'])
+    print("\n")
+    print(responsefromorg)
+    return responsefromorg
