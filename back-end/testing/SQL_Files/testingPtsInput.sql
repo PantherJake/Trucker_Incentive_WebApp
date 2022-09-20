@@ -8,6 +8,7 @@ select * from point_transaction_history;
 select SUM(transaction_value) from point_transaction_history where target_user_id = 3;
 
 select * from driver_data;
+SET time_zone = us-east;
 
 -- UPDATE driver_data
 -- 	SET pts_balance = 50
