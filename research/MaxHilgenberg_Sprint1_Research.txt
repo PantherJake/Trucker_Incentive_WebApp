@@ -1,0 +1,37 @@
+
+Max Hilgenberg 
+Research file for Sprint 1
+
+first I needed to learn how to work with the DevOps repo, so I went through Microsofts tutorial:
+- before cloning the repo I needed to create a user, so that I can actually push stuff onto that repository
+- now it is cloned on my laptop and hence I pushed this file and others onto the repo from my testing
+
+Vue Practice: 
+I created a public Github repository to learning how vue.js works. Each commit is a part from the same tutorial on learning how Vue.js works:
+    https://www.youtube.com/watch?v=FXpIoQ_rT_c
+My repo: https://github.com/mhilgen/VuePractice
+
+I also practiced some basic javascript, css tab practice: 
+    I deployed that on github: https://mhilgen.github.io/WebTabPractice/
+
+Turns out that the only package you need to connect your database with python is pymysql, which is a lot simpler than Java. 
+
+I also needed to find some tutorials for lambda functions, which are uploaded in the /back-end/testing/Lamba directory
+- the addUser lamba function basically adds a user to my testing database on aws. That function also connects to the database obviously
+
+Research for finding good API Catalogs:
+	I looked for a bunch of APIs like best buy buy most of them would not allow "free" or ".edu" emails so I could not use them.
+	However, I found 3 APIs which might work. 
+	- the ebay APIs: https://developer.ebay.com/develop/apis?mkevt=1&mkcid=1&mkrid=711-53200-19255-0&campid=5337487966&customid=&toolid=10001
+		for that one I requested a dev ops accound and I hope I will figure out how the API key token stuff will work, if I get a developer account from ebay
+	- I also found a dummy catalog API: https://dummyproducts-api.herokuapp.com/#form
+		but I do not know if it works since when I insert my email to get a token, it gives me an undefined message but an image the sent an email. So I hope 
+		that it worked...
+	- with the help of Kyle we figured out how to work with the Etsy APIs. We just created our own App and are now waiting for it to get approved, but the developer
+		registration was fairly simple. You just needed a 2FA system. For testing we used an example URL, but for the actual Etsy catalog we want to use our 
+		website hosted via AWS. 
+	So in total we are just waiting for the API hosts to get back to us. Hopefully we get the access
+
+Connecting the Lambda function with the API was a bit of a trouble
+- the get APIs seem to work now after we reconfigured our lambda functions, so that the connection to the database is closed when the lambda function is done or calls another one
+- we are still having trouble implementing the POST for addUser because of Authentification tokens even though we do not have one active ...
