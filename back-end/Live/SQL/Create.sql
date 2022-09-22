@@ -10,6 +10,7 @@ user_role_id int NOT NULL,
 user_email varchar(30) NOT NULL,
 user_org_id int NOT NULL,
 user_state varchar(30) NOT NULL,
+keynum INT NOT NULL,
 PRIMARY KEY(user_id)
 );
 
