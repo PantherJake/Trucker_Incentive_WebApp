@@ -18,11 +18,15 @@
             Forgot <a href="#"> password? </a>   
             </div>   
         </form>   
+        {{ returnedEmail }}
+        {{ returnedPassword }}
     </body>     
   </html> 
 </template> 
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'LoginPage',
   data: function() {
@@ -30,7 +34,6 @@ export default {
       Email: '',
       Password: '',
       isRemember: false,
-      info: '',
       returnedEmail: '',
       returnedPassword: ''
     }
@@ -40,7 +43,8 @@ export default {
       .get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users?id=7')
       .then(response => (
         this.returnedEmail = response.data.email,
-        this.returnedEmail = response.data.password
+        this.returnedPassword = response.data.password
+      .catch(error => console.log(error))
       ))
   }
 }
