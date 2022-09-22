@@ -1,15 +1,21 @@
 <template>
   <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <Login></Login>
+  <!-- <SignUp></SignUp> -->
+  <LoginPage></LoginPage>
+  <ContactSupport></ContactSupport>
 </template>
 
 <script>
-import LoginPage from './components/LoginPage.vue'
+// import SignUpPage from './components/SignUpPage.vue'
+import LoginPage from './components/LoginPage.vue';
+import ContactSupport from './components/extras/ContactSupport.vue';
 
 export default {
   name: 'App',
   components: {
-    Login: LoginPage
+    // SignUp: SignUpPage
+    LoginPage,
+    ContactSupport
 }
 }
 </script>

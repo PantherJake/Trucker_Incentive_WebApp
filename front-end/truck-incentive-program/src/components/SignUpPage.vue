@@ -2,57 +2,56 @@
   <html>
   <head>  
     <meta name="viewport" content="width=device-width, initial-scale=1">  
-    <title> Login Page </title>    
+    <title> Sign Up Page </title>  
   </head>    
     <body>    
-    <center> <h1> Driver Incentive Login </h1> </center>   
-        <form method="GET" action="https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users?id=7">
+    <center> <h1> Driver Incentive Sign Up </h1> </center>   
+        <form method="POST" action="/<your-endpoint>">
         <div class="container">   
-            <label>Email : </label>   
-            <input type="text" v-model="Email" placeholder="Enter Email" name="Email" required>  
+            <label>Username : </label>   
+            <input type="text" v-model="username" placeholder="Enter Username" name="username" required>  
             <label>Password : </label>   
-            <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
-            <button type="submit">Login</button>   
+            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>  
+            
+            <label>First name: </label>
+            <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>
+            <label>Middle name: </label>
+            <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
+            <label>Last name: </label>
+            <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
+            
+
             <input type="checkbox" checked="checked"> Remember me   
             <button type="button" class="cancelbtn"> Cancel</button>   
+            <button type="submit">Sign Up</button>   
             Forgot <a href="#"> password? </a>   
             </div>   
-        </form>   
-    </body>     
+        </form> 
+    </body>    
   </html> 
 </template> 
 
 <script>
 export default {
-  name: 'LoginPage',
+  name: 'SignUpPage',
   data: function() {
     return {
-      Email: '',
-      Password: '',
-      isRemember: false,
-      info: '',
-      returnedEmail: '',
-      returnedPassword: ''
+      username: '',
+      password: '',
+      role: '',
+      isRemember: false
     }
   },
-  mounted () {
-    axios
-      .get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users?id=7')
-      .then(response => (
-        this.returnedEmail = response.data.email,
-        this.returnedEmail = response.data.password
-      ))
-  }
 }
 </script>
 
 <style>   
     Body {  
       font-family: Calibri, Helvetica, sans-serif;  
-      background-color: whitesmoke;  
+      background-color: pink;  
     }  
     button {   
-           background-color: purple;   
+           background-color: #4CAF50;   
            width: 100%;  
             color: orange;   
             padding: 15px;   
@@ -68,7 +67,7 @@ export default {
             margin: 8px 0;  
             padding: 12px 20px;   
             display: inline-block;   
-            border: 2px solid purple;   
+            border: 2px solid green;   
             box-sizing: border-box;   
         }  
      button:hover {   
@@ -83,6 +82,6 @@ export default {
          
      .container {   
             padding: 25px;   
-            background-color: orange;  
+            background-color: lightblue;  
         }   
 </style> 
