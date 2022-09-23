@@ -1,17 +1,17 @@
 <template>
   <!-- <SignUp></SignUp> -->
-  <LoginPage></LoginPage>
+  <LogIn></LogIn>
 </template>
 
 <script>
 // import SignUpPage from './components/SignUpPage.vue'
-import LoginPage from './components/LoginPage.vue';
+import LogIn from './components/LogIn.vue';
 
 export default {
   name: 'App',
   components: {
     // SignUp: SignUpPage
-    LoginPage,
+    LogIn,
   },
 }
 </script>
