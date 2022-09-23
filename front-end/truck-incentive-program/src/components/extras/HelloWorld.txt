@@ -31,7 +31,6 @@
 </template>
 
 <script>
-export default {
   name: 'HelloWorld',
   props: {
     msg: String
@@ -56,3 +55,30 @@ a {
   color: #42b983;
 }
 </style>
+
+ method="GET" action="https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7"
+
+  // methods: {
+  //   async validateLogin() {
+  //     try {
+  //       console.log(this.Email);
+  //       console.log(this.Password);
+  //
+  //       const res = await axios.get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7');
+  //       this.data = res.data
+  //       console.log(this.data);
+  //     } catch(e) {
+  //       this.errors.push(e);
+  //     }
+  //   },
+  // }
+  // mounted() {
+  //   axios
+  //     .get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7')
+  //     .then(response => {
+  //       this.data = response.data
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
