@@ -7,19 +7,19 @@
     <body>    
       <h1 style="align-self: center;"> Driver Incentive Login </h1>  
         <form>
-        <div class="container">   
+          <div class="container">   
             <label>Email : </label>   
             <input type="text" v-model="Email" placeholder="Enter Email" name="Email" required>  
             <label>Password : </label>   
             <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
-           
+            
             <button type="submit" @click="validateLogin">Login</button>   
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
             Forgot <a href="#"> password? </a>   
-            </div>   
-        </form>   
+          </div>   
+        </form> 
     </body>     
   </html> 
 </template> 
@@ -34,22 +34,35 @@ export default {
       Email: '',
       Password: '',
       isRemember: false,
-      returnedEmail: '',
-      returnedPassword: ''
+      data: [],
+      errors: []
     }
   },
   methods: {
     async validateLogin() {
-      const res = await axios.get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7');
-    
-      console.log(res);
-      console.log(this.Email);
-      console.log(this.Password);
-    }
-  },
-  mounted() {
-    this.validateLogin()
+      try {
+        console.log(this.Email);
+        console.log(this.Password);
+
+        const res = await axios.get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7');
+        this.data = res.data
+        console.log(this.data);
+      } catch(e) {
+        this.errors.push(e);
+      }
+    },
   }
+  // mounted() {
+  //   axios
+  //     .get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7')
+  //     .then(response => {
+  //       this.data = response.data
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //       this.errored = true
+  //     })
+  // }
 }
 </script>
 
