@@ -1,18 +1,13 @@
 <template>
-  <!-- <SignUp></SignUp> -->
-  <LogIn></LogIn>
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script>
-// import SignUpPage from './components/SignUpPage.vue'
-import LogIn from './components/LogIn.vue';
 
 export default {
-  name: 'App',
-  components: {
-    // SignUp: SignUpPage
-    LogIn,
-  },
+  name: 'App'
 }
 </script>
 

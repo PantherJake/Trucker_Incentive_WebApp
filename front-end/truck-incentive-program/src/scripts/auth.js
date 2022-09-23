@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { config } from 'aws-cognito-redux-saga'
 
-class Auth extends vue.defineComponent() {
+class auth extends vue.defineComponent() {
     static PropTypes = {
         getUser: PropTypes.func 
     }
@@ -24,4 +24,4 @@ class Auth extends vue.defineComponent() {
     }
 }
 
-export default Auth
+export default auth

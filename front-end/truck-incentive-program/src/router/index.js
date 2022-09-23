@@ -1,10 +1,10 @@
-import Home from '@/views/Home'
-import LogInPage from '@/views/LogInPage'
+import Home from '@/views/HomePage'
 import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [
     {path: '/', name: 'Home', component: Home},
-    {path: '/login', name:'LogInPage', component: LogInPage}
+    {path: '/login', name:'LogInPage', component: ()=>import('@/views/LogInPage')},
+    {path: '/signup', name:'SignUpPage', component: ()=>import('@/views/SignUpPage')}
 ]
 
 const router = createRouter({

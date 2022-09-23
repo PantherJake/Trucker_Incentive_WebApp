@@ -76,7 +76,7 @@ export default {
       width: 100%;
       color: orange;
       padding: 15px;
-      margin: 10px 0px;
+      margin: 10px 0;
       border: none;
       cursor: pointer;
     }
