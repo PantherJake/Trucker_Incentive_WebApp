@@ -7,7 +7,7 @@
     <body>
         <a href="mailto:jvickio@clemson.edu">
         <button>
-            <p>Contact Support</p>
+            <p><b>Contact Support</b></p>
         </button>
         </a>
     </body>

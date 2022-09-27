@@ -5,7 +5,7 @@
 <script>
 import LogIn from "@/components/LogIn";
 export default {
-  name: 'LogInPage',
+  name: 'LoginPage',
   components: {
     LogIn
   }
