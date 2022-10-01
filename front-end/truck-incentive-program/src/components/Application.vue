@@ -2,7 +2,7 @@
   <html>
   <head>  
     <meta name="viewport" content="width=device-width, initial-scale=1">  
-    <title> Sign Up Page </title>  
+    <title> Application Page </title>
   </head>    
     <body>
     <img src="../assets/appLogoSmall.png"  alt=""/>
