@@ -4,7 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">  
     <title> Sign Up Page </title>  
   </head>    
-    <body>    
+    <body>
+    <img src="../assets/appLogoSmall.png"  alt=""/>
     <h1> Driver Incentive Application </h1>
         <form>
         <div class="container">   
@@ -30,11 +31,9 @@
             <label>Last name: </label>
             <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
 
-            <input type="checkbox" checked="checked"> Remember me   
-            <button type="button" class="cancelbtn"> Cancel</button>   
-            <button type="submit">Sign Up</button>
-            Forgot <a href="#"> password? </a>   
-            </div>   
+            <button type="button" class="cancelbtn"> Cancel</button>
+            <button type="submit">Submit Application</button>
+            </div>
         </form> 
     </body>    
   </html> 
