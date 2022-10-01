@@ -79,4 +79,7 @@ input[type=text], input[type=password] {
     padding: 25px;
     background-color: #7ed957;
   }
+h1 {
+  text-align: center;
+}
 </style> 

@@ -31,9 +31,9 @@
             <label>Last name: </label>
             <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
 
-            <button type="button" class="cancelbtn"> Cancel</button>
             <button type="submit">Submit Application</button>
-            </div>
+            <button type="button" class="cancelbtn"> Cancel</button>
+        </div>
         </form> 
     </body>    
   </html> 
@@ -109,5 +109,8 @@ button:hover {
 .container {
   padding: 25px;
   background-color: #7ed957;
+}
+h1 {
+  text-align: center;
 }
 </style>

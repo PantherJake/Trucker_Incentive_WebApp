@@ -43,4 +43,9 @@ form {
 button:hover {
   opacity: 0.7;
 }
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
 </style>
