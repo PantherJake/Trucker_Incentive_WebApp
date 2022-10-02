@@ -2,10 +2,10 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: Team8
 Resources:
-  team8getuser:
+  team8addDriverApplication:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: getuserv1.getusers
+      Handler: adduser.addUser
       Runtime: python3.9
       CodeUri: .
       Description: Team8
