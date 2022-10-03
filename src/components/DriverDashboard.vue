@@ -5,7 +5,7 @@
       <title> Driver Dashboard </title>    
     </head>    
       <body>
-        <center> <img src="../assets/appLogoSmall.png" /> </center>
+        <img src="../assets/appLogoSmall.png"  alt=""/>
         <h1 style="align-self: center;"> Driver Incentive Home </h1>
             <div class="topnav">
                 <a class="active" href="#home">Home</a>
@@ -30,12 +30,7 @@ form {
 }     
 button:hover {   
     opacity: 0.7;   
-}   
-.cancelbtn {   
-    width: auto;   
-    padding: 10px 18px;  
-    margin: 10px 5px;  
-}      
+}
 .topnav {      
     background-color: #7ed957; 
     overflow: hidden; 
@@ -63,8 +58,13 @@ button:hover {
 }
 .right {
   position: absolute;
-  right: 0px;
+  right: 0;
   width: 300px;
   padding: 10px;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
 }
 </style> 

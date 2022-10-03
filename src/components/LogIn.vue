@@ -7,26 +7,27 @@
     <body>    
       <img src="../assets/appLogoSmall.png"  alt=""/>
       <h1 style="align-self: center;"> Driver Incentive Login </h1>  
-        <form method="GET" action="https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7">
+        <form>
           <div class="container">   
             <label>Email : </label>   
             <input type="text" v-model="Email" placeholder="Enter Email" name="Email" required>  
             <label>Password : </label>   
             <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
             
-            <button type="submit">Login</button>
+            <button type="submit" @click="validatePassword">Login</button>
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
             Forgot <a href="#"> password? </a>   
           </div>   
-        </form> 
+        </form>
+    {{ info }}
     </body>     
   </html> 
 </template> 
 
 <script>
-// import axios from 'axios';
+import axios from 'axios';
 
 export default {
   name: 'LoginPage',
@@ -35,8 +36,16 @@ export default {
       Email: '',
       Password: '',
       isRemember: false,
+      info: ''
     }
   },
+  methods: {
+    validatePassword() {
+      axios
+        .get('https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7')
+        .then(response => (this.info = response))
+    }
+  }
 }
 </script>
 
