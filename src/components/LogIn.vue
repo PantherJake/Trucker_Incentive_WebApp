@@ -42,7 +42,7 @@ export default {
   methods: {
     validatePassword() {
       axios
-        .get('https://main.d3hn83d5q2yqht.amplifyapp.com/https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7')
+        .get('https://main.d3hn83d5q2yqht.amplifyapp.com/https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users')
         .then(response => (this.info = response))
     }
   }
