@@ -5,7 +5,7 @@ Resources:
   team8getuser:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: getuser.getusers
+      Handler: getuserv1.getusers
       Runtime: python3.9
       CodeUri: .
       Description: Team8
