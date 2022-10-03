@@ -1,11 +1,24 @@
-# Introduction 
-The Truck Driver Incentive Program is an app where truckers can gain points for good behavior. Points translate to a money amount with a specific sponsor, and the truck drivers with good behavior can purchase products from these sponsors.
+# truck-incentive-program
 
-# Getting Started
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Project setup
+```
+npm install
+```
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
