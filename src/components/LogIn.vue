@@ -14,7 +14,7 @@
             <label>Password : </label>   
             <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
             
-            <button type="submit" @click="validatePassword">Login</button>
+            <button type="submit" @click="getData">Login</button>
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
@@ -27,8 +27,6 @@
 </template> 
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'LoginPage',
   data() {
@@ -36,15 +34,18 @@ export default {
       Email: '',
       Password: '',
       isRemember: false,
-      info: ''
+      info: []
     }
   },
   methods: {
-    validatePassword() {
-      axios
-        .get('https://main.d3hn83d5q2yqht.amplifyapp.com/https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7')
-        .then(response => (this.info = response))
-    }
+    async getData() {
+      try {
+        let response = await fetch("https://main.d3hn83d5q2yqht.amplifyapp.com/https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7");
+        this.info = await response.json();
+      } catch (error) {
+        console.log(error);
+      }
+    },
   }
 }
 </script>
