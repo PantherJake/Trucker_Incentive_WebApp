@@ -21,8 +21,7 @@
             Forgot <a href="#"> password? </a>   
           </div>   
         </form>
-    {{ info }}
-    </body>     
+    </body>
   </html> 
 </template> 
 
@@ -42,6 +41,7 @@ export default {
       try {
         let response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users");
         this.info = await response;
+        console.log(response.json())
       } catch (error) {
         console.log(error);
       }
