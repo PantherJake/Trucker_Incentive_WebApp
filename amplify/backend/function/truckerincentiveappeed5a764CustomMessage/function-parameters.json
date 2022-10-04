@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "truckerincentiveappeed5a764",
+  "functionName": "truckerincentiveappeed5a764CustomMessage",
+  "resourceName": "truckerincentiveappeed5a764CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "C:\\snapshot\\repo\\build\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "truckerincentiveappeed5a764CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://main.d36225qjhs6olb.amplifyapp.com/driverdashboard/",
+  "EMAILSUBJECT": "Trucker Incentive Account Confirmation",
+  "EMAILMESSAGE": "Hello, please confirm your trucker incentives account to be able to log in. Link provided below.",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}
