@@ -40,7 +40,7 @@ export default {
     async getData() {
       try {
         let response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7");
-        this.info = await response;
+        this.info = response.fname;
         console.log(response.json())
       } catch (error) {
         console.log(error);
