@@ -41,7 +41,7 @@ export default {
     async getData() {
       try {
         let response = await fetch("https://main.d3hn83d5q2yqht.amplifyapp.com/https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users");
-        this.info = await response;
+        this.info = await response.data;
       } catch (error) {
         console.log(error);
       }
