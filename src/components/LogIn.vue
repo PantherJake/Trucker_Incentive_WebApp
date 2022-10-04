@@ -34,7 +34,7 @@ export default {
       Email: '',
       Password: '',
       isRemember: false,
-      info: []
+      info: ''
     }
   },
   methods: {
