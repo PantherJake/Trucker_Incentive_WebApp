@@ -40,7 +40,7 @@ export default {
   methods: {
     async getData() {
       try {
-        let response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7");
+        let response = await fetch("https://main.d3hn83d5q2yqht.amplifyapp.com/https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users");
         this.info = await response;
       } catch (error) {
         console.log(error);
