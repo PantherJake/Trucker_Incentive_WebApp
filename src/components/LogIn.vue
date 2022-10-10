@@ -39,7 +39,7 @@ export default {
   methods: {
     async getData() {
       try {
-        let response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users/7");
+        let response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/users");
         this.info = response;
         console.log(response.json())
       } catch (error) {
