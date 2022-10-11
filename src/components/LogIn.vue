@@ -39,9 +39,19 @@ export default {
   methods: {
     async getData() {
       try {
-        let response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/users/" + this.Email);
+        const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/users", {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'username': this.Email
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        });
         this.info = JSON.parse(response.toString());
-        console.log(response.fname)
+        console.log(this.info.fname)
       } catch (error) {
         console.log(error);
       }
