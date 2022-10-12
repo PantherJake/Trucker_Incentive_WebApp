@@ -5,7 +5,8 @@ const routes = [
     {path: '/', name: 'Home', component: Home},
     {path: '/login', name:'LogInPage', component: ()=>import('@/views/LogInPage')},
     {path: '/apply', name:'ApplicationPage', component: ()=>import('@/views/ApplicationPage')},
-    {path: '/driverdashboard', name:'DriverDashboardPage', component: ()=>import('@/views/DriverDashboardPage')}
+    {path: '/driverdashboard', name:'DriverDashboardPage', component: ()=>import('@/views/DriverDashboardPage')},
+    {path: '/sponsordashboard', name:'SponsorDashboardPage', component: ()=>import('@/views/SponsorDashboardPage')}
 ]
 
 const router = createRouter({
