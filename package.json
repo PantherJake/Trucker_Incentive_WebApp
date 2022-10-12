@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
-    "aws-amplify": "^4.3.36",
+    "aws-amplify": "^4.3.37",
+    "aws-amplify-vue": "^2.1.5",
     "aws-cognito-redux-saga": "^1.5.10",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",

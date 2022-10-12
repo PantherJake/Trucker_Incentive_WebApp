@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-truckerincentiveapp-dev-153002-unauthRole",
       "StackName": "amplify-truckerincentiveapp-dev-153002",
       "StackId": "arn:aws:cloudformation:us-east-1:274815321855:stack/amplify-truckerincentiveapp-dev-153002/f17839a0-441a-11ed-8c65-121a174b4a23",
-      "AmplifyAppId": "d36225qjhs6olb"
+      "AmplifyAppId": "d36225qjhs6olb",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-truckerincentiveapp-dev-153002-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -19,10 +20,14 @@
         "truckerincentiveappeed5a764CustomMessage": {
           "REDIRECTURL": "https://main.d36225qjhs6olb.amplifyapp.com/driverdashboard/",
           "EMAILSUBJECT": "Trucker Incentive Account Confirmation",
-          "EMAILMESSAGE": "Hello, please confirm your trucker incentives account to be able to log in. Link provided below."
+          "EMAILMESSAGE": "Hello, please confirm your trucker incentives account to be able to log in. Link provided below.",
+          "deploymentBucketName": "amplify-truckerincentiveapp-dev-153002-deployment",
+          "s3Key": "amplify-builds/truckerincentiveappeed5a764CustomMessage-72755446517871474b4a-build.zip"
         },
         "truckerincentiveappeed5a764PostConfirmation": {
-          "GROUP": "Team8UserPool"
+          "GROUP": "Team8UserPool",
+          "deploymentBucketName": "amplify-truckerincentiveapp-dev-153002-deployment",
+          "s3Key": "amplify-builds/truckerincentiveappeed5a764PostConfirmation-41626246785259584558-build.zip"
         }
       }
     }
