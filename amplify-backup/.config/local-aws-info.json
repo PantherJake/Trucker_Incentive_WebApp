@@ -1,7 +1,0 @@
-{
-  "prod": {
-    "configLevel": "project",
-    "useProfile": false,
-    "awsConfigFilePath": "C:\\Users\\Panther Jake\\.amplify\\awscloudformation\\aCPdVgGHw2"
-  }
-}
