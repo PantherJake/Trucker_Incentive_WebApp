@@ -1,4 +1,11 @@
 version: 1
+#backend:
+#  phases:
+#    build:
+#      commands:
+#        - amplifyPush --simple
+#        - chmod u+x ./myamplifyPush.sh
+#        - ./myamplifyPush.sh
 frontend:
   phases:
     preBuild:
