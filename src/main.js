@@ -1,9 +1,18 @@
 import { createApp } from "vue";
 import App from './App.vue'
 import router from './router'
-import * as AmplifyModules from 'aws-amplify'
-import { AmplifyPlugin } from 'aws-amplify-vue'
-// import awsmobile from "./aws-exports";
 
-// Amplify.configure(awsmobile)
-createApp(App).use(router).use(AmplifyPlugin, AmplifyModules).mount('#app')
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+import {
+    applyPolyfills,
+    defineCustomElements,
+} from '@aws-amplify/ui-components/loader';
+
+applyPolyfills().then(() => {
+    defineCustomElements(window)
+});
+Amplify.configure(awsconfig)
+
+createApp(App).use(router).mount('#app')

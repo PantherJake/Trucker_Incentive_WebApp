@@ -13,9 +13,6 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-truckerincentiveapp-dev-153002-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "truckerincentiveappeed5a764": {}
-      },
       "function": {
         "truckerincentiveappeed5a764CustomMessage": {
           "REDIRECTURL": "https://main.d36225qjhs6olb.amplifyapp.com/driverdashboard/",
@@ -28,6 +25,14 @@
           "GROUP": "Team8UserPool",
           "deploymentBucketName": "amplify-truckerincentiveapp-dev-153002-deployment",
           "s3Key": "amplify-builds/truckerincentiveappeed5a764PostConfirmation-41626246785259584558-build.zip"
+        }
+      },
+      "auth": {
+        "truckerincentiveapp0f1aac61": {
+          "userPoolId": "us-east-1_ARYFQff63",
+          "userPoolName": "team8-userpool",
+          "webClientId": "7k6j1ic1uatb97m22ffjqqksfj",
+          "nativeClientId": "7k6j1ic1uatb97m22ffjqqksfj"
         }
       }
     }

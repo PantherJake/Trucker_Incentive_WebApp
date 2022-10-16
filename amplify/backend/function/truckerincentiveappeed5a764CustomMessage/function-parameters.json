@@ -7,12 +7,7 @@
   "functionName": "truckerincentiveappeed5a764CustomMessage",
   "resourceName": "truckerincentiveappeed5a764CustomMessage",
   "parentStack": "auth",
-  "triggerEnvs": [
-    {
-      "key": "RESOURCENAME",
-      "value": "resourceName"
-    }
-  ],
+  "triggerEnvs": "[\n  {\n    \"key\": \"RESOURCENAME\",\n    \"value\": \"resourceName\"\n  }\n]",
   "triggerDir": "C:\\snapshot\\repo\\build\\node_modules\\@aws-amplify\\amplify-category-auth\\provider-utils\\awscloudformation\\triggers\\CustomMessage",
   "triggerTemplate": "CustomMessage.json.ejs",
   "triggerEventPath": "CustomMessage.event.json",

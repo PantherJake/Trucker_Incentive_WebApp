@@ -5,36 +5,37 @@
     <title> Application Page </title>
   </head>    
     <body>
-    <img src="../assets/appLogoSmall.png"  alt=""/>
-    <h1> Driver Incentive Application </h1>
-        <form>
-        <div class="container">   
-            <label>Username : </label>   
-            <input type="text" v-model="username" placeholder="Enter Username" name="username" required>  
-            <label>Password : </label>   
-            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+        <amplify-authenticator></amplify-authenticator>
+<!--    <img src="../assets/appLogoSmall.png"  alt=""/>-->
+<!--    <h1> Driver Incentive Application </h1>-->
+<!--        <form>-->
+<!--        <div class="container">   -->
+<!--            <label>Username : </label>   -->
+<!--            <input type="text" v-model="username" placeholder="Enter Username" name="username" required>  -->
+<!--            <label>Password : </label>   -->
+<!--            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>-->
 
-            <small id="passwordHelp" class="form-text text-muted">Password should contain
-              <span :class="has_minimum_length ? 'has_required' : ''">at least 8 characters</span>,
-              <span :class="has_lowercase ? 'has_required' : ''">one lowercase letter</span>,
-              <span :class="has_uppercase ? 'has_required' : ''">one uppercase letter</span>,
-              <span :class="has_number ? 'has_required' : ''">one number</span>, and
-              <span :class="has_special ? 'has_required' : ''">one special character.</span>
-            </small>
+<!--            <small id="passwordHelp" class="form-text text-muted">Password should contain-->
+<!--              <span :class="has_minimum_length ? 'has_required' : ''">at least 8 characters</span>,-->
+<!--              <span :class="has_lowercase ? 'has_required' : ''">one lowercase letter</span>,-->
+<!--              <span :class="has_uppercase ? 'has_required' : ''">one uppercase letter</span>,-->
+<!--              <span :class="has_number ? 'has_required' : ''">one number</span>, and-->
+<!--              <span :class="has_special ? 'has_required' : ''">one special character.</span>-->
+<!--            </small>-->
 
-            <br>
+<!--            <br>-->
 
-            <label>First name: </label>
-            <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>
-            <label>Middle name: </label>
-            <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
-            <label>Last name: </label>
-            <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
+<!--            <label>First name: </label>-->
+<!--            <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>-->
+<!--            <label>Middle name: </label>-->
+<!--            <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>-->
+<!--            <label>Last name: </label>-->
+<!--            <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>-->
 
-            <button type="submit">Submit Application</button>
-            <button type="button" class="cancelbtn"> Cancel</button>
-        </div>
-        </form> 
+<!--            <button type="submit">Submit Application</button>-->
+<!--            <button type="button" class="cancelbtn"> Cancel</button>-->
+<!--        </div>-->
+<!--        </form> -->
     </body>    
   </html> 
 </template> 

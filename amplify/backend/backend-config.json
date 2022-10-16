@@ -12,50 +12,12 @@
     }
   },
   "auth": {
-    "truckerincentiveappeed5a764": {
+    "truckerincentiveapp0f1aac61": {
       "service": "Cognito",
+      "serviceType": "imported",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "truckerincentiveappeed5a764CustomMessage",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "truckerincentiveappeed5a764PostConfirmation",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      }
+      "dependsOn": [],
+      "customAuth": false
     }
   }
 }
