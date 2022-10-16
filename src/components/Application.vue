@@ -5,7 +5,7 @@
     <title> Application Page </title>
   </head>    
     <body>
-        <amplify-authenticator></amplify-authenticator>
+    <amplify-authenticator></amplify-authenticator>
 <!--    <img src="../assets/appLogoSmall.png"  alt=""/>-->
 <!--    <h1> Driver Incentive Application </h1>-->
 <!--        <form>-->

@@ -1,18 +1,6 @@
 {
-  "function": {
-    "truckerincentiveappeed5a764CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "truckerincentiveappeed5a764PostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
   "auth": {
-    "truckerincentiveapp0f1aac61": {
+    "team8webapp91ada5fc": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",

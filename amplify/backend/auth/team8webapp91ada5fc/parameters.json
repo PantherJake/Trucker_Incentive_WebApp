@@ -1,6 +1,6 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "team8-userpool",
+  "resourceName": "team8webapp91ada5fc",
   "serviceType": "imported",
   "region": "us-east-1",
   "requiredAttributes": [
