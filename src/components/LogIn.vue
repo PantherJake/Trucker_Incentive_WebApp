@@ -14,7 +14,7 @@
             <label>Password : </label>   
             <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
             
-            <button type="submit" @click="loginAccount">Login</button>
+            <button @click="loginAccount">Login</button>
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
@@ -71,8 +71,8 @@ export default {
 
         this.authenticating.value = false
 
-        await router.push('/')
-        // await router.push('/driverdashboard')
+        // await router.push('/')
+        await router.push('/driverdashboard')
       }
       catch (error) {
         this.authenticating.value = false
