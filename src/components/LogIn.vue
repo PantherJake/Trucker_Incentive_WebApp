@@ -10,15 +10,15 @@
         <form>
           <div class="container">   
             <label>Email : </label>   
-            <input type="text" v-model="Email" placeholder="Enter Email" name="Email" required>  
+            <input type="text" v-model="email" placeholder="Enter Email" required>
             <label>Password : </label>   
-            <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
+            <input type="password" v-model="password" placeholder="Enter Password" required>
             
-            <button>Login</button>
+            <button @click="loginAccount">Login</button>
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
-            Forgot <a href="#" @onclick="forgotPassword = true"> password? </a>
+            Forgot <a href="#" @click="forgotPassword = true"> password? </a>
           </div>   
         </form>
     </body>
@@ -64,22 +64,22 @@ export default {
       }
     },
     async loginAccount() {
-      this.authenticating.value = true
-      this.errorMessage.value = ''
+      this.authenticating = true
+      this.errorMessage = ''
       try {
-        await Auth.signIn(this.email.value, this.password.value)
+        console.log("Start")
+        const user = await Auth.signIn(this.email, this.password)
+        console.log(user)
+        this.authenticating = false
 
-        this.authenticating.value = false
-
-        // await router.push('/')
-        await router.push('/driverdashboard')
-      }
-      catch (error) {
-        this.authenticating.value = false
+        await router.push({ path: '/driverdashboard'})
+      } catch (error) {
+        this.authenticating = false
 
         console.log(error)
+        console.log("Fail")
 
-        this.errorMessage.value = error.message
+        this.errorMessage = error.message
       }
     },
   }
