@@ -66,7 +66,6 @@ export default {
     async loginAccount() {
       this.authenticating.value = true
       this.errorMessage.value = ''
-
       try {
         await Auth.signIn(this.email.value, this.password.value)
 
