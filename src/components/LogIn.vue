@@ -74,7 +74,7 @@ export default {
         console.log(user)
         this.authenticating = false
 
-        await router.push({ path: '/driverdashboard'})
+        await router.replace({ path: '/driverdashboard'})
       } catch (error) {
         this.authenticating = false
 
