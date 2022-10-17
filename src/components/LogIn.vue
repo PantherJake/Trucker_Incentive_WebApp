@@ -72,8 +72,8 @@ export default {
         const user = await Auth.signIn(this.email, this.password)
 
         console.log(user)
-        this.authenticating = false
 
+        this.authenticating = false
         await router.replace({ path: '/driverdashboard'})
       } catch (error) {
         this.authenticating = false
