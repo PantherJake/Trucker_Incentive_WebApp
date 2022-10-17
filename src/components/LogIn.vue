@@ -71,6 +71,7 @@ export default {
 
         this.authenticating.value = false
 
+        await router.push('/')
         await router.push('/driverdashboard')
       }
       catch (error) {
