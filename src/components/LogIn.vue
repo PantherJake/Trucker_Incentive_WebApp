@@ -14,11 +14,11 @@
             <label>Password : </label>   
             <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
             
-            <button type="submit" @click="getData">Login</button>
+            <button type="submit" @click="loginAccount">Login</button>
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
-            Forgot <a href="#"> password? </a>   
+            Forgot <a href="#" @onclick="forgotPassword = true"> password? </a>
           </div>   
         </form>
     </body>
@@ -26,14 +26,21 @@
 </template> 
 
 <script>
+import { Auth } from 'aws-amplify';
+import router from "@/router";
+
 export default {
   name: 'LoginPage',
   data() {
     return {
-      Email: '',
-      Password: '',
+      email: '',
+      password: '',
       isRemember: false,
-      info: ''
+
+      info: '',
+      authenticating: false,
+      forgotPassword: false,
+      errorMessage: ''
     }
   },
   methods: {
@@ -56,6 +63,26 @@ export default {
         console.log(error);
       }
     },
+    async loginAccount() {
+      this.authenticating.value = true
+      this.errorMessage.value = ''
+
+      try {
+        await Auth.signIn(this.email.value, this.password.value)
+
+        this.authenticating.value = false
+
+        await router.push({ name: 'DriverDashboardPage' })
+      }
+      catch (error) {
+        this.authenticating.value = false
+
+        console.log(error)
+
+        this.errorMessage.value = error.message
+      }
+    },
+
   }
 }
 </script>
