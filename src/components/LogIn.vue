@@ -14,7 +14,7 @@
             <label>Password : </label>   
             <input type="password" v-model="Password" placeholder="Enter Password" name="Password" required>  
             
-            <button @click="loginAccount">Login</button>
+            <button>Login</button>
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
