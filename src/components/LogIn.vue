@@ -13,6 +13,8 @@
             <input type="text" v-model="email" placeholder="Enter Email" required>
             <label>Password : </label>   
             <input type="password" v-model="password" placeholder="Enter Password" required>
+
+            {{ this.errorMessage }}
             
             <button @click="loginAccount">Login</button>
             
@@ -67,8 +69,8 @@ export default {
       this.authenticating = true
       this.errorMessage = ''
       try {
-        console.log("Start")
         const user = await Auth.signIn(this.email, this.password)
+
         console.log(user)
         this.authenticating = false
 
@@ -77,7 +79,6 @@ export default {
         this.authenticating = false
 
         console.log(error)
-        console.log("Fail")
 
         this.errorMessage = error.message
       }
