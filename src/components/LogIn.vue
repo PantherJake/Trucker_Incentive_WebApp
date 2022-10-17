@@ -82,7 +82,6 @@ export default {
         this.errorMessage.value = error.message
       }
     },
-
   }
 }
 </script>
