@@ -7,7 +7,7 @@
     <body>    
       <img src="../assets/appLogoSmall.png"  alt=""/>
       <h1 style="align-self: center;"> Driver Incentive Login </h1>  
-        <form>
+        <form v-show="this.loginVisible">
           <div class="container">   
             <label>Email : </label>   
             <input type="text" v-model="email" placeholder="Enter Email" required>
@@ -20,8 +20,19 @@
             
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
-            Forgot <a href="#" @click="forgotPassword = true"> password? </a>
+            Forgot <a href="#" @click="this.forgotPassword"> password? </a>
           </div>   
+        </form>
+        <form v-show="this.forgotVisible">
+          <label>Email : </label>
+          <input type="text" v-model="email" placeholder="Enter Email" required>
+          <button @click="this.newPassword"></button>
+        </form>
+        <form v-show="this.newVisible">
+          <label>New Password : </label>
+          <input type="text" v-model="new_password" placeholder="Enter New Password" required>
+          <label>Confirmation Code (Sent to Email) : </label>
+          <input type="text" v-model="code" placeholder="Confirmation Code" required>
         </form>
     </body>
   </html> 
@@ -35,13 +46,18 @@ export default {
   name: 'LoginPage',
   data() {
     return {
+      loginVisible: true,
+      forgotVisible: false,
+      newVisible: false,
+      isRemember: false,
+
       email: '',
       password: '',
-      isRemember: false,
+      new_password: '',
+      code: '',
 
       info: '',
       authenticating: false,
-      forgotPassword: false,
       errorMessage: ''
     }
   },
@@ -83,6 +99,19 @@ export default {
         this.errorMessage = error.message
       }
     },
+    async forgotPassword() {
+      this.loginVisible = false
+      this.newVisible = false
+      this.forgotVisible = true
+      Auth.forgotPassword(this.username)
+          .then(data => console.log(data))
+          .catch(err => console.log(err));
+    },
+    async newPassword() {
+      Auth.forgotPasswordSubmit(this.username, this.code, this.new_password)
+          .then(data => console.log(data))
+          .catch(err => console.log(err));
+    }
   }
 }
 </script>

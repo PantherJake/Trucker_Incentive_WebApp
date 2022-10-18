@@ -5,42 +5,33 @@
     <title> Application Page </title>
   </head>    
     <body>
-    <amplify-authenticator></amplify-authenticator>
-<!--    <img src="../assets/appLogoSmall.png"  alt=""/>-->
-<!--    <h1> Driver Incentive Application </h1>-->
-<!--        <form>-->
-<!--        <div class="container">   -->
-<!--            <label>Username : </label>   -->
-<!--            <input type="text" v-model="username" placeholder="Enter Username" name="username" required>  -->
-<!--            <label>Password : </label>   -->
-<!--            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>-->
+    <img src="../assets/appLogoSmall.png"  alt=""/>
+    <h1> Driver Incentive Application </h1>
+        <form>
+        <div class="container">
+            <label>Username : </label>
+            <input type="text" v-model="username" placeholder="Enter Username" name="username" required>
+            <label>Password : </label>
+            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
 
-<!--            <small id="passwordHelp" class="form-text text-muted">Password should contain-->
-<!--              <span :class="has_minimum_length ? 'has_required' : ''">at least 8 characters</span>,-->
-<!--              <span :class="has_lowercase ? 'has_required' : ''">one lowercase letter</span>,-->
-<!--              <span :class="has_uppercase ? 'has_required' : ''">one uppercase letter</span>,-->
-<!--              <span :class="has_number ? 'has_required' : ''">one number</span>, and-->
-<!--              <span :class="has_special ? 'has_required' : ''">one special character.</span>-->
-<!--            </small>-->
+            <label>First name: </label>
+            <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>
+            <label>Middle name: </label>
+            <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
+            <label>Last name: </label>
+            <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
 
-<!--            <br>-->
-
-<!--            <label>First name: </label>-->
-<!--            <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>-->
-<!--            <label>Middle name: </label>-->
-<!--            <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>-->
-<!--            <label>Last name: </label>-->
-<!--            <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>-->
-
-<!--            <button type="submit">Submit Application</button>-->
-<!--            <button type="button" class="cancelbtn"> Cancel</button>-->
-<!--        </div>-->
-<!--        </form> -->
+            <button @click="createAccount">Submit Application</button>
+            <button type="button" class="cancelbtn"> Cancel</button>
+        </div>
+        </form>
     </body>    
   </html> 
 </template> 
 
 <script>
+import {Auth} from "aws-amplify";
+
 export default {
   name: 'ApplicationPage',
   data: function () {
@@ -53,22 +44,37 @@ export default {
       role: '',
       isRemember: false,
 
-      has_minimum_length: false,
-      has_number: false,
-      has_lowercase: false,
-      has_uppercase: false,
-      has_special: false,
+      registering: false,
+      registered: false,
+      errorMessage: '',
     }
   },
-  watch: {
-    password() {
-      this.has_minimum_length = (this.password.length > 8);
-      this.has_number = /\d/.test(this.password);
-      this.has_lowercase = /[a-z]/.test(this.password);
-      this.has_uppercase = /[A-Z]/.test(this.password);
-      this.has_special = /[!@#$%^&*)(+=._-]/.test(this.password);
+  methods: {
+    async createAccount() {
+      this.registering = true
+      this.errorMessage = ''
+
+      try {
+        await Auth.signUp({
+          username: this.username,
+          password: this.password,
+          attributes: {
+            email: this.username,
+            name: `${this.fname} ${this.lname}`,
+            given_name: this.fname,
+            family_name: this.lname
+          }
+        })
+
+        this.registering = false
+        this.registered = true
+      } catch (error) {
+        console.log(error)
+
+        this.errorMessage = error.message
+      }
     }
-  }
+  },
 }
 </script>
 
