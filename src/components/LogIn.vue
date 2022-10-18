@@ -94,7 +94,7 @@ export default {
       this.authenticating = true
       this.errorMessage = ''
       try {
-        const user = await Auth.signIn(this.email2, this.password)
+        const user = await Auth.signIn(this.email, this.password)
 
         console.log(user)
 
