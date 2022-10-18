@@ -16,23 +16,30 @@
 
             {{ this.errorMessage }}
             
-            <button @click="loginAccount">Login</button>
-            
+            <button @click="this.loginAccount">Login</button>
             <input type="checkbox" checked="checked">Remember me   
             <button type="button" class="cancelbtn">Cancel</button>   
-            Forgot <a href="#" @click="this.forgotPassword"> password? </a>
+            Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
           </div>   
         </form>
+
         <form v-show="this.forgotVisible">
-          <label>Email : </label>
-          <input type="text" v-model="email" placeholder="Enter Email" required>
-          <button @click="this.newPassword"></button>
+          <div class="container">
+            <label>Email : </label>
+            <input type="text" v-model="email" placeholder="Enter Email" required>
+            <button @click="this.forgotPassword">Send Reset Code</button>
+            <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
+          </div>
         </form>
         <form v-show="this.newVisible">
-          <label>New Password : </label>
-          <input type="text" v-model="new_password" placeholder="Enter New Password" required>
-          <label>Confirmation Code (Sent to Email) : </label>
-          <input type="text" v-model="code" placeholder="Confirmation Code" required>
+          <div class="container">
+            <label>New Password : </label>
+            <input type="text" v-model="new_password" placeholder="Enter New Password" required>
+            <label>Confirmation Code (Sent to Email) : </label>
+            <input type="text" v-model="code" placeholder="Confirmation Code" required>
+            <button @click="this.newPassword">Change Password</button>
+            <button @click="this.newVisible = false; this.loginVisible = true;">Cancel</button>
+          </div>
         </form>
     </body>
   </html> 
@@ -90,7 +97,7 @@ export default {
         console.log(user)
 
         this.authenticating = false
-        await router.replace({ path: '/driverdashboard'})
+        await router.push('/driverdashboard')
       } catch (error) {
         this.authenticating = false
 
@@ -100,9 +107,6 @@ export default {
       }
     },
     async forgotPassword() {
-      this.loginVisible = false
-      this.newVisible = false
-      this.forgotVisible = true
       Auth.forgotPassword(this.username)
           .then(data => console.log(data))
           .catch(err => console.log(err));
