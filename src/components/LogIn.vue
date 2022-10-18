@@ -95,7 +95,6 @@ export default {
       this.errorMessage = ''
       try {
         const user = await Auth.signIn(this.email, this.password)
-
         console.log(user)
 
         this.authenticating = false
@@ -104,7 +103,6 @@ export default {
         this.authenticating = false
 
         console.log(error)
-
         this.errorMessage = error.message
       }
     },
@@ -112,11 +110,15 @@ export default {
       Auth.forgotPassword(this.email2)
           .then(data => console.log(data))
           .catch(err => console.log(err));
+      this.forgotVisible = false
+      this.newVisible = true
     },
     async newPassword() {
       Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
           .then(data => console.log(data))
           .catch(err => console.log(err));
+      this.newVisible = false
+      this.loginVisible = true
     }
   }
 }
