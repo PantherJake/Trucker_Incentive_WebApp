@@ -26,7 +26,7 @@
         <form v-show="this.forgotVisible">
           <div class="container">
             <label>Email : </label>
-            <input type="text" v-model="email" placeholder="Enter Email" required>
+            <input type="text" v-model="email2" placeholder="Enter Email" required>
             <button @click="this.forgotPassword">Send Reset Code</button>
             <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
@@ -60,6 +60,8 @@ export default {
 
       email: '',
       password: '',
+
+      email2: '',
       new_password: '',
       code: '',
 
