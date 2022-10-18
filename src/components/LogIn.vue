@@ -109,12 +109,12 @@ export default {
       }
     },
     async forgotPassword() {
-      Auth.forgotPassword(this.email)
+      Auth.forgotPassword(this.email2)
           .then(data => console.log(data))
           .catch(err => console.log(err));
     },
     async newPassword() {
-      Auth.forgotPasswordSubmit(this.email, this.code, this.new_password)
+      Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
           .then(data => console.log(data))
           .catch(err => console.log(err));
     }
