@@ -94,7 +94,7 @@ export default {
       this.authenticating = true
       this.errorMessage = ''
       try {
-        const user = await Auth.signIn(this.email, this.password)
+        const user = await Auth.signIn(this.email2, this.password)
 
         console.log(user)
 
@@ -109,12 +109,12 @@ export default {
       }
     },
     async forgotPassword() {
-      Auth.forgotPassword(this.username)
+      Auth.forgotPassword(this.email)
           .then(data => console.log(data))
           .catch(err => console.log(err));
     },
     async newPassword() {
-      Auth.forgotPasswordSubmit(this.username, this.code, this.new_password)
+      Auth.forgotPasswordSubmit(this.email, this.code, this.new_password)
           .then(data => console.log(data))
           .catch(err => console.log(err));
     }
