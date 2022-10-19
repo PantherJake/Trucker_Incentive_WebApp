@@ -13,7 +13,6 @@
             <input type="text" v-model="email" placeholder="Enter Email" required>
             <label>Password : </label>   
             <input type="password" v-model="password" placeholder="Enter Password" required>
-
             {{ this.errorMessage }}
             
             <button @click="this.loginAccount">Login</button>

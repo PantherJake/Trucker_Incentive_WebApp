@@ -1,29 +1,29 @@
-<template>
-  <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Sponsor Dashboard </title>
-  </head>
-  <body>
-  <div class="dot">
-    <div class="dot-text"><a href="#profile">Profile</a></div>
-  </div>
-  <center> <img src="../assets/appLogoSmall.png" /> </center>
-  <center><h1> Driver Incentive Home </h1></center>
-  <center><div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="#points">Points</a>
-    <a href="#catalog">Catalog</a>
-    <a href="#drivers">Drivers</a>
-  </div></center>
-  <center><ul class="breadcrumb">
-    <li><a href="#">Home</a></li>
-  </ul></center>
-  <center><div class="mainbox">
-    <center><p>Welcome to the Home Page for the Driver Incentive Application!</p></center>
-  </div></center>
-  </body>
-  </html>
+template>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Sponsor Dashboard </title>
+</head>
+<body>
+<div class="dot">
+  <div class="dot-text"><a href="#profile">Profile</a></div>
+</div>
+<center> <img src="../assets/appLogoSmall.png" /> </center>
+<center><h1> Driver Incentive Home </h1></center>
+<center><div class="topnav">
+  <a class="active" href="/sponsordashboard">Home</a>
+  <a href="/sponsordashboard/points">Points</a>
+  <a href="/sponsordashboard/catalog">Catalog</a>
+  <a href="/sponsordashboard/drivers">Drivers</a>
+</div></center>
+<center><ul class="breadcrumb">
+  <li><a href="/sponsordashboard">Home</a></li>
+</ul></center>
+<center><div class="mainbox">
+  <center><p>Welcome to the Home Page for the Driver Incentive Application!</p></center>
+</div></center>
+</body>
+</html>
 </template>
 
 <style>
@@ -35,8 +35,6 @@ Body {
 .topnav {
   background-color: #7ed957;
   border-style: solid;
-  width: 600px;
-  height: 50px;
   text-align: center;
   justify-content: center;
   display: flex;
@@ -111,4 +109,4 @@ ul.breadcrumb li+li:before {
   border-style: solid;
   border-color:#c9e265;
 }
-</style>
+</style> 

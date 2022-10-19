@@ -8,22 +8,22 @@
     <img src="../assets/appLogoSmall.png"  alt=""/>
     <h1> Driver Incentive Application </h1>
         <form>
-        <div class="container">
-            <label>Username : </label>
-            <input type="text" v-model="username" placeholder="Enter Username" name="username" required>
-            <label>Password : </label>
-            <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+          <div class="container">
+              <label>Username : </label>
+              <input type="text" v-model="username" placeholder="Enter Username" name="username" required>
+              <label>Password : </label>
+              <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
 
-            <label>First name: </label>
-            <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>
-            <label>Middle name: </label>
-            <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
-            <label>Last name: </label>
-            <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
+              <label>First name: </label>
+              <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>
+              <label>Middle name: </label>
+              <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
+              <label>Last name: </label>
+              <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
 
-            <button @click="createAccount">Submit Application</button>
-            <button type="button" class="cancelbtn"> Cancel</button>
-        </div>
+              <button @click="createAccount">Submit Application</button>
+              <button type="button" class="cancelbtn">Cancel</button>
+          </div>
         </form>
     </body>    
   </html> 
