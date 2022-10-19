@@ -8,7 +8,7 @@
   <div class="dot">
     <div class="dot-text"><a href="#profile">Profile</a></div>
   </div>
-  <center> <img src="../../assets/appLogoSmall.png" /> </center>
+  <center> <img src="../../assets/appLogoSmall.png" alt=""/> </center>
   <center><h1> Driver Incentive Home </h1></center>
   <center><div class="topnav">
     <a class="active" href="/driverdashboard">Home</a>
@@ -26,7 +26,7 @@
 </template>
 
 <style>
-Body {
+ Body {
   font-family: Calibri, Helvetica, sans-serif;
   background-color: #008037;
   font-size: 20px;
@@ -100,11 +100,12 @@ ul.breadcrumb li+li:before {
   text-align: center;
   font-weight: bold;
 }
-.mainbox{
-  background-color:#7ed957;
+.mainbox {
+  background-color: #7ed957;
   width: 600px;
   height: 300px;
   padding: 5px 5px 5px 5px;
   border-style: solid;
-  border-color:#c9e265;
+  border-color: #c9e265;
 }
+</style>
