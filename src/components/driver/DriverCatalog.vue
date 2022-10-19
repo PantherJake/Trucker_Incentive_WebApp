@@ -8,22 +8,19 @@
         <div class="dot">
           <div class="dot-text"><a href="#profile">Profile</a></div>
         </div>
-        <center> <img src="../assets/appLogoSmall.png" /> </center>
+        <center> <img src="../../assets/appLogoSmall.png" /> </center>
         <center><h1> Driver Incentive Home </h1></center>
             <center><div class="topnav">
                 <a href="/driverdashboard">Home</a>
-                <a class="active" href="/driverdashboard/points">Points</a>
-                <a href="/driverdashboard/catalog">Catalog</a>
+                <a href="/driverdashboard/points">Points</a>
+                <a class="active" href="/catalog">Catalog</a>
             </div></center>
             <center><ul class="breadcrumb">
-              <li><a href="/driverdashboard/points">Points</a></li>
+              <li><a href="/driverdashboard/catalog">Catalog</a></li>
             </ul></center>
-            <div class="leaderboard">
-              <center><p class="mainbox-text">Top 10 Drivers by Point Amount</p></center>
-            </div>
-            <div class="mainbox">
-              <center><p class="mainbox-text">My Points</p></center>
-            </div>
+            <center><div class="mainbox">
+              <center><p>Welcome to the Catalog Page for the Driver Incentive Application!</p></center>
+            </div></center>
       </body>     
     </html> 
 </template>
@@ -105,30 +102,10 @@ ul.breadcrumb li+li:before {
 }
 .mainbox{
   background-color:#7ed957;
-  width: 350px;
+  width: 600px;
   height: 300px;
   padding: 5px 5px 5px 5px;
   border-style: solid;
   border-color:#c9e265;
-  position: fixed;
-  right: 400px;
-  display: block;
-  filter: drop-shadow(10px 8px 8px black);
-}
-.mainbox-text{
-    font-weight: bold;
-    font-size: 22px;
-}
-.leaderboard{
-  background-color:#7ed957;
-  width: 350px;
-  height: 300px;
-  padding: 5px 5px 5px 5px;
-  border-style: solid;
-  border-color:#c9e265;
-  position: fixed;
-  left: 400px;
-  display: block;
-  filter: drop-shadow(10px 8px 8px black);
 }
 </style> 

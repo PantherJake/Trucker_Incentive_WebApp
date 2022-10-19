@@ -3,7 +3,7 @@
   </template>
   
   <script>
-  import AdminDashboard from "@/components/AdminDashboard";
+  import AdminDashboard from "@/components/admin/AdminDashboard";
   export default {
     name: 'AdminDashboardPage',
     components: {

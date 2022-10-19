@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import DriverDashboard from "@/components/DriverDashboard";
+import DriverDashboard from "@/components/driver/DriverDashboard";
 export default {
   name: 'DriverDashboardPage',
   components: {

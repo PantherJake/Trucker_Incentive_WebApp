@@ -8,19 +8,19 @@
         <div class="dot">
           <div class="dot-text"><a href="#profile">Profile</a></div>
         </div>
-        <center> <img src="../assets/appLogoSmall.png" /> </center>
+        <center> <img src="../../assets/appLogoSmall.png" /> </center>
         <center><h1> Driver Incentive Home </h1></center>
             <center><div class="topnav">
-                <a href="/admindashboard">Home</a>
-                <a href="/admindashboard/points">Points</a>
-                <a href="/catalog">Catalog</a>
-                <a class="active" href="/admindashboard/drivers">Drivers</a>
+                <a href="/sponsordashboard">Home</a>
+                <a href="/sponsordashboard/points">Points</a>
+                <a class="active" href="/catalog">Catalog</a>
+                <a href="/sponsordashboard/drivers">Drivers</a>
             </div></center>
             <center><ul class="breadcrumb">
-              <li><a href="/admindashboard/drivers">Drivers</a></li>
+              <li><a href="/sponsordashboard/catalog">Catalog</a></li>
             </ul></center>
             <center><div class="mainbox">
-              <center><p>Welcome to the Drivers Page for the Driver Incentive Application!</p></center>
+              <center><p>Welcome to the Catalog Page for the Driver Incentive Application!</p></center>
             </div></center>
       </body>     
     </html> 
