@@ -98,6 +98,7 @@ export default {
 
         this.authenticating = false
         await router.push('/driverdashboard')
+        console.log("Pushed")
       } catch (error) {
         this.authenticating = false
 
