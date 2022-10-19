@@ -56,6 +56,7 @@ export default {
       forgotVisible: false,
       newVisible: false,
       isRemember: false,
+      isAuth: false,
 
       email: '',
       password: '',
@@ -97,7 +98,7 @@ export default {
         console.log(user)
 
         this.authenticating = false
-        await router.push('/driverdashboard')
+        await router.push({ path: '/driverdashboard'})
         console.log("Pushed")
       } catch (error) {
         this.authenticating = false
