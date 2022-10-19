@@ -46,7 +46,7 @@
 
 <script>
 import { Auth } from 'aws-amplify';
-import router from "@/router";
+import {useRouter} from "vue-router";
 
 export default {
   name: 'LoginPage',
@@ -98,6 +98,7 @@ export default {
         console.log(user)
 
         this.authenticating = false
+        const router = useRouter()
         await router.push({ path: '/driverdashboard'})
         console.log("Pushed")
       } catch (error) {
