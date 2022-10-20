@@ -15,14 +15,21 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> Driver Incentive Home </h1>
+  <h1> User's Driver Incentive Dashboard </h1>
   <div class="topnav">
-    <a class="active" href="/driverdashboard">Home</a>
-    <a href="driverdashboard/points">Points</a>
-    <a href="driverdashboard/catalog">Catalog</a>
+    <router-link :to="{ name: 'DriverDashboardPage'}">
+      <a class="active" href="/driverdashboard">Home</a>
+    </router-link>
+    <router-link :to="{ name: 'DriverPointsPage'}">
+      <a href="driverdashboard/points">Points</a>
+    </router-link>
+    <router-link :to="{ name: 'DriverPointsPage'}">
+      <a href="driverdashboard/catalog">Catalog</a>
+    </router-link>
   </div>
+  <br>
   <div class="mainbox">
-    <p>Welcome to your Dashboard for the Driver Incentive Application!</p>
+    <p>Welcome to your Dashboard for the Driver Incentive App!</p>
   </div>
   </body>
   </html>

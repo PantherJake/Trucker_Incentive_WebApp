@@ -18,13 +18,7 @@
             <center><ul class="breadcrumb">
               <li><a href="/driverdashboard/points">Points</a></li>
             </ul></center>
-            <div class="leaderboard">
-              <center><p class="mainbox-text">Top 10 Drivers by Point Amount</p></center>
-            </div>
-            <div class="mainbox">
-              <center><p class="mainbox-text">My Points</p></center>
-            </div>
-      </body>     
+      </body>
     </html> 
 </template>
 
@@ -131,4 +125,10 @@ ul.breadcrumb li+li:before {
   display: block;
   filter: drop-shadow(10px 8px 8px black);
 }
-</style> 
+</style>
+<!--<div class="leaderboard">&ndash;&gt;-->
+<!--              <center><p class="mainbox-text">Top 10 Drivers by Point Amount</p></center>-->
+<!--            </div>-->
+<!--            <div class="mainbox">-->
+<!--              <center><p class="mainbox-text">My Points</p></center>-->
+<!--            </div>-->

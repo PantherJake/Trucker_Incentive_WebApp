@@ -10,7 +10,6 @@
     <div class="mainbox">
       <div>
         Email :
-        <button>Change Email</button>
       </div>
       <div>
         Password :
