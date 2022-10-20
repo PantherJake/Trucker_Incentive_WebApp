@@ -46,7 +46,7 @@
 
 <script>
 import { Auth } from 'aws-amplify';
-import {useRouter} from "vue-router";
+import router from '@/router';
 
 export default {
   name: 'LoginPage',
@@ -98,9 +98,14 @@ export default {
         console.log(user)
 
         this.authenticating = false
-        const router = useRouter()
-        await router.push({ path: '/driverdashboard'})
-        console.log("Pushed")
+        this.isAuth = !!(await Auth.currentAuthenticatedUser());
+
+        if(this.isAuth) {
+          await router.push('/driverdashboard')
+        }
+        else {
+          await router.push('/login')
+        }
       } catch (error) {
         this.authenticating = false
 
@@ -122,7 +127,7 @@ export default {
       this.newVisible = false
       this.loginVisible = true
     }
-  }
+  },
 }
 </script>
 
