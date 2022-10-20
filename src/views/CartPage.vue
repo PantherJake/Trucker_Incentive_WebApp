@@ -10,6 +10,7 @@
   <div class="mainbox">
 <!--  Implement Shopping Cart  -->
   </div>
+  <button>Checkout</button>
   <router-link :to="{ name: 'DriverDashboardPage'}">
     <button>Return to Dashboard</button>
   </router-link>

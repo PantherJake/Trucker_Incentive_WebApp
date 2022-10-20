@@ -23,7 +23,7 @@
     <router-link :to="{ name: 'DriverPointsPage'}">
       <a href="driverdashboard/points">Points</a>
     </router-link>
-    <router-link :to="{ name: 'DriverPointsPage'}">
+    <router-link :to="{ name: 'DriverCatalogPage'}">
       <a href="driverdashboard/catalog">Catalog</a>
     </router-link>
   </div>

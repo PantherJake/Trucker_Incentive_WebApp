@@ -1,48 +1,67 @@
 <template>
-    <html>
-    <head>  
-      <meta name="viewport" content="width=device-width, initial-scale=1">  
-      <title> Driver Dashboard </title>    
-    </head>    
-      <body>
-        <div class="dot">
-          <div class="dot-text"><a href="#profile">Profile</a></div>
-        </div>
-        <center> <img src="../../assets/appLogoSmall.png" /> </center>
-        <center><h1> Driver Incentive Home </h1></center>
-            <center><div class="topnav">
-                <a href="/driverdashboard">Home</a>
-                <a class="active" href="/driverdashboard/points">Points</a>
-                <a href="/driverdashboard/catalog">Catalog</a>
-            </div></center>
-            <center><ul class="breadcrumb">
-              <li><a href="/driverdashboard/points">Points</a></li>
-            </ul></center>
-      </body>
-    </html> 
+  <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Driver Dashboard </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+  <router-link :to="{ name: 'CartPage'}">
+    <i class="fa fa-shopping-cart" style="font-size:70px;color:black"></i>
+  </router-link>
+  <div class="dot">
+    <router-link :to="{ name: 'ProfilePage' }">
+      <div class="dot-text">Profile</div>
+    </router-link>
+  </div>
+  <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
+  <h1> User's Driver Incentive Dashboard </h1>
+  <div class="topnav">
+    <router-link :to="{ name: 'DriverDashboardPage'}">
+      <a class="active" href="/driverdashboard">Home</a>
+    </router-link>
+    <router-link :to="{ name: 'DriverPointsPage'}">
+      <a href="driverdashboard/points">Points</a>
+    </router-link>
+    <router-link :to="{ name: 'DriverCatalogPage'}">
+      <a href="driverdashboard/catalog">Catalog</a>
+    </router-link>
+  </div>
+  <br>
+  <div class="mainbox">
+    <center><p class="mainbox-text">Top 10 Drivers by Point Amount</p></center>
+  </div>
+  <div class="mainbox">
+    <center><p class="mainbox-text">My Points</p></center>
+  </div>
+  </body>
+  </html>
 </template>
 
-<style>   
-Body {  
-  font-family: Calibri, Helvetica, sans-serif;  
-  background-color: #008037; 
-  font-size: 20px; 
-}           
-.topnav {      
-    background-color: #7ed957;  
-    border-style: solid;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    filter: drop-shadow(10px 8px 8px black);
-}   
-.topnav a {      
-    color: black;
-    padding: 14px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-} 
+<style>
+Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: #008037;
+  font-size: 20px;
+}
+.topnav {
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  background-color: #7ed957;
+  border-style: solid;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  filter: drop-shadow(10px 8px 8px black);
+}
+.topnav a {
+  color: black;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
 .topnav a:hover {
   background-color: #ddd;
   color: black;
@@ -53,7 +72,7 @@ Body {
 }
 .right {
   position: absolute;
-  right: 0px;
+  right: 0;
   width: 300px;
   padding: 10px;
 }
@@ -80,7 +99,7 @@ ul.breadcrumb li+li:before {
 .dot {
   height: 75px;
   width: 75px;
-  background-color: #7ed957;
+  background: #7ed957;
   border-radius: 50%;
   float: right;
   line-height: 0;
@@ -97,21 +116,26 @@ ul.breadcrumb li+li:before {
   text-align: center;
   font-weight: bold;
 }
-.mainbox{
-  background-color:#7ed957;
-  width: 350px;
+.mainbox {
+  background-color: #7ed957;
+  width: 800px;
   height: 300px;
   padding: 5px 5px 5px 5px;
   border-style: solid;
-  border-color:#c9e265;
-  position: fixed;
-  right: 400px;
-  display: block;
-  filter: drop-shadow(10px 8px 8px black);
+  border-color: #c9e265;
+  margin-left: auto;
+  margin-right: auto;
 }
-.mainbox-text{
-    font-weight: bold;
-    font-size: 22px;
+h1 {
+  text-align: center;
+}
+.logo {
+  display: block;
+  margin-left: 42rem;
+  margin-right: auto;
+}
+p {
+  text-align: center;
 }
 .leaderboard{
   background-color:#7ed957;
@@ -126,9 +150,3 @@ ul.breadcrumb li+li:before {
   filter: drop-shadow(10px 8px 8px black);
 }
 </style>
-<!--<div class="leaderboard">&ndash;&gt;-->
-<!--              <center><p class="mainbox-text">Top 10 Drivers by Point Amount</p></center>-->
-<!--            </div>-->
-<!--            <div class="mainbox">-->
-<!--              <center><p class="mainbox-text">My Points</p></center>-->
-<!--            </div>-->
