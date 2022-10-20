@@ -1,5 +1,4 @@
 import Home from '@/views/HomePage'
-import { Auth } from 'aws-amplify';
 import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [
@@ -9,6 +8,7 @@ const routes = [
         query: {redirects: 'driverdashboard'},
         component: ()=>import('@/views/LogInPage')},
     {path: '/apply', name:'ApplicationPage', component: ()=>import('@/views/ApplicationPage')},
+    {path: '/profile', name:'ProfilePage', component: ()=>import('@/views/ProfilePage')},
     {path: '/driverdashboard', name:'DriverDashboardPage', component: ()=>import('@/views/DriverDashboardPage')},
     {path: '/sponsordashboard', name:'SponsorDashboardPage', component: ()=>import('@/views/SponsorDashboardPage')},
     {path: '/admindashboard', name:'AdminDashboardPage', component: ()=>import('@/views/AdminDashboardPage')},
@@ -24,16 +24,6 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
-})
-
-router.beforeEach((to, from, next) => {
-    const isProtected = routes.includes(to.name)
-    if(isProtected && !Auth.currentAuthenticatedUser()){
-        next({
-            path: '/login',
-            query: { redirect: '/driverdashboard'}
-        })
-    }else next()
 })
 
 export default router

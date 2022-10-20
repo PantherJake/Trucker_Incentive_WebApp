@@ -6,21 +6,23 @@
   </head>
   <body>
   <div class="dot">
-    <div class="dot-text"><a href="#profile">Profile</a></div>
+    <router-link :to="{ name: 'ProfilePage' }">
+      <div class="dot-text">Profile</div>
+    </router-link>
   </div>
-  <center> <img src="../../assets/appLogoSmall.png" alt=""/> </center>
-  <center><h1> Driver Incentive Home </h1></center>
-  <center><div class="topnav">
+  <img src="../../assets/appLogoSmall.png" alt=""/>
+  <h1> Driver Incentive Home </h1>
+  <div class="topnav">
     <a class="active" href="/driverdashboard">Home</a>
     <a href="driverdashboard/points">Points</a>
     <a href="driverdashboard/catalog">Catalog</a>
-  </div></center>
-  <center><ul class="breadcrumb">
+  </div>
+  <ul class="breadcrumb">
     <li><a href="/driverdashboard">Home</a></li>
-  </ul></center>
-  <center><div class="mainbox">
-    <center><p>Welcome to the Home Page for the Driver Incentive Application!</p></center>
-  </div></center>
+  </ul>
+  <div class="mainbox">
+    <p>Welcome to your Dashboard for the Driver Incentive Application!</p>
+  </div>
   </body>
   </html>
 </template>
@@ -56,7 +58,7 @@
 }
 .right {
   position: absolute;
-  right: 0px;
+  right: 0;
   width: 300px;
   padding: 10px;
 }
@@ -83,7 +85,7 @@ ul.breadcrumb li+li:before {
 .dot {
   height: 75px;
   width: 75px;
-  background-color: #7ed957;
+  background: #7ed957;
   border-radius: 50%;
   float: right;
   line-height: 0;
@@ -107,5 +109,18 @@ ul.breadcrumb li+li:before {
   padding: 5px 5px 5px 5px;
   border-style: solid;
   border-color: #c9e265;
+  margin-left: auto;
+  margin-right: auto;
+}
+h1 {
+  text-align: center;
+}
+img {
+  display: block;
+  margin-left: 42rem;
+  margin-right: auto;
+}
+p {
+  text-align: center;
 }
 </style>
