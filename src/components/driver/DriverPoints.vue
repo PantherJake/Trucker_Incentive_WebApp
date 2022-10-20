@@ -29,10 +29,10 @@
   </div>
   <br>
   <div class="mainbox">
-    <center><p class="mainbox-text">Top 10 Drivers by Point Amount</p></center>
+    <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
   </div>
   <div class="mainbox">
-    <center><p class="mainbox-text">My Points</p></center>
+    <p class="mainbox-text">My Points</p>
   </div>
   </body>
   </html>

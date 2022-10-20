@@ -31,9 +31,19 @@
   <div class="mainbox">
     <p>Welcome to your Dashboard for the Driver Incentive App!</p>
   </div>
+  <ContactSupport />
   </body>
   </html>
 </template>
+
+<script>
+import ContactSupport from '@/components/extras/ContactSupport';
+export default {
+  name: 'DriverDashboard',
+  components:
+    ContactSupport
+}
+</script>
 
 <style>
  Body {

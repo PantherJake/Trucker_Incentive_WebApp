@@ -14,6 +14,12 @@
  </html>
 </template>
 
+<script>
+export default {
+  name: 'ContactSupport'
+}
+</script>
+
 <style>
 .button {
   background-color: orange; 
