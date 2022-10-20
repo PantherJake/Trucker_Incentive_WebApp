@@ -98,14 +98,7 @@ export default {
         console.log(user)
 
         this.authenticating = false
-        this.isAuth = !!(await Auth.currentAuthenticatedUser());
-
-        if(this.isAuth) {
-          await router.push('/driverdashboard')
-        }
-        else {
-          await router.push('/login')
-        }
+        await router.push('/driverdashboard')
       } catch (error) {
         this.authenticating = false
 
