@@ -3,23 +3,24 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Driver Dashboard </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
+  <router-link :to="{ name: 'CartPage'}">
+    <i class="fa fa-shopping-cart" style="font-size:70px;color:black"></i>
+  </router-link>
   <div class="dot">
     <router-link :to="{ name: 'ProfilePage' }">
       <div class="dot-text">Profile</div>
     </router-link>
   </div>
-  <img src="../../assets/appLogoSmall.png" alt=""/>
+  <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
   <h1> Driver Incentive Home </h1>
   <div class="topnav">
     <a class="active" href="/driverdashboard">Home</a>
     <a href="driverdashboard/points">Points</a>
     <a href="driverdashboard/catalog">Catalog</a>
   </div>
-  <ul class="breadcrumb">
-    <li><a href="/driverdashboard">Home</a></li>
-  </ul>
   <div class="mainbox">
     <p>Welcome to your Dashboard for the Driver Incentive Application!</p>
   </div>
@@ -34,6 +35,9 @@
   font-size: 20px;
 }
 .topnav {
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
   background-color: #7ed957;
   border-style: solid;
   text-align: center;
@@ -104,7 +108,7 @@ ul.breadcrumb li+li:before {
 }
 .mainbox {
   background-color: #7ed957;
-  width: 600px;
+  width: 800px;
   height: 300px;
   padding: 5px 5px 5px 5px;
   border-style: solid;
@@ -115,7 +119,7 @@ ul.breadcrumb li+li:before {
 h1 {
   text-align: center;
 }
-img {
+.logo {
   display: block;
   margin-left: 42rem;
   margin-right: auto;
@@ -123,4 +127,5 @@ img {
 p {
   text-align: center;
 }
+
 </style>

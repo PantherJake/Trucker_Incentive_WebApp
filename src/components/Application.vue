@@ -9,6 +9,10 @@
     <h1> Driver Incentive Application </h1>
         <form>
           <div class="container">
+              <label>Role : </label><br>
+              <input type="radio" v-model="role" value="Driver">Driver<br>
+              <input type="radio" v-model="role" value="Sponsor">Sponsor<br><br>
+
               <label>Username : </label>
               <input type="text" v-model="username" placeholder="Enter Username" name="username" required>
               <label>Password : </label>
@@ -20,6 +24,10 @@
               <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
               <label>Last name: </label>
               <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
+              <label>Drivers License #:</label>
+              <input type="text" v-model="DLnumber" placeholder="Enter DL#" name="dl" required>
+              <label>Home Address:</label>
+              <input type="text" v-model="address" placeholder="Home Address" name="address" required>
 
               <button @click="createAccount">Submit Application</button>
               <button type="button" class="cancelbtn">Cancel</button>
@@ -41,6 +49,8 @@ export default {
       fname: '',
       mname: '',
       lname: '',
+      DLnumber: '',
+      address: '',
       role: '',
       isRemember: false,
 
