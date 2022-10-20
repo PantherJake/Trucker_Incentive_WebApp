@@ -55,7 +55,6 @@ export default {
       loginVisible: true,
       forgotVisible: false,
       newVisible: false,
-      isRemember: false,
       isAuth: false,
 
       email: '',
