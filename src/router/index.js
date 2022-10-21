@@ -29,7 +29,8 @@ router.beforeResolve(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         try {
             await Auth.currentAuthenticatedUser();
-            next();
+            await router.push('/driverdashboard')
+            // next();
         } catch (e) {
             next({
                 path: "/",
