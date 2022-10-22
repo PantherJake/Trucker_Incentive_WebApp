@@ -29,9 +29,9 @@ router.beforeResolve(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         try {
             await Auth.currentAuthenticatedUser();
-            await router.push('/driverdashboard')
-            // next();
+            next();
         } catch (e) {
+            console.log("User not authenticated")
             next({
                 path: "/",
                 query: {

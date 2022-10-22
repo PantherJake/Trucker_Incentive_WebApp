@@ -14,9 +14,9 @@
             <label>Password : </label>   
             <input type="password" v-model="password" placeholder="Enter Password" required>
             {{ this.errorMessage }}
-            
+
             <button @click="this.loginAccount">Login</button>
-            <input type="checkbox" checked="checked">Remember me   
+            <input type="checkbox" checked="checked">Remember me
             <button type="button" class="cancelbtn">Cancel</button>   
             Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
           </div>   
