@@ -26,6 +26,8 @@
               <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
               <label>Drivers License #:</label>
               <input type="text" v-model="DLnumber" placeholder="Enter DL#" name="dl" required>
+              <label>Phone Number:</label>
+              <input type="text" v-model="phone" placeholder="Home/Mobile Phone" name="phone" required>
               <label>Home Address:</label>
               <input type="text" v-model="address" placeholder="Home Address" name="address" required>
               {{ this.errorMessage }}
@@ -51,6 +53,7 @@ export default {
       mname: '',
       lname: '',
       DLnumber: '',
+      phone: '',
       address: '',
       role: '',
       isRemember: false,
@@ -97,7 +100,9 @@ export default {
             email: this.username,
             name: `${this.fname} ${this.lname}`,
             given_name: this.fname,
-            family_name: this.lname
+            family_name: this.lname,
+            middle_name: this.mname,
+            phone_number: this.phone
           }
         })
         await this.loadUser()
