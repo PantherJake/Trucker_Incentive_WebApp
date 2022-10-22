@@ -99,6 +99,7 @@ export default {
         this.authenticating = false
         await router.push('/driverdashboard')
       } catch (error) {
+        console.log("There was an error signing in")
         this.authenticating = false
 
         console.log(error)
