@@ -7,9 +7,9 @@ frontend:
         - npm install
     build:
       commands:
-        - npm run build
+        - npm run public
   artifacts:
-    baseDirectory: build
+    baseDirectory: public
     files:
       - '**/*'
   cache:
