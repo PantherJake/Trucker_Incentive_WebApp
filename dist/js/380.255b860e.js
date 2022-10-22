@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunktruck_incentive_program"]=self["webpackChunktruck_incentive_program"]||[]).push([[380],{6380:function(n,e,t){t.r(e),t.d(e,{amplify_container:function(){return c}});var r=t(4916),i="amplify-container{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;height:100vh}",c=function(){function n(n){(0,r.r)(this,n)}return n.prototype.render=function(){return(0,r.h)(r.H,null,(0,r.h)("slot",null))},n}();c.style=i}}]);
+//# sourceMappingURL=380.255b860e.js.map
