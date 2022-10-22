@@ -60,6 +60,30 @@ export default {
     }
   },
   methods: {
+    async loadUser() {
+      try {
+        const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fname: this.fname,
+            mname: this.mname,
+            lname: this.lname,
+            roleID: 1,
+            email: this.username,
+            orgID: 1
+          })
+        });
+        console.log(response)
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async createAccount() {
       this.registering = true
       this.errorMessage = ''
@@ -75,6 +99,7 @@ export default {
             family_name: this.lname
           }
         })
+        await this.loadUser()
 
         this.registering = false
         this.registered = true
