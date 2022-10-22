@@ -28,6 +28,7 @@
               <input type="text" v-model="DLnumber" placeholder="Enter DL#" name="dl" required>
               <label>Home Address:</label>
               <input type="text" v-model="address" placeholder="Home Address" name="address" required>
+              {{ this.errorMessage }}
 
               <button @click="createAccount">Submit Application</button>
               <button type="button" class="cancelbtn">Cancel</button>
