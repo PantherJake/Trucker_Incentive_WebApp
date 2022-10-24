@@ -7,29 +7,36 @@
     <body>
     <img src="../assets/appLogoSmall.png"  alt=""/>
     <h1> Driver Incentive Application </h1>
-        <form>
+        <form v-show="this.registered === true">
           <div class="container">
               <label>Email : </label>
               <input type="text" v-model="username" placeholder="Enter Email" required>
               <label>Password : </label>
               <input type="password" v-model="password" placeholder="Enter Password"  required>
 
-              <label>First name: </label>
+              <label>First name : </label>
               <input type="text" v-model="fname" placeholder="Enter First Name" required>
-              <label>Middle name: </label>
+              <label>Middle name : </label>
               <input type="text" v-model="mname" placeholder="Enter Middle Name" required>
-              <label>Last name: </label>
+              <label>Last name : </label>
               <input type="text" v-model="lname" placeholder="Enter Last Name" required>
-              <label>Drivers License #:</label>
+              <label>Drivers License # : </label>
               <input type="text" v-model="DLnumber" placeholder="Enter DL#" required>
-              <label>Phone Number:</label>
+              <label>Phone Number : </label>
               <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>
-              <label>Home Address:</label>
+              <label>Home Address : </label>
               <input type="text" v-model="address" placeholder="Home Address" required>
               {{ this.errorMessage }}
 
               <button @click="createAccount">Submit Application</button>
               <button type="button" class="cancelbtn">Cancel</button>
+          </div>
+        </form>
+        <form v-show="this.registered === false">
+          <div class="container">
+            <label>Verification Code : </label>
+            <input type="text" v-model="code" placeholder="Enter verification code" required>
+            <button @click="verifyEmail">Submit</button>
           </div>
         </form>
     <router-link :to="{ name: 'Home'}">
@@ -41,6 +48,7 @@
 
 <script>
 import {Auth} from "aws-amplify";
+import router from "@/router";
 
 export default {
   name: 'ApplicationPage',
@@ -55,7 +63,10 @@ export default {
       phone: '',
       address: '',
       role: '',
+
       isRemember: false,
+      valid: false,
+      code: '',
 
       registering: false,
       registered: false,
@@ -63,9 +74,18 @@ export default {
     }
   },
   methods: {
+    async verifyEmail() {
+      Auth.verifyCurrentUserAttributeSubmit('email', this.code)
+        .then(() => {
+          console.log('phone_number verified');
+          router.push('/login');
+        }).catch(e => {
+          console.log('failed with error', e);
+      });
+    },
     async loadUser() {
       try {
-        console.log("Initiating database connection.")
+        console.log("Initiating database connection.");
         const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
@@ -83,15 +103,15 @@ export default {
             orgID: 1
           })
         });
-        console.log("Established.")
-        console.log(response)
+        console.log("Established.");
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
     },
     async createAccount() {
-      this.registering = true
-      this.errorMessage = ''
+      this.registering = true;
+      this.errorMessage = '';
 
       try {
         await Auth.signUp({
@@ -106,14 +126,14 @@ export default {
             phone_number: this.phone
           }
         })
-        await this.loadUser()
+        await this.loadUser();
+        this.registering = false;
+        this.registered = true;
 
-        this.registering = false
-        this.registered = true
       } catch (error) {
-        console.log(error)
+        console.log(error);
 
-        this.errorMessage = error.message
+        this.errorMessage = error.message;
       }
     }
   },
