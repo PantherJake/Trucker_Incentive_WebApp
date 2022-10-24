@@ -146,7 +146,7 @@ button {
 form {
   border: 3px solid #7ed957;
 }
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   width: 100%;
   margin: 8px 0;
   padding: 12px 20px;

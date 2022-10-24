@@ -9,27 +9,23 @@
     <h1> Driver Incentive Application </h1>
         <form>
           <div class="container">
-              <label>Role : </label><br>
-              <input type="radio" v-model="role" value="Driver">Driver<br>
-              <input type="radio" v-model="role" value="Sponsor">Sponsor<br><br>
-
-              <label>Username : </label>
-              <input type="text" v-model="username" placeholder="Enter Username" name="username" required>
+              <label>Email : </label>
+              <input type="text" v-model="username" placeholder="Enter Email" required>
               <label>Password : </label>
-              <input type="password" v-model="password" placeholder="Enter Password" name="password" required>
+              <input type="password" v-model="password" placeholder="Enter Password"  required>
 
               <label>First name: </label>
-              <input type="text" v-model="fname" placeholder="Enter First Name" name="fname" required>
+              <input type="text" v-model="fname" placeholder="Enter First Name" required>
               <label>Middle name: </label>
-              <input type="text" v-model="mname" placeholder="Enter Middle Name" name="mname" required>
+              <input type="text" v-model="mname" placeholder="Enter Middle Name" required>
               <label>Last name: </label>
-              <input type="text" v-model="lname" placeholder="Enter Last Name" name="lname" required>
+              <input type="text" v-model="lname" placeholder="Enter Last Name" required>
               <label>Drivers License #:</label>
-              <input type="text" v-model="DLnumber" placeholder="Enter DL#" name="dl" required>
+              <input type="text" v-model="DLnumber" placeholder="Enter DL#" required>
               <label>Phone Number:</label>
-              <input type="text" v-model="phone" placeholder="Home/Mobile Phone" name="phone" required>
+              <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>
               <label>Home Address:</label>
-              <input type="text" v-model="address" placeholder="Home Address" name="address" required>
+              <input type="text" v-model="address" placeholder="Home Address" required>
               {{ this.errorMessage }}
 
               <button @click="createAccount">Submit Application</button>
@@ -69,6 +65,7 @@ export default {
   methods: {
     async loadUser() {
       try {
+        console.log("Initiating database connection.")
         const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
@@ -86,6 +83,7 @@ export default {
             orgID: 1
           })
         });
+        console.log("Established.")
         console.log(response)
       } catch (error) {
         console.log(error);
