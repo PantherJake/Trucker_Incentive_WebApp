@@ -30,6 +30,10 @@
   <br>
   <div class="mainbox">
     <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
+    <form>
+      <input type="text" name="limit" placeholder="Enter driver limit for leaderboard...">
+      <input type="submit">
+    </form>
     {{this.response}}
   </div>
   <div class="mainbox">
@@ -51,7 +55,7 @@ export default {
   },
   created() {
     try {
-      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers", {
+      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers?orgid=" + this.orgID, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -67,7 +71,6 @@ export default {
     }
   }
 }
-// "https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank"
 </script>
 
 <style>
