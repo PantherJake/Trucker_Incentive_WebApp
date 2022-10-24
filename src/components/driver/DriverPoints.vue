@@ -30,10 +30,6 @@
   <br>
   <div class="mainbox">
     <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
-    <form>
-      <input type="text" name="limit" placeholder="Enter driver limit for leaderboard...">
-      <input type="submit">
-    </form>
     {{this.response}}
   </div>
   <div class="mainbox">
@@ -55,17 +51,18 @@ export default {
   },
   created() {
     try {
-      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers?orgid=" + this.orgID + "&limit=10", {
+      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
           'Content-Type': 'application/json',
+          'username': 'jvickio@clemson.edu'
         },
       });
       console.log(response)
-      this.response = response
+      this.response = response.limit
     } catch (error) {
       console.log(error);
     }
