@@ -40,6 +40,9 @@
             <button @click="this.newVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
         </form>
+      <router-link :to="{ name: 'Home'}">
+        <button>Return to Homepage</button>
+      </router-link>
     </body>
   </html> 
 </template> 
@@ -94,7 +97,6 @@ export default {
       this.errorMessage = ''
       try {
         const user = await Auth.signIn(this.email, this.password)
-        await Auth.completeNewPassword(user, this.password);
         console.log(user)
 
         this.authenticating = false

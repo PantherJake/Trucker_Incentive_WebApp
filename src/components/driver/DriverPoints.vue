@@ -15,7 +15,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> User's Driver Incentive Dashboard </h1>
+  <h1> User's Points Information </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a class="active" href="/driverdashboard">Home</a>
@@ -30,6 +30,7 @@
   <br>
   <div class="mainbox">
     <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
+    {{this.response}}
   </div>
   <div class="mainbox">
     <p class="mainbox-text">My Points</p>
@@ -37,6 +38,38 @@
   </body>
   </html>
 </template>
+
+<script>
+export default {
+  name: 'DriverPoints',
+  data() {
+    return {
+      orgID: '1',
+      driverID: '1',
+      response: []
+    }
+  },
+  created() {
+    try {
+      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+      });
+      console.log(response)
+      this.response = response
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+// "https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank"
+</script>
 
 <style>
 Body {

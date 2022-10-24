@@ -15,7 +15,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> User's Driver Incentive Dashboard </h1>
+  <h1> User's Catalog </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a class="active" href="/driverdashboard">Home</a>

@@ -36,6 +36,9 @@
               <button type="button" class="cancelbtn">Cancel</button>
           </div>
         </form>
+    <router-link :to="{ name: 'Home'}">
+      <button>Return to Homepage</button>
+    </router-link>
     </body>    
   </html> 
 </template> 
