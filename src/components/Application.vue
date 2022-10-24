@@ -7,7 +7,7 @@
     <body>
     <img src="../assets/appLogoSmall.png"  alt=""/>
     <h1> Driver Incentive Application </h1>
-        <form v-show="this.registered === true">
+        <form v-show="this.isNotValid">
           <div class="container">
               <label>Email : </label>
               <input type="text" v-model="username" placeholder="Enter Email" required>
@@ -29,10 +29,9 @@
               {{ this.errorMessage }}
 
               <button @click="createAccount">Submit Application</button>
-              <button type="button" class="cancelbtn">Cancel</button>
           </div>
         </form>
-        <form v-show="this.registered === false">
+        <form v-show="this.isValid">
           <div class="container">
             <label>Verification Code : </label>
             <input type="text" v-model="code" placeholder="Enter verification code" required>
@@ -65,11 +64,9 @@ export default {
       role: '',
 
       isRemember: false,
-      valid: false,
+      isValid: false,
+      isNotValid: true,
       code: '',
-
-      registering: false,
-      registered: false,
       errorMessage: '',
     }
   },
@@ -110,8 +107,8 @@ export default {
       }
     },
     async createAccount() {
-      this.registering = true;
       this.errorMessage = '';
+      this.isNotValid = true;
 
       try {
         await Auth.signUp({
@@ -127,12 +124,9 @@ export default {
           }
         })
         await this.loadUser();
-        this.registering = false;
-        this.registered = true;
-
+        this.isValid = true;
       } catch (error) {
         console.log(error);
-
         this.errorMessage = error.message;
       }
     }
