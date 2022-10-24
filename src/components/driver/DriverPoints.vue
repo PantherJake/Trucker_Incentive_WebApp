@@ -58,7 +58,6 @@ export default {
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
           'Content-Type': 'application/json',
-          'username': 'jvickio@clemson.edu'
         },
       });
       console.log(response)
