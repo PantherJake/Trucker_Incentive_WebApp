@@ -51,7 +51,7 @@ export default {
   },
   created() {
     try {
-      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
+      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
