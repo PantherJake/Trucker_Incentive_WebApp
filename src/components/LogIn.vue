@@ -6,23 +6,23 @@
   </head>    
     <body>    
       <img src="../assets/appLogoSmall.png"  alt=""/>
-      <h1 style="align-self: center;"> Driver Incentive Login </h1>  
+      <h1 style="align-self: center;"> Driver Incentive Login </h1>
         <form v-show="this.loginVisible">
-          <div class="container">   
-            <label>Email : </label>   
+          <div class="container">
+            <label>Email : </label>
             <input type="email" v-model="email" placeholder="Enter Email" required>
-            <label>Password : </label>   
+            <label>Password : </label>
             <input type="password" v-model="password" placeholder="Enter Password" required>
             {{ this.errorMessage }}
 
             <button @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me
-            <button type="button" class="cancelbtn">Cancel</button>   
+            <button type="button" class="cancelbtn">Cancel</button>
             Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
             <router-link :to="{ name: 'Home'}">
               <button>Return to Homepage</button>
             </router-link>
-          </div>   
+          </div>
         </form>
         <form v-show="this.forgotVisible">
           <div class="container">
@@ -47,7 +47,7 @@
 </template> 
 
 <script>
-import { Auth } from 'aws-amplify';
+import {Auth} from "aws-amplify";
 import router from '@/router';
 
 export default {
@@ -91,17 +91,19 @@ export default {
         console.log(error);
       }
     },
-    async loginAccount() {
+    loginAccount() {
       this.authenticating = true
       this.errorMessage = ''
       try {
-        const user = await Auth.signIn(this.email, this.password)
+        console.log("Attempting login...")
+        const user = Auth.signIn(this.email, this.password)
         console.log(user)
 
         this.authenticating = false
-        await router.push('/driverdashboard')
+        console.log("Login successful!")
+        router.push('/driverdashboard')
       } catch (error) {
-        console.log("There was an error signing in")
+        console.log("There was an error logging in")
         this.authenticating = false
 
         console.log(error)

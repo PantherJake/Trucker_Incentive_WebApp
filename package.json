@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "@aws-amplify/ui-components": "^1.9.6",
+    "@aws-amplify/ui-vue": "^2.4.24",
     "@popperjs/core": "^2.11.6",
     "@vueuse/core": "^9.3.1",
-    "aws-amplify": "^4.3.37",
+    "aws-amplify": "^4.3.39",
     "aws-amplify-vue": "^2.1.5",
     "aws-cognito-redux-saga": "^1.5.10",
     "aws-sdk": "^2.1231.0",
@@ -19,7 +20,8 @@
     "core-js": "^3.8.3",
     "prop-types": "^15.8.1",
     "vue": "^3.2.39",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -30,8 +32,7 @@
     "autoprefixer": "^10.4.12",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "postcss": "^8.4.18",
-    "tailwindcss": "^3.2.1"
+    "postcss": "^8.4.18"
   },
   "eslintConfig": {
     "root": true,
