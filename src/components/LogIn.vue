@@ -17,7 +17,6 @@
 
             <button @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me
-            <button type="button" class="cancelbtn">Cancel</button>
             Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
             <router-link :to="{ name: 'Home'}">
               <button>Return to Homepage</button>
@@ -72,31 +71,12 @@ export default {
     }
   },
   methods: {
-    async getData() {
-      try {
-        const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/test/users", {
-          method: 'GET', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json',
-            'username': this.Email
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        });
-        this.info = JSON.parse(response.toString());
-        console.log(this.info.fname)
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    loginAccount() {
+    async loginAccount() {
       this.authenticating = true
       this.errorMessage = ''
       try {
         console.log("Attempting login...")
-        const user = Auth.signIn(this.email, this.password)
+        const user = await Auth.signIn(this.email, this.password)
         console.log(user)
 
         this.authenticating = false
@@ -110,14 +90,14 @@ export default {
         this.errorMessage = error.message
       }
     },
-    async forgotPassword() {
+    forgotPassword() {
       Auth.forgotPassword(this.email2)
           .then(data => console.log(data))
           .catch(err => console.log(err));
       this.forgotVisible = false
       this.newVisible = true
     },
-    async newPassword() {
+    newPassword() {
       Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
           .then(data => console.log(data))
           .catch(err => console.log(err));
