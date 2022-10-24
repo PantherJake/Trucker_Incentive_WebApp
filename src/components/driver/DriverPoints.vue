@@ -61,7 +61,7 @@ export default {
         },
       });
       console.log(response)
-      this.response = response.limit
+      this.response = response
     } catch (error) {
       console.log(error);
     }
