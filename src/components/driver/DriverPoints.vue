@@ -18,10 +18,10 @@
   <h1> User's Points Information </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
-      <a class="active" href="/driverdashboard">Home</a>
+      <a href="/driverdashboard">Home</a>
     </router-link>
     <router-link :to="{ name: 'DriverPointsPage'}">
-      <a href="driverdashboard/points">Points</a>
+      <a class="active" href="driverdashboard/points">Points</a>
     </router-link>
     <router-link :to="{ name: 'DriverCatalogPage'}">
       <a href="driverdashboard/catalog">Catalog</a>

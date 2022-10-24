@@ -10,6 +10,7 @@
   "dependencies": {
     "@aws-amplify/ui-components": "^1.9.6",
     "@popperjs/core": "^2.11.6",
+    "@vueuse/core": "^9.3.1",
     "aws-amplify": "^4.3.37",
     "aws-amplify-vue": "^2.1.5",
     "aws-cognito-redux-saga": "^1.5.10",
@@ -26,8 +27,11 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "autoprefixer": "^10.4.12",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "postcss": "^8.4.18",
+    "tailwindcss": "^3.2.1"
   },
   "eslintConfig": {
     "root": true,

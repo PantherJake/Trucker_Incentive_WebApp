@@ -15,18 +15,20 @@
             <input type="password" v-model="password" placeholder="Enter Password" required>
             {{ this.errorMessage }}
 
-            <button @click="this.loginAccount">Login</button>
+            <button @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me
             <button type="button" class="cancelbtn">Cancel</button>   
             Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
+            <router-link :to="{ name: 'Home'}">
+              <button>Return to Homepage</button>
+            </router-link>
           </div>   
         </form>
-
         <form v-show="this.forgotVisible">
           <div class="container">
             <label>Email : </label>
             <input type="text" v-model="email2" placeholder="Enter Email" required>
-            <button @click="this.forgotPassword">Send Reset Code</button>
+            <button @click="this.forgotPassword()">Send Reset Code</button>
             <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
         </form>
@@ -40,9 +42,6 @@
             <button @click="this.newVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
         </form>
-      <router-link :to="{ name: 'Home'}">
-        <button>Return to Homepage</button>
-      </router-link>
     </body>
   </html> 
 </template> 
@@ -127,7 +126,7 @@ export default {
 }
 </script>
 
-<style>   
+<style>
 Body {
   font-family: Calibri, Helvetica, sans-serif;  
   background-color: #008037; 

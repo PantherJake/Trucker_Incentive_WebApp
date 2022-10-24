@@ -18,13 +18,13 @@
   <h1> User's Catalog </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
-      <a class="active" href="/driverdashboard">Home</a>
+      <a href="/driverdashboard">Home</a>
     </router-link>
     <router-link :to="{ name: 'DriverPointsPage'}">
       <a href="driverdashboard/points">Points</a>
     </router-link>
     <router-link :to="{ name: 'DriverCatalogPage'}">
-      <a href="driverdashboard/catalog">Catalog</a>
+      <a class="active" href="driverdashboard/catalog">Catalog</a>
     </router-link>
   </div>
   <br>

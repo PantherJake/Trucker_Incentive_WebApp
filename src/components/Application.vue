@@ -28,14 +28,14 @@
               <input type="text" v-model="address" placeholder="Home Address" required>
               {{ this.errorMessage }}
 
-              <button @click="createAccount">Submit Application</button>
+              <button @click="createAccount()">Submit Application</button>
           </div>
         </form>
         <form v-show="this.isValid">
           <div class="container">
             <label>Verification Code : </label>
             <input type="text" v-model="code" placeholder="Enter verification code" required>
-            <button @click="verifyEmail">Submit</button>
+            <button @click="verifyEmail()">Submit</button>
           </div>
         </form>
     <router-link :to="{ name: 'Home'}">
@@ -80,9 +80,34 @@ export default {
           console.log('failed with error', e);
       });
     },
-    async loadUser() {
+    async createAccount() {
+      this.errorMessage = '';
+      this.isNotValid = true;
+
       try {
-        console.log("Initiating database connection.");
+        console.log("Initiating cognito authentication...")
+        await Auth.signUp({
+          username: this.username,
+          password: this.password,
+          attributes: {
+            email: this.username,
+            name: `${this.fname} ${this.lname}`,
+            given_name: this.fname,
+            family_name: this.lname,
+            middle_name: this.mname,
+            phone_number: this.phone
+          }
+        })
+        console.log("Pending user...")
+        this.isValid = true;
+        this.isNotValid = false;
+      } catch (error) {
+        console.log(error);
+        this.errorMessage = error.message;
+      }
+
+      try {
+        console.log("Initiating database connection...");
         const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
@@ -100,34 +125,10 @@ export default {
             orgID: 1
           })
         });
-        console.log("Established.");
+        console.log("Established, user is in...");
         console.log(response);
       } catch (error) {
         console.log(error);
-      }
-    },
-    async createAccount() {
-      this.errorMessage = '';
-      this.isNotValid = true;
-
-      try {
-        await Auth.signUp({
-          username: this.username,
-          password: this.password,
-          attributes: {
-            email: this.username,
-            name: `${this.fname} ${this.lname}`,
-            given_name: this.fname,
-            family_name: this.lname,
-            middle_name: this.mname,
-            phone_number: this.phone
-          }
-        })
-        await this.loadUser();
-        this.isValid = true;
-      } catch (error) {
-        console.log(error);
-        this.errorMessage = error.message;
       }
     }
   },
