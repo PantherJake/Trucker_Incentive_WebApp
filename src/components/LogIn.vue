@@ -16,7 +16,7 @@
             {{ this.errorMessage }}
 
             <button @click="this.loginAccount()">Login</button>
-            <input type="checkbox" checked="checked">Remember me
+            <input type="checkbox" checked="checked">Remember me<br>
             Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
             <router-link :to="{ name: 'Home'}">
               <button>Return to Homepage</button>
@@ -71,12 +71,12 @@ export default {
     }
   },
   methods: {
-    async loginAccount() {
+    loginAccount() {
       this.authenticating = true
       this.errorMessage = ''
       try {
         console.log("Attempting login...")
-        const user = await Auth.signIn(this.email, this.password)
+        const user = Auth.signIn(this.email, this.password)
         console.log(user)
 
         this.authenticating = false
