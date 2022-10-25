@@ -25,7 +25,6 @@
             </router-link>
           </div>
         </form>
-      <button @click="fedSignIn">Fed Sign</button>
       <form v-show="this.forgotVisible">
           <div class="container">
             <label>Email : </label>
@@ -33,7 +32,7 @@
             <button @click="this.forgotPassword()">Send Reset Code</button>
             <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
-        </form>
+      </form>
       <form v-show="this.newVisible">
           <div class="container">
             <label>New Password : </label>
@@ -73,38 +72,36 @@ export default {
     }
   },
   methods: {
-    loginAccount() {
-      this.errorMessage = '';
-      try {
-        console.log("Attempting login...");
-        const user = Auth.signIn(this.email, this.password)
-        console.log(user.body)
-        if(user.body) {
+      loginAccount() {
+        this.errorMessage = '';
+        try {
+          console.log("Attempting login...");
+          const user = Auth.signIn(this.email, this.password)
+          console.log(user)
           console.log("Login complete")
           this.isAuth = true
+        } catch (error) {
+          console.log("There was an error logging in");
+          console.log(error);
+          this.errorMessage = error.message;
         }
-      } catch (error) {
-        console.log("There was an error logging in");
-        console.log(error);
-        this.errorMessage = error.message;
+      },
+      forgotPassword() {
+        Auth.forgotPassword(this.email2)
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+        this.forgotVisible = false
+        this.newVisible = true
+      },
+      newPassword() {
+        Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+        this.newVisible = false
+        this.loginVisible = true
       }
     },
-    forgotPassword() {
-      Auth.forgotPassword(this.email2)
-          .then(data => console.log(data))
-          .catch(err => console.log(err));
-      this.forgotVisible = false
-      this.newVisible = true
-    },
-    newPassword() {
-      Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
-          .then(data => console.log(data))
-          .catch(err => console.log(err));
-      this.newVisible = false
-      this.loginVisible = true
-    }
-  },
-}
+  }
 </script>
 
 <style>

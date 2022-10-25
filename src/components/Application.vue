@@ -74,8 +74,8 @@ export default {
     verifyEmail() {
       Auth.verifyCurrentUserAttributeSubmit('email', this.code)
         .then(() => {
-          console.log('phone_number verified');
-          router.push('/login');
+          console.log('Email verified');
+          router.push('/');
         }).catch(e => {
           console.log('failed with error', e);
       });
@@ -86,7 +86,7 @@ export default {
 
       try {
         console.log("Initiating cognito authentication...")
-        Auth.signUp({
+        const user = Auth.signUp({
           username: this.username,
           password: this.password,
           attributes: {
@@ -96,8 +96,12 @@ export default {
             family_name: this.lname,
             middle_name: this.mname,
             phone_number: this.phone
+          },
+          autoSignIn: {
+            enabled: true,
           }
-        })
+        }).catch(e => this.errorMessage = e)
+        console.log(user)
         console.log("Pending user...")
         this.isValid = true;
         this.isNotValid = false;
