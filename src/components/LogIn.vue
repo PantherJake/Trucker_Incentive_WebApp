@@ -39,6 +39,7 @@
             <input type="text" v-model="new_password" placeholder="Enter New Password" required>
             <label>Confirmation Code (Sent to Email) : </label>
             <input type="text" v-model="code" placeholder="Confirmation Code" required>
+            {{ this.errorMessage }}
             <button type="button" @click="this.newPassword()">Change Password</button>
             <button @click="this.newVisible = false; this.loginVisible = true;">Cancel</button>
           </div>

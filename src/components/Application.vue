@@ -9,35 +9,37 @@
     <h1> Driver Incentive Application </h1>
         <form v-if="this.isNotValid">
           <div class="container">
-              <label>Email : </label>
-              <input type="text" v-model="username" placeholder="Enter Email" required>
-              <label>Password : </label>
-              <input type="password" v-model="password" placeholder="Enter Password"  required>
+            <label>Email : </label>
+            <input type="text" v-model="username" placeholder="Enter Email" required>
+            <label>Password : </label>
+            <input type="password" v-model="password" placeholder="Enter Password"  required>
 
-              <label>First name : </label>
-              <input type="text" v-model="fname" placeholder="Enter First Name" required>
-              <label>Middle name : </label>
-              <input type="text" v-model="mname" placeholder="Enter Middle Name" required>
-              <label>Last name : </label>
-              <input type="text" v-model="lname" placeholder="Enter Last Name" required>
-              <label>Drivers License # : </label>
-              <input type="text" v-model="DLnumber" placeholder="Enter DL#" required>
-              <label>Phone Number : </label>
-              <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>
-              <label>Home Address : </label>
-              <input type="text" v-model="address" placeholder="Home Address" required>
-              {{ this.errorMessage }}
-              <br>
-              {{ this.dbError }}
+            <label>First name : </label>
+            <input type="text" v-model="fname" placeholder="Enter First Name" required>
+            <label>Middle name : </label>
+            <input type="text" v-model="mname" placeholder="Enter Middle Name" required>
+            <label>Last name : </label>
+            <input type="text" v-model="lname" placeholder="Enter Last Name" required>
+            <label>Drivers License # : </label>
+            <input type="text" v-model="DLnumber" placeholder="Enter DL#" required>
+            <label>Phone Number : </label>
+            <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>
+            <label>Home Address : </label>
+            <input type="text" v-model="address" placeholder="Home Address" required>
+            {{ this.errorMessage }}
+            <br>
+            {{ this.dbError }}
 
-              <button type="button" @click="createAccount()">Submit Application</button>
+            <button type="button" @click="createAccount()">Submit Application</button>
           </div>
         </form>
         <form v-else>
           <div class="container">
             <label>Verification Code : </label>
             <input type="text" v-model="code" placeholder="Enter verification code" required>
+            {{ this.errorMessage }}
             <button type="button" @click="verifyEmail()">Submit</button>
+            <button type="button" @click="resendConfirmationCode()">Resend Code</button>
           </div>
         </form>
     <router-link :to="{ name: 'Home'}">
@@ -48,7 +50,7 @@
 </template> 
 
 <script>
-import Auth from "aws-amplify";
+import { Auth } from "aws-amplify";
 import router from "@/router";
 
 export default {
@@ -77,14 +79,23 @@ export default {
     }
   },
   methods: {
-    verifyEmail() {
-      Auth.verifyCurrentUserAttributeSubmit('email', this.code)
+    async verifyEmail() {
+      await Auth.confirmSignUp(this.username, this.code)
         .then(() => {
           console.log('Email verified');
           router.push('/');
         }).catch(e => {
+          this.errorMessage = e;
           console.log('failed with error', e);
       });
+    },
+    async resendConfirmationCode() {
+      try {
+        await Auth.resendSignUp(this.username);
+        console.log('code resent successfully');
+      } catch (err) {
+        console.log('error resending code: ', err);
+      }
     },
     async createAccount() {
       this.errorMessage = '';
@@ -103,17 +114,14 @@ export default {
             middle_name: this.mname,
             phone_number: this.phone
           },
-          autoSignIn: {
-            enabled: true,
-          }
         })
         .then(response => this.userObj = JSON.stringify(response))
         .catch(e => this.errorMessage = e)
 
+        this.user = JSON.parse(this.userObj)
         console.log("Pending user...")
-        console.log(this.user.username)
 
-        if(this.user.username === this.username) {
+        if(this.user.user.username === this.username) {
           this.isValid = true;
           this.isNotValid = false;
         }
@@ -122,31 +130,31 @@ export default {
         this.errorMessage = error.message;
       }
 
-      try {
-        console.log("Initiating database connection...");
-        const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            fname: this.fname,
-            mname: this.mname,
-            lname: this.lname,
-            roleID: 1,
-            email: this.username,
-            orgID: 1
-          })
-        });
-        console.log("Established, user is in...");
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-        this.dbError = error;
-      }
+      // try {
+      //   console.log("Initiating database connection...");
+      //   const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
+      //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      //     mode: 'cors', // no-cors, *cors, same-origin
+      //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      //     credentials: 'same-origin', // include, *same-origin, omit
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       fname: this.fname,
+      //       mname: this.mname,
+      //       lname: this.lname,
+      //       roleID: 1,
+      //       email: this.username,
+      //       orgID: 1
+      //     })
+      //   });
+      //   console.log("Established, user is in...");
+      //   console.log(response);
+      // } catch (error) {
+      //   console.log(error);
+      //   this.dbError = error;
+      // }
     }
   },
 }
