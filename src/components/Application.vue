@@ -27,6 +27,8 @@
               <label>Home Address : </label>
               <input type="text" v-model="address" placeholder="Home Address" required>
               {{ this.errorMessage }}
+              <br>
+              {{ this.dbError }}
 
               <button type="button" @click="createAccount()">Submit Application</button>
           </div>
@@ -46,7 +48,7 @@
 </template> 
 
 <script>
-import {Auth, Hub} from "aws-amplify";
+import Auth from "aws-amplify";
 import router from "@/router";
 
 export default {
@@ -63,13 +65,15 @@ export default {
       address: '',
       role: '',
 
-      user: '',
+      userObj: '',
+      user: [],
 
       isRemember: false,
       isValid: false,
       isNotValid: true,
       code: '',
       errorMessage: '',
+      dbError: ''
     }
   },
   methods: {
@@ -82,13 +86,13 @@ export default {
           console.log('failed with error', e);
       });
     },
-    createAccount() {
+    async createAccount() {
       this.errorMessage = '';
       this.isNotValid = true;
 
       try {
         console.log("Initiating cognito authentication...")
-        const user = Auth.signUp({
+        await Auth.signUp({
           username: this.username,
           password: this.password,
           attributes: {
@@ -102,22 +106,17 @@ export default {
           autoSignIn: {
             enabled: true,
           }
-        }).catch(e => this.errorMessage = e)
-
-        console.log(user)
-        console.log("Pending user...")
-
-        Hub.listen('auth', ({ payload }) => {
-          const { event } = payload;
-          if (event === 'autoSignIn') {
-            this.user = payload.data
-          } else if (event === 'autoSignIn_failure') {
-            router.push('/login')
-          }
         })
+        .then(response => this.userObj = JSON.stringify(response))
+        .catch(e => this.errorMessage = e)
 
-        this.isValid = true;
-        this.isNotValid = false;
+        console.log("Pending user...")
+        console.log(this.user.username)
+
+        if(this.user.username === this.username) {
+          this.isValid = true;
+          this.isNotValid = false;
+        }
       } catch (error) {
         console.log(error);
         this.errorMessage = error.message;
@@ -146,6 +145,7 @@ export default {
         console.log(response);
       } catch (error) {
         console.log(error);
+        this.dbError = error;
       }
     }
   },

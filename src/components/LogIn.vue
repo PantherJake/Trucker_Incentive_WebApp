@@ -77,7 +77,6 @@ export default {
   methods: {
     async loginAccount() {
       this.errorMessage = '';
-      this.user = [];
       try {
         console.log("Attempting login...");
         await Auth.signIn(this.email, this.password)
@@ -113,7 +112,11 @@ export default {
       this.loginVisible = true
     },
     pushDashboard() {router.push("/driverdashboard")},
-    pushLogin() {this.isAuth = false;}
+    pushLogin() {
+      this.isAuth = false;
+      this.userObj = '';
+      this.user = [];
+    }
     },
   }
 </script>
