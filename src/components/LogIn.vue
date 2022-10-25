@@ -15,7 +15,6 @@
             <input type="password" v-model="password" placeholder="Enter Password" required>
             {{ this.errorMessage }}
             <br>
-            {{ this.authMessage }}
 
             <button type="button" @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me<br>
@@ -29,6 +28,7 @@
           <div class="container">
             <label>Email : </label>
             <input type="text" v-model="email2" placeholder="Enter Email" required>
+            {{ this.errorMessage }}
             <button type="button" @click="this.forgotPassword()">Send Reset Code</button>
             <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
@@ -64,49 +64,56 @@ export default {
 
       email: '',
       password: '',
+      userObj: '',
+      user: [],
 
       email2: '',
       new_password: '',
       code: '',
 
-      info: '',
       errorMessage: '',
-      authMessage: ''
     }
   },
   methods: {
-    loginAccount() {
+    async loginAccount() {
       this.errorMessage = '';
+      this.user = [];
       try {
         console.log("Attempting login...");
-        const user = Auth.signIn(this.email, this.password).catch(e => this.errorMessage=e)
-        console.log(user)
-        console.log("Login complete")
-        if(this.errorMessage.length === 0) {
+        await Auth.signIn(this.email, this.password)
+            .then(response => this.userObj = JSON.stringify(response))
+            .catch(e => this.errorMessage=e)
+        this.user = JSON.parse(this.userObj)
+
+        console.log(this.email)
+        console.log(this.user.username)
+        if(this.user.username === this.email) {
+          console.log("Login complete")
           this.isAuth = true
         }
       } catch (error) {
-        console.log("There was an error logging in");
         console.log(error);
-        this.errorMessage = error.message;
+        this.errorMessage = "There was an error logging in";
       }
     },
     forgotPassword() {
+      this.errorMessage = ''
       Auth.forgotPassword(this.email2)
           .then(data => console.log(data))
-          .catch(err => console.log(err));
+          .catch(err => this.errorMessage=err);
       this.forgotVisible = false
       this.newVisible = true
     },
     newPassword() {
+      this.errorMessage = ''
       Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
           .then(data => console.log(data))
-          .catch(err => console.log(err));
+          .catch(err => this.errorMessage=err);
       this.newVisible = false
       this.loginVisible = true
     },
     pushDashboard() {router.push("/driverdashboard")},
-    pushLogin() {router.push("/login")}
+    pushLogin() {this.isAuth = false;}
     },
   }
 </script>
