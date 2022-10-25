@@ -115,7 +115,7 @@ export default {
             router.push('/login')
           }
         })
-        
+
         this.isValid = true;
         this.isNotValid = false;
       } catch (error) {

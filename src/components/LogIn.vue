@@ -17,7 +17,7 @@
             <br>
             {{ this.authMessage }}
 
-            <button @click="this.loginAccount()">Login</button>
+            <button type="button" @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me<br>
             Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
             <router-link :to="{ name: 'Home'}">
@@ -29,7 +29,7 @@
           <div class="container">
             <label>Email : </label>
             <input type="text" v-model="email2" placeholder="Enter Email" required>
-            <button @click="this.forgotPassword()">Send Reset Code</button>
+            <button type="button" @click="this.forgotPassword()">Send Reset Code</button>
             <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
       </form>
@@ -39,16 +39,18 @@
             <input type="text" v-model="new_password" placeholder="Enter New Password" required>
             <label>Confirmation Code (Sent to Email) : </label>
             <input type="text" v-model="code" placeholder="Confirmation Code" required>
-            <button @click="this.newPassword">Change Password</button>
+            <button type="button" @click="this.newPassword()">Change Password</button>
             <button @click="this.newVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
         </form>
+        <button v-show="isAuth" @click="pushDashboard()">Navigate to Dashboard</button>
     </body>
   </html> 
 </template> 
 
 <script>
 import {Auth} from "aws-amplify";
+import router from "@/router";
 
 export default {
   name: 'LogIn',
@@ -72,34 +74,37 @@ export default {
     }
   },
   methods: {
-      loginAccount() {
-        this.errorMessage = '';
-        try {
-          console.log("Attempting login...");
-          const user = Auth.signIn(this.email, this.password)
-          console.log(user)
-          console.log("Login complete")
-          this.isAuth = true
-        } catch (error) {
-          console.log("There was an error logging in");
-          console.log(error);
-          this.errorMessage = error.message;
-        }
-      },
-      forgotPassword() {
-        Auth.forgotPassword(this.email2)
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-        this.forgotVisible = false
-        this.newVisible = true
-      },
-      newPassword() {
-        Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-        this.newVisible = false
-        this.loginVisible = true
+    loginAccount() {
+      this.errorMessage = '';
+      try {
+        console.log("Attempting login...");
+        const user = Auth.signIn(this.email, this.password)
+        console.log(user)
+        console.log("Login complete")
+        this.isAuth = true
+      } catch (error) {
+        console.log("There was an error logging in");
+        console.log(error);
+        this.errorMessage = error.message;
       }
+    },
+    forgotPassword() {
+      Auth.forgotPassword(this.email2)
+          .then(data => console.log(data))
+          .catch(err => console.log(err));
+      this.forgotVisible = false
+      this.newVisible = true
+    },
+    newPassword() {
+      Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
+          .then(data => console.log(data))
+          .catch(err => console.log(err));
+      this.newVisible = false
+      this.loginVisible = true
+    },
+    pushDashboard() {
+      router.push("/driverdashboard")
+    }
     },
   }
 </script>
