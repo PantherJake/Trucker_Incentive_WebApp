@@ -25,10 +25,10 @@ const router = createRouter({
     routes
 })
 
-router.beforeResolve(async (to, from, next) => {
+router.beforeResolve((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         try {
-            await Auth.currentAuthenticatedUser();
+            Auth.currentAuthenticatedUser().then(r => console.log(r));
             next();
         } catch (e) {
             console.log("User not authenticated")

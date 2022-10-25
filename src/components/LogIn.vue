@@ -71,7 +71,7 @@ export default {
     }
   },
   methods: {
-    loginAccount() {
+    async loginAccount() {
       this.authenticating = true
       this.errorMessage = ''
       try {
@@ -81,7 +81,7 @@ export default {
 
         this.authenticating = false
         console.log("Login successful!")
-        router.push('/driverdashboard')
+        await router.push('/driverdashboard')
       } catch (error) {
         console.log("There was an error logging in")
         this.authenticating = false
@@ -137,11 +137,6 @@ input[type=text], input[type=password], input[type=email] {
 }
   button:hover {   
     opacity: 0.7;
-  }
-  .cancelbtn {   
-    width: auto;
-    padding: 10px 18px;
-    margin: 10px 5px;
   }
   .container {   
     padding: 25px;

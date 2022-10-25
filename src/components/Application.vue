@@ -71,7 +71,7 @@ export default {
     }
   },
   methods: {
-    async verifyEmail() {
+    verifyEmail() {
       Auth.verifyCurrentUserAttributeSubmit('email', this.code)
         .then(() => {
           console.log('phone_number verified');
@@ -80,13 +80,13 @@ export default {
           console.log('failed with error', e);
       });
     },
-    async createAccount() {
+    createAccount() {
       this.errorMessage = '';
       this.isNotValid = true;
 
       try {
         console.log("Initiating cognito authentication...")
-        await Auth.signUp({
+        Auth.signUp({
           username: this.username,
           password: this.password,
           attributes: {
@@ -108,7 +108,7 @@ export default {
 
       try {
         console.log("Initiating database connection...");
-        const response = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
+        const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -164,11 +164,6 @@ input[type=text], input[type=password] {
 }
 button:hover {
   opacity: 0.7;
-}
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  margin: 10px 5px;
 }
 .container {
   padding: 25px;
