@@ -7,7 +7,7 @@
     <body>
     <img src="../assets/appLogoSmall.png"  alt=""/>
     <h1> Driver Incentive Application </h1>
-        <form v-show="this.isNotValid">
+        <form v-if="this.isNotValid">
           <div class="container">
               <label>Email : </label>
               <input type="text" v-model="username" placeholder="Enter Email" required>
@@ -31,7 +31,7 @@
               <button @click="createAccount()">Submit Application</button>
           </div>
         </form>
-        <form v-show="this.isValid">
+        <form v-else>
           <div class="container">
             <label>Verification Code : </label>
             <input type="text" v-model="code" placeholder="Enter verification code" required>
