@@ -46,7 +46,7 @@
 </template> 
 
 <script>
-import {Auth} from "aws-amplify";
+import {Auth, Hub} from "aws-amplify";
 import router from "@/router";
 
 export default {
@@ -62,6 +62,8 @@ export default {
       phone: '',
       address: '',
       role: '',
+
+      user: '',
 
       isRemember: false,
       isValid: false,
@@ -101,8 +103,19 @@ export default {
             enabled: true,
           }
         }).catch(e => this.errorMessage = e)
+
         console.log(user)
         console.log("Pending user...")
+
+        Hub.listen('auth', ({ payload }) => {
+          const { event } = payload;
+          if (event === 'autoSignIn') {
+            this.user = payload.data
+          } else if (event === 'autoSignIn_failure') {
+            router.push('/login')
+          }
+        })
+        
         this.isValid = true;
         this.isNotValid = false;
       } catch (error) {
