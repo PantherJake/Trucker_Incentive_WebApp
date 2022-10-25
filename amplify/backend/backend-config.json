@@ -1,6 +1,6 @@
 {
   "auth": {
-    "team8webapp91ada5fc": {
+    "team8webappeef6d753": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
