@@ -15,7 +15,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> User's Points Information </h1>
+  <h1> {{this.name}}'s Points Information </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a href="/driverdashboard">Home</a>
@@ -40,16 +40,28 @@
 </template>
 
 <script>
+import {Auth} from "aws-amplify";
+
 export default {
   name: 'DriverPoints',
   data() {
     return {
       orgID: '1',
       driverID: '1',
-      response: []
+
+      userObj: '',
+      user: [],
+      response: [],
+      name: ''
     }
   },
-  created() {
+  async created() {
+    this.userObj = await Auth.currentAuthenticatedUser()
+        .then(response => this.userObj = JSON.stringify(response))
+        .catch(e => console.log(e))
+    this.user = JSON.parse(this.userObj)
+    this.name = this.user.attributes.given_name
+
     try {
       const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers/?orgid=1&limit=10", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.

@@ -14,8 +14,13 @@
       <div class="dot-text">Profile</div>
     </router-link>
   </div>
+  <div class="dot" @click="signOut">
+    <router-link :to="{ name: 'LogInPage' }">
+     <div class="dot-text">Sign Out</div>
+    </router-link>
+  </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> User's Driver Incentive Dashboard </h1>
+  <h1> {{this.name}}'s Driver Incentive Dashboard </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a class="active" href="/driverdashboard">Home</a>
@@ -31,17 +36,37 @@
   <div class="mainbox">
     <p>Welcome to your Dashboard for the Driver Incentive App!</p>
   </div>
-  <ContactSupport />
   </body>
   </html>
 </template>
 
 <script>
-import ContactSupport from '@/components/extras/ContactSupport';
+import {Auth} from "aws-amplify";
 export default {
   name: 'DriverDashboard',
-  components:
-    ContactSupport
+  data() {
+    return {
+      userObj: '',
+      user: [],
+      name: ''
+    }
+  },
+  async created() {
+    this.userObj = await Auth.currentAuthenticatedUser()
+        .then(response => this.userObj = JSON.stringify(response))
+        .catch(e => console.log(e))
+    this.user = JSON.parse(this.userObj)
+    this.name = this.user.attributes.given_name
+  },
+  methods: {
+  async signOut() {
+      try {
+        await Auth.signOut();
+      } catch (error) {
+        console.log('error signing out: ', error);
+      }
+    }
+  }
 }
 </script>
 
@@ -144,5 +169,4 @@ h1 {
 p {
   text-align: center;
 }
-
 </style>
