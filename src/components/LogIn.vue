@@ -44,6 +44,7 @@
           </div>
         </form>
         <button v-show="this.isAuth" @click="pushDashboard()">Navigate to Dashboard</button>
+        <button v-show="this.isAuth" @click="pushLogin()">Return to Login</button>
     </body>
   </html> 
 </template> 
@@ -78,10 +79,12 @@ export default {
       this.errorMessage = '';
       try {
         console.log("Attempting login...");
-        const user = Auth.signIn(this.email, this.password)
+        const user = Auth.signIn(this.email, this.password).catch(e => this.errorMessage=e)
         console.log(user)
         console.log("Login complete")
-        this.isAuth = true
+        if(this.errorMessage.length === 0) {
+          this.isAuth = true
+        }
       } catch (error) {
         console.log("There was an error logging in");
         console.log(error);
@@ -102,9 +105,8 @@ export default {
       this.newVisible = false
       this.loginVisible = true
     },
-    pushDashboard() {
-      router.push("/driverdashboard")
-    }
+    pushDashboard() {router.push("/driverdashboard")},
+    pushLogin() {router.push("/login")}
     },
   }
 </script>

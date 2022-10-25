@@ -28,14 +28,14 @@
               <input type="text" v-model="address" placeholder="Home Address" required>
               {{ this.errorMessage }}
 
-              <button @click="createAccount()">Submit Application</button>
+              <button type="button" @click="createAccount()">Submit Application</button>
           </div>
         </form>
         <form v-else>
           <div class="container">
             <label>Verification Code : </label>
             <input type="text" v-model="code" placeholder="Enter verification code" required>
-            <button @click="verifyEmail()">Submit</button>
+            <button type="button" @click="verifyEmail()">Submit</button>
           </div>
         </form>
     <router-link :to="{ name: 'Home'}">
