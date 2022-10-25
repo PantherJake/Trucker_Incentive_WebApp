@@ -8,7 +8,7 @@ const routes = [
     {path: '/apply', name:'ApplicationPage', component: ()=>import('@/views/ApplicationPage')},
     {path: '/profile', name:'ProfilePage', component: ()=>import('@/views/ProfilePage')},
     {path: '/cart', name:'CartPage', component: ()=>import('@/views/CartPage')},
-    {path: '/driverdashboard', name:'DriverDashboardPage', component: ()=>import('@/views/DriverDashboardPage'), meta: {requiresAuth: true}},
+    {path: '/driverdashboard', name:'DriverDashboardPage', component: ()=>import('@/views/DriverDashboardPage')},
     {path: '/sponsordashboard', name:'SponsorDashboardPage', component: ()=>import('@/views/SponsorDashboardPage')},
     {path: '/admindashboard', name:'AdminDashboardPage', component: ()=>import('@/views/AdminDashboardPage')},
     {path: '/driverdashboard/points', name:'DriverPointsPage', component: ()=>import('@/components/driver/DriverPoints')},
@@ -20,6 +20,7 @@ const routes = [
     {path: '/admindashboard/drivers', name:'AdminDriversPage', component: ()=>import('@/components/admin/AdminDrivers')}
 ]
 
+// meta: {requiresAuth: true}
 const router = createRouter({
     history: createWebHistory(),
     routes

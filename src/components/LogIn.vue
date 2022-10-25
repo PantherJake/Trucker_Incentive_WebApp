@@ -14,6 +14,8 @@
             <label>Password : </label>
             <input type="password" v-model="password" placeholder="Enter Password" required>
             {{ this.errorMessage }}
+            <br>
+            {{ this.authMessage }}
 
             <button @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me<br>
@@ -23,8 +25,7 @@
             </router-link>
           </div>
         </form>
-      <button @click="signOut()">Sign Out</button>
-
+      <button @click="fedSignIn">Fed Sign</button>
       <form v-show="this.forgotVisible">
           <div class="container">
             <label>Email : </label>
@@ -33,7 +34,7 @@
             <button @click="this.forgotVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
         </form>
-        <form v-show="this.newVisible">
+      <form v-show="this.newVisible">
           <div class="container">
             <label>New Password : </label>
             <input type="text" v-model="new_password" placeholder="Enter New Password" required>
@@ -49,10 +50,9 @@
 
 <script>
 import {Auth} from "aws-amplify";
-import router from '@/router';
 
 export default {
-  name: 'LoginPage',
+  name: 'LogIn',
   data() {
     return {
       loginVisible: true,
@@ -68,31 +68,26 @@ export default {
       code: '',
 
       info: '',
-      authenticating: false,
-      errorMessage: ''
+      errorMessage: '',
+      authMessage: ''
     }
   },
   methods: {
     loginAccount() {
-      this.authenticating = true;
       this.errorMessage = '';
       try {
         console.log("Attempting login...");
-        Auth.signIn(this.email, this.password);
-        this.authenticating = false;
-        console.log("Login successful!");
-        router.push('/driverdashboard');
+        const user = Auth.signIn(this.email, this.password)
+        console.log(user.body)
+        if(user.body) {
+          console.log("Login complete")
+          this.isAuth = true
+        }
       } catch (error) {
         console.log("There was an error logging in");
-        this.authenticating = false;
-
         console.log(error);
         this.errorMessage = error.message;
       }
-    },
-    signOut() {
-      const obj = Auth.signOut()
-      console.log(obj)
     },
     forgotPassword() {
       Auth.forgotPassword(this.email2)
