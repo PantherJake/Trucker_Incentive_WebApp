@@ -23,7 +23,9 @@
             </router-link>
           </div>
         </form>
-        <form v-show="this.forgotVisible">
+      <button @click="signOut()">Sign Out</button>
+
+      <form v-show="this.forgotVisible">
           <div class="container">
             <label>Email : </label>
             <input type="text" v-model="email2" placeholder="Enter Email" required>
@@ -71,24 +73,26 @@ export default {
     }
   },
   methods: {
-    async loginAccount() {
-      this.authenticating = true
-      this.errorMessage = ''
+    loginAccount() {
+      this.authenticating = true;
+      this.errorMessage = '';
       try {
-        console.log("Attempting login...")
-        const user = Auth.signIn(this.email, this.password)
-        console.log(user)
-
-        this.authenticating = false
-        console.log("Login successful!")
-        await router.push('/driverdashboard')
+        console.log("Attempting login...");
+        Auth.signIn(this.email, this.password);
+        this.authenticating = false;
+        console.log("Login successful!");
+        router.push('/driverdashboard');
       } catch (error) {
-        console.log("There was an error logging in")
-        this.authenticating = false
+        console.log("There was an error logging in");
+        this.authenticating = false;
 
-        console.log(error)
-        this.errorMessage = error.message
+        console.log(error);
+        this.errorMessage = error.message;
       }
+    },
+    signOut() {
+      const obj = Auth.signOut()
+      console.log(obj)
     },
     forgotPassword() {
       Auth.forgotPassword(this.email2)
