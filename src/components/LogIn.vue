@@ -7,7 +7,7 @@
     <body>    
       <img src="../assets/appLogoSmall.png"  alt=""/>
       <h1 style="align-self: center;"> Driver Incentive Login </h1>
-        <form v-show="this.loginVisible">
+        <form v-show="this.loginVisible && !this.isAuth">
           <div class="container">
             <label>Email : </label>
             <input type="email" v-model="email" placeholder="Enter Email" required>
@@ -43,7 +43,7 @@
             <button @click="this.newVisible = false; this.loginVisible = true;">Cancel</button>
           </div>
         </form>
-        <button v-show="isAuth" @click="pushDashboard()">Navigate to Dashboard</button>
+        <button v-show="this.isAuth" @click="pushDashboard()">Navigate to Dashboard</button>
     </body>
   </html> 
 </template> 
