@@ -42,6 +42,7 @@
 
 <script>
 import {Auth} from "aws-amplify";
+import router from "@/router";
 export default {
   name: 'DriverDashboard',
   data() {
@@ -52,11 +53,17 @@ export default {
     }
   },
   async created() {
-    this.userObj = await Auth.currentAuthenticatedUser()
-        .then(response => this.userObj = JSON.stringify(response))
-        .catch(e => console.log(e))
-    this.user = JSON.parse(this.userObj)
-    this.name = this.user.attributes.given_name
+    try {
+      this.userObj = await Auth.currentAuthenticatedUser()
+          .then(response => this.userObj = JSON.stringify(response))
+          .catch(e => console.log(e))
+      this.user = JSON.parse(this.userObj)
+      this.name = this.user.attributes.given_name
+    } catch(e) {
+      console.log(e)
+      console.log("FATAL: No user authenticated")
+      await router.push('/login')
+    }
   },
   methods: {
   async signOut() {

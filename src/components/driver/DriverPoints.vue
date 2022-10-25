@@ -41,6 +41,7 @@
 
 <script>
 import {Auth} from "aws-amplify";
+import router from "@/router";
 
 export default {
   name: 'DriverPoints',
@@ -56,12 +57,18 @@ export default {
     }
   },
   async created() {
-    this.userObj = await Auth.currentAuthenticatedUser()
-        .then(response => this.userObj = JSON.stringify(response))
-        .catch(e => console.log(e))
-    this.user = JSON.parse(this.userObj)
-    this.name = this.user.attributes.given_name
-
+    try {
+      this.userObj = await Auth.currentAuthenticatedUser()
+          .then(response => this.userObj = JSON.stringify(response))
+          .catch(e => console.log(e))
+      this.user = JSON.parse(this.userObj)
+      this.name = this.user.attributes.given_name
+    } catch(e) {
+      console.log(e)
+      console.log("FATAL: No user authenticated")
+      await router.push('/login')
+    }
+    
     try {
       const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers/?orgid=1&limit=10", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
