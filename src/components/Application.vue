@@ -118,7 +118,7 @@ export default {
         .then(response => this.userObj = JSON.stringify(response))
         .catch(e => this.errorMessage = e)
 
-        this.user = JSON.parse(this.userObj)
+        if(this.userObj) this.user = JSON.parse(this.userObj)
         console.log("Pending user...")
 
         if(this.user.user.username === this.username) {

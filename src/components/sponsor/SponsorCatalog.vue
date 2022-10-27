@@ -1,52 +1,82 @@
 <template>
-    <html>
-    <head>  
-      <meta name="viewport" content="width=device-width, initial-scale=1">  
-      <title> Driver Dashboard </title>    
-    </head>    
-      <body>
-        <div class="dot">
-          <div class="dot-text"><a href="#profile">Profile</a></div>
-        </div>
-        <center> <img src="../../assets/appLogoSmall.png" /> </center>
-        <center><h1> Driver Incentive Home </h1></center>
-            <center><div class="topnav">
-                <a href="/sponsordashboard">Home</a>
-                <a href="/sponsordashboard/points">Points</a>
-                <a class="active" href="/catalog">Catalog</a>
-                <a href="/sponsordashboard/drivers">Drivers</a>
-            </div></center>
-            <center><ul class="breadcrumb">
-              <li><a href="/sponsordashboard/catalog">Catalog</a></li>
-            </ul></center>
-            <center><div class="mainbox">
-              <center><p>Welcome to the Catalog Page for the Driver Incentive Application!</p></center>
-            </div></center>
-      </body>     
-    </html> 
+  <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Driver Dashboard </title>
+  </head>
+  <body>
+  <div class="dot">
+    <div class="dot-text"><a href="#profile">Profile</a></div>
+  </div>
+  <center> <img src="../assets/appLogoSmall.png" /> </center>
+  <center><h1> Driver Incentive Home </h1></center>
+  <center><div class="topnav">
+    <a href="/sponsordashboard">Home</a>
+    <a href="/sponsordashboard/points">Points</a>
+    <a class="active" href="/catalog">Catalog</a>
+    <a href="/sponsordashboard/drivers">Drivers</a>
+  </div></center>
+  <center><ul class="breadcrumb">
+    <li><a href="/sponsordashboard/catalog">Catalog</a></li>
+  </ul></center>
+  <center><div class="mainbox">
+    <center><p>Welcome to the Catalog Page for the Driver Incentive Application!</p></center>
+    <select name="searchOption" id="searchOption">
+      <option value="music">Music</option>
+      <option value="movie">Movie</option>
+      <option value="podcast">Podcast</option>
+      <option value="musicVideo">Music Video</option>
+      <option value="audiobook">Audiobook</option>
+      <option value="shortFilm">Short Film</option>
+      <option value="tvShow">TV Show</option>
+      <option value="software">Software</option>
+      <option value="ebook">Ebook</option>
+      <option value="all">All</option>
+    </select>
+    <input v-model="songInput" placeholder="Type keywords"/>
+    <button @click="getSong(songInput)">Search</button>
+  </div></center>
+  </body>
+  </html>
 </template>
 
-<style>   
-Body {  
-  font-family: Calibri, Helvetica, sans-serif;  
-  background-color: #008037; 
-  font-size: 20px; 
-}           
-.topnav {      
-    background-color: #7ed957;  
-    border-style: solid;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    filter: drop-shadow(10px 8px 8px black);
-}   
-.topnav a {      
-    color: black;
-    padding: 14px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-} 
+<script>
+import { itunesApiRequestSong, itunesApiRequestMovie } from "./iTunesAPI.js";
+
+export default{
+  methods: {
+    getSong(songInput) {
+      itunesApiRequestSong(songInput);
+    },
+    getMovie(movieInput) {
+      itunesApiRequestMovie(movieInput);
+    }
+  }
+}
+
+</script>
+
+<style>
+Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: #008037;
+  font-size: 20px;
+}
+.topnav {
+  background-color: #7ed957;
+  border-style: solid;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  filter: drop-shadow(10px 8px 8px black);
+}
+.topnav a {
+  color: black;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
 .topnav a:hover {
   background-color: #ddd;
   color: black;
