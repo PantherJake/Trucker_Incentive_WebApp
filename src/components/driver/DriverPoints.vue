@@ -30,7 +30,7 @@
   <br>
   <div class="mainbox">
     <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
-    {{this.response}}
+    {{this.rank}}
   </div>
   <div class="mainbox">
     <p class="mainbox-text">My Points</p>
@@ -52,8 +52,10 @@ export default {
 
       userObj: '',
       user: [],
-      response: [],
-      name: ''
+      name: '',
+
+      rankObj: '',
+      rank: []
     }
   },
   async created() {
@@ -68,9 +70,9 @@ export default {
       console.log("FATAL: No user authenticated")
       await router.push('/login')
     }
-    
+
     try {
-      const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers/?orgid=1&limit=10", {
+      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers/?orgid=1&limit=10", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -78,9 +80,9 @@ export default {
         headers: {
           'Content-Type': 'application/json',
         },
-      });
-      console.log(response)
-      this.response = response
+      }).then(response => this.rankObj = JSON.stringify(response));
+      this.rank = JSON.parse(this.rankObj)
+      console.log(this.rank)
     } catch (error) {
       console.log(error);
     }
