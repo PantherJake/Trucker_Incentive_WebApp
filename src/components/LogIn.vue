@@ -68,6 +68,9 @@ export default {
       userObj: '',
       user: [],
 
+      dbObj: '',
+      db: [],
+
       email2: '',
       new_password: '',
       code: '',
@@ -87,6 +90,23 @@ export default {
 
         console.log(this.email)
         console.log(this.user.username)
+
+        try {
+          this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then(response => this.dbObj = JSON.stringify(response));
+          this.db = JSON.parse(this.dbObj)
+          console.log(this.db)
+        } catch (error) {
+          console.log(error);
+        }
+
         if(this.user.username === this.email) {
           console.log("Login complete")
           this.isAuth = true

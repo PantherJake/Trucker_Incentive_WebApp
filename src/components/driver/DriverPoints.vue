@@ -105,6 +105,7 @@ export default {
 </script>
 
 <style>
+style>
 Body {
   font-family: Calibri, Helvetica, sans-serif;
   background-color: #008037;
@@ -202,17 +203,5 @@ h1 {
 }
 p {
   text-align: center;
-}
-.leaderboard{
-  background-color:#7ed957;
-  width: 350px;
-  height: 300px;
-  padding: 5px 5px 5px 5px;
-  border-style: solid;
-  border-color:#c9e265;
-  position: fixed;
-  left: 400px;
-  display: block;
-  filter: drop-shadow(10px 8px 8px black);
 }
 </style>
