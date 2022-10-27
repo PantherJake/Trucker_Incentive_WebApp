@@ -6,7 +6,7 @@
   </head>
   <body>
   <img src="@/assets/appLogoSmall.png" alt=""/>
-  <h1> User's Cart </h1>
+  <h1> {{ this.name }}'s Shopping Cart </h1>
   <div class="mainbox">
 <!--  Implement Shopping Cart  -->
   </div>
@@ -24,6 +24,13 @@ import router from "@/router";
 
 export default {
   name: "CartPage",
+  data() {
+    return {
+      name: '',
+      userObj: '',
+      user: []
+    }
+  },
   async created() {
     try {
       this.userObj = await Auth.currentAuthenticatedUser()

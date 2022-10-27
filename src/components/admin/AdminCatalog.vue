@@ -8,7 +8,7 @@
   <div class="dot">
     <div class="dot-text"><a href="#profile">Profile</a></div>
   </div>
-  <center> <img src="../assets/appLogoSmall.png" /> </center>
+  <center> <img src="../../assets/appLogoSmall.png" /> </center>
   <center><h1> Driver Incentive Home </h1></center>
   <center><div class="topnav">
     <a href="/admindashboard">Home</a>

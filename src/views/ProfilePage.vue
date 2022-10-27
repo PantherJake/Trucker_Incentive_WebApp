@@ -6,13 +6,12 @@
   </head>
   <body>
     <img src="@/assets/appLogoSmall.png" alt=""/>
-    <h1> User's Profile </h1>
+    <h1> {{ this.name }}'s Profile </h1>
     <div class="mainbox">
       <div>
-        Email :
+        Email : {{ this.email }}
       </div>
       <div>
-        Password :
         <button>Change Password</button>
       </div>
     </div>
@@ -29,6 +28,14 @@ import router from "@/router";
 
 export default {
   name: "ProfilePage",
+  data() {
+    return {
+      name: '',
+      email: '',
+      userObj: '',
+      user: []
+    }
+  },
   async created() {
     try {
       this.userObj = await Auth.currentAuthenticatedUser()
@@ -36,6 +43,7 @@ export default {
           .catch(e => console.log(e))
       this.user = JSON.parse(this.userObj)
       this.name = this.user.attributes.given_name
+      this.email = this.user.attributes.email
     } catch(e) {
       console.log(e)
       console.log("FATAL: No user authenticated")
