@@ -14,6 +14,11 @@
       <div class="dot-text">Profile</div>
     </router-link>
   </div>
+  <div class="dot" @click="signOut">
+    <router-link :to="{ name: 'LogInPage' }">
+      <div class="dot-text">Sign Out</div>
+    </router-link>
+  </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
   <h1> {{ this.name }}'s Catalog </h1>
   <div class="topnav">
@@ -61,6 +66,15 @@ export default {
       await router.push('/login')
     }
   },
+  methods: {
+    async signOut() {
+      try {
+        await Auth.signOut();
+      } catch (error) {
+        console.log('error signing out: ', error);
+      }
+    }
+  }
 }
 </script>
 

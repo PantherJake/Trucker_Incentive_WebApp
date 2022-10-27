@@ -14,6 +14,11 @@
       <div class="dot-text">Profile</div>
     </router-link>
   </div>
+  <div class="dot" @click="signOut">
+    <router-link :to="{ name: 'LogInPage' }">
+      <div class="dot-text">Sign Out</div>
+    </router-link>
+  </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
   <h1> {{this.name}}'s Points Information </h1>
   <div class="topnav">
@@ -85,6 +90,15 @@ export default {
       console.log(this.rank)
     } catch (error) {
       console.log(error);
+    }
+  },
+  methods: {
+    async signOut() {
+      try {
+        await Auth.signOut();
+      } catch (error) {
+        console.log('error signing out: ', error);
+      }
     }
   }
 }
