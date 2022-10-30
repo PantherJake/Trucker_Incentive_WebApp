@@ -88,9 +88,6 @@ export default {
             .catch(e => this.errorMessage=e)
         this.user = JSON.parse(this.userObj)
 
-        console.log(this.email)
-        console.log(this.user.username)
-
         try {
           this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -99,16 +96,18 @@ export default {
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
               'Content-Type': 'application/json',
+              'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+              'username': this.user.username
             },
           }).then(response => this.dbObj = JSON.stringify(response));
           this.db = JSON.parse(this.dbObj)
           console.log(this.db)
         } catch (error) {
-          console.log(error);
+          this.errorMessage=error
         }
 
         if(this.user.username === this.email) {
-          console.log("Login complete")
+          console.log("Login successful...")
           this.isAuth = true
         }
       } catch (error) {
