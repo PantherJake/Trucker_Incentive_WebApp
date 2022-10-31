@@ -35,7 +35,7 @@
   <br>
   <div class="mainbox">
     <p>Welcome to the Catalog for your Sponsor!</p>
-    <select name="searchOption" v-model="this.mediaType" id="searchOption">
+    <select class="mediaInput" name="searchOption" v-model="this.mediaType" id="searchOption">
       <option value="music">Music</option>
       <option value="movie">Movie</option>
       <option value="podcast">Podcast</option>
@@ -47,11 +47,13 @@
       <option value="ebook">Ebook</option>
       <option value="all">All</option>
     </select>
-    <input v-model="this.mediaInput" placeholder="Type keywords"/>
-    <button @click="getMedia()">Search</button>
+    <input class="searchText" v-model="this.mediaInput" placeholder="Type keywords"/>
+    <button class="searchButton" @click="getMedia()">Search</button>
     <ol v-for="result in this.m.results" :key="result">
       {{result}}
     </ol>
+    <br>
+    {{ this.noResults }}
   </div>
   </body>
   </html>
@@ -74,6 +76,8 @@ export default {
       mediaType: '',
       media: '',
       m: [],
+      noResults: "",
+      isResults: false
     }
   },
   async created() {
@@ -100,6 +104,13 @@ export default {
     async getMedia() {
       this.media = await itunesApiRequestMedia(this.mediaInput, this.mediaType);
       this.m = JSON.parse(this.media)
+      if(this.m.resultCount === 0) {
+        this.noResults = "No search results found"
+        this.isResults = false
+      }
+      else {
+        this.isResults = true
+      }
     },
   }
 }
@@ -204,5 +215,25 @@ h1 {
 p {
   text-align: center;
 }
-
+.mediaInput {
+  margin-top: 0;
+  margin-left: 8rem;
+  margin-right: 1rem;
+  width: 10rem;
+  height: 4rem;
+}
+.searchButton {
+  margin-top: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 10rem;
+  height: 4rem;
+}
+.searchText {
+  margin-top: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 10rem;
+  height: 4rem;
+}
 </style>
