@@ -35,6 +35,23 @@
   <br>
   <div class="mainbox">
     <p>Welcome to the Catalog for your Sponsor!</p>
+    <select name="searchOption" v-model="this.mediaType" id="searchOption">
+      <option value="music">Music</option>
+      <option value="movie">Movie</option>
+      <option value="podcast">Podcast</option>
+      <option value="musicVideo">Music Video</option>
+      <option value="audiobook">Audiobook</option>
+      <option value="shortFilm">Short Film</option>
+      <option value="tvShow">TV Show</option>
+      <option value="software">Software</option>
+      <option value="ebook">Ebook</option>
+      <option value="all">All</option>
+    </select>
+    <input v-model="this.mediaInput" placeholder="Type keywords"/>
+    <button @click="getMedia()">Search</button>
+    <ol v-for="result in this.m.results" :key="result">
+      {{result}}
+    </ol>
   </div>
   </body>
   </html>
@@ -43,6 +60,7 @@
 <script>
 import {Auth} from "aws-amplify";
 import router from "@/router";
+import {itunesApiRequestMedia} from "@/components/iTunesAPI";
 
 export default {
   name: "CartPage",
@@ -50,7 +68,12 @@ export default {
     return {
       name: '',
       userObj: '',
-      user: []
+      user: [],
+
+      mediaInput: '',
+      mediaType: '',
+      media: '',
+      m: [],
     }
   },
   async created() {
@@ -73,7 +96,11 @@ export default {
       } catch (error) {
         console.log('error signing out: ', error);
       }
-    }
+    },
+    async getMedia() {
+      this.media = await itunesApiRequestMedia(this.mediaInput, this.mediaType);
+      this.m = JSON.parse(this.media)
+    },
   }
 }
 </script>

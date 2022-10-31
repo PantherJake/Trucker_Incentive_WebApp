@@ -127,34 +127,34 @@ export default {
         }
       } catch (error) {
         console.log(error);
-        this.errorMessage = error.message;
+        this.errorMessage = error;
       }
 
-      // try {
-      //   console.log("Initiating database connection...");
-      //   const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
-      //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      //     mode: 'cors', // no-cors, *cors, same-origin
-      //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      //     credentials: 'same-origin', // include, *same-origin, omit
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({
-      //       fname: this.fname,
-      //       mname: this.mname,
-      //       lname: this.lname,
-      //       roleID: 1,
-      //       email: this.username,
-      //       orgID: 1
-      //     })
-      //   });
-      //   console.log("Established, user is in...");
-      //   console.log(response);
-      // } catch (error) {
-      //   console.log(error);
-      //   this.dbError = error;
-      // }
+      try {
+        console.log("Initiating database connection...");
+        const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fname: this.fname,
+            mname: this.mname,
+            lname: this.lname,
+            roleID: 1,
+            email: this.username,
+            orgID: 1
+          })
+        });
+        console.log("Established, user is in...");
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+        this.dbError = error;
+      }
     }
   },
 }

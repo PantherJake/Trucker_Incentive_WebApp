@@ -85,7 +85,10 @@ export default {
         console.log("Attempting login...");
         await Auth.signIn(this.email, this.password)
             .then(response => this.userObj = JSON.stringify(response))
-            .catch(e => this.errorMessage=e)
+            .catch(e => {
+              console.log(e)
+              this.errorMessage="Username or password incorrect"
+            })
         this.user = JSON.parse(this.userObj)
 
         try {
@@ -103,7 +106,8 @@ export default {
           this.db = JSON.parse(this.dbObj)
           console.log(this.db)
         } catch (error) {
-          this.errorMessage=error
+          console.log(error)
+          this.errorMessage="Error fetching user data from database"
         }
 
         if(this.user.username === this.email) {
@@ -112,7 +116,6 @@ export default {
         }
       } catch (error) {
         console.log(error);
-        this.errorMessage = "There was an error logging in";
       }
     },
     forgotPassword() {
@@ -127,7 +130,10 @@ export default {
       this.errorMessage = ''
       Auth.forgotPasswordSubmit(this.email2, this.code, this.new_password)
           .then(data => console.log(data))
-          .catch(err => this.errorMessage=err);
+          .catch(err => {
+            console.log(err)
+            this.errorMessage="Code was incorrect"
+          });
       this.newVisible = false
       this.loginVisible = true
     },
