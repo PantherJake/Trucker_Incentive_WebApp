@@ -139,6 +139,7 @@ export default {
           credentials: 'same-origin', // include, *same-origin, omit
           headers: {
             'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
           },
           body: JSON.stringify({
             fname: this.fname,
