@@ -35,21 +35,19 @@
     </select>
     <input v-model="songInput" placeholder="Type keywords"/>
     <button @click="getSong(songInput)">Search</button>
+    <button class="addButton">Add to Catalog</button>
   </div></center>
   </body>
   </html>
 </template>
 
 <script>
-import { itunesApiRequestSong, itunesApiRequestMovie } from "../iTunesAPI";
+import { itunesApiRequestSong } from "../iTunesAPI.js";
 
 export default{
   methods: {
     getSong(songInput) {
       itunesApiRequestSong(songInput);
-    },
-    getMovie(movieInput) {
-      itunesApiRequestMovie(movieInput);
     }
   }
 }
@@ -133,10 +131,46 @@ ul.breadcrumb li+li:before {
 }
 .mainbox{
   background-color:#7ed957;
-  width: 600px;
-  height: 300px;
+  width: 1000px;
+  height: 1000px;
   padding: 5px 5px 5px 5px;
   border-style: solid;
   border-color:#c9e265;
+}
+input{
+  height: 20px;
+  font-size: 18px;
+}
+select{
+  height: 25px;
+  margin-right: 5px;
+}
+button{
+  display: inline-block;
+  height: 25px;
+  width: 70px;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  padding: 0px;
+  margin-left: 5px;
+  font-weight: bold;
+  border: solid;
+  border-width: 1.5px;
+  background-color: #c9e265;
+}
+.addButton{
+  display: inline-block;
+  height: 25px;
+  width: 150px;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  padding: 0px;
+  margin-left: 20px;
+  font-weight: bold;
+  border: solid;
+  border-width: 1.5px;
+  background-color: #c9e265;
 }
 </style> 
