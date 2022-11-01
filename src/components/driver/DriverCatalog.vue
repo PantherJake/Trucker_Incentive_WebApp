@@ -110,6 +110,7 @@ export default {
       }
     },
     async getMedia() {
+      this.noResults = ""
       this.media = await itunesApiRequestMedia(this.mediaInput, this.mediaType);
       this.m = JSON.parse(this.media)
       if(this.m.resultCount === 0) {

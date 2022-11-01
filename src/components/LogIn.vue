@@ -18,7 +18,7 @@
 
             <button type="button" @click="this.loginAccount()">Login</button>
             <input type="checkbox" checked="checked">Remember me<br>
-            Forgot <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;"> password? </a>
+            <a href="#" @click="this.loginVisible = false; this.forgotVisible = true;">Forgot password? </a>
             <router-link :to="{ name: 'Home'}">
               <button>Return to Homepage</button>
             </router-link>
