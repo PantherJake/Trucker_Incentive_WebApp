@@ -49,9 +49,17 @@
     </select>
     <input class="searchText" v-model="this.mediaInput" placeholder="Type keywords"/>
     <button class="searchButton" @click="getMedia()">Search</button>
-    <ol v-for="result in this.m.results" :key="result">
-      {{result}}
-    </ol>
+    <div v-for="result in this.m.results" :key="result">
+      <div class="row">
+        <div class="column">
+          <img :src=result.artworkUrl100 alt=""/>
+          <p>{{result.trackName}}</p>
+          <p>{{result.artistName}}</p>
+          <p>Price: ${{result.trackPrice}}</p>
+          <button class="add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
     <br>
     {{ this.noResults }}
   </div>
@@ -195,9 +203,10 @@ ul.breadcrumb li+li:before {
   font-weight: bold;
 }
 .mainbox {
+  overflow: auto;
   background-color: #7ed957;
   width: 800px;
-  height: 300px;
+  height: 25rem;
   padding: 5px 5px 5px 5px;
   border-style: solid;
   border-color: #c9e265;
@@ -235,5 +244,18 @@ p {
   margin-right: 1rem;
   width: 10rem;
   height: 4rem;
+}
+.column {
+  float: left;
+  width: 25%;
+}
+p {
+  font-size: 1rem;
+  margin: 0;
+}
+.add {
+  width: 8rem;
+  display: block;
+  margin: auto;
 }
 </style>

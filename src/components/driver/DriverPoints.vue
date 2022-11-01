@@ -186,7 +186,7 @@ ul.breadcrumb li+li:before {
 .mainbox {
   background-color: #7ed957;
   width: 800px;
-  height: 300px;
+  height: 25rem;
   padding: 5px 5px 5px 5px;
   border-style: solid;
   border-color: #c9e265;

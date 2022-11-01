@@ -104,7 +104,7 @@ export default {
             },
           }).then(response => this.dbObj = JSON.stringify(response));
           this.db = JSON.parse(this.dbObj)
-          console.log(this.db.username)
+          console.log(this.db)
         } catch (error) {
           console.log(error)
           this.errorMessage="Error fetching user data from database"
