@@ -103,7 +103,7 @@ export default {
               'username': this.user.username
             },
           }).then(response => this.dbObj = response);
-          console.log(this.dbObj.body)
+          console.log(this.dbObj.body.users)
           // this.db = JSON.parse(this.dbObj)
           // console.log(this.db)
           // console.log(this.db.body)
