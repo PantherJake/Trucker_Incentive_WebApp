@@ -102,7 +102,8 @@ export default {
               'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
               'username': this.user.username
             },
-          }).then(response => console.log(response));
+          }).then(response => this.dbObj = response);
+          console.log(this.dbObj.body)
           // this.db = JSON.parse(this.dbObj)
           // console.log(this.db)
           // console.log(this.db.body)
