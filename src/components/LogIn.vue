@@ -91,32 +91,39 @@ export default {
             })
         this.user = JSON.parse(this.userObj)
 
-        try {
-          this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'application/json',
-              'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-              'username': this.user.username
-            },
-          }).then(response => this.dbObj = JSON.stringify(response));
-          console.log(this.dbObj)
-          this.db = JSON.parse(this.dbObj)
-          console.log(this.db)
-        } catch (error) {
-          console.log(error)
-          this.errorMessage="Error fetching user data from database"
-        }
-
+        this.dbObj = JSON.stringify(this.fetchData());
+        console.log(this.dbObj)
+        this.db = JSON.parse(this.dbObj)
+        console.log(this.db)
+        
         if(this.user.username === this.email) {
           console.log("Login successful...")
           this.isAuth = true
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+    fetchData() {
+      try {
+        let obj = ''
+        this.dbObj = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.user.username
+          },
+        }).then(response => {
+          obj = response;
+          return obj
+        })
+      } catch (error) {
+        console.log(error)
+        this.errorMessage="Error fetching user data from database"
       }
     },
     forgotPassword() {
