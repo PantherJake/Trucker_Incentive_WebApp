@@ -102,15 +102,13 @@ export default {
               'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
               'username': this.user.username
             },
-          }).then(response => this.dbObj = response.json)
+          }).then(response => this.dbObj = response.json).catch(e => console.log(e))
         } catch (error) {
           console.log(error)
           this.errorMessage="Error fetching user data from database"
         }
 
         console.log(this.dbObj)
-        this.db = JSON.parse(this.dbObj)
-        console.log(this.db)
 
         if(this.user.username === this.email) {
           console.log("Login successful...")
