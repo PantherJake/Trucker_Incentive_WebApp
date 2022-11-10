@@ -109,8 +109,8 @@ export default {
         }
 
         console.log(this.dbObj)
-        // this.db = JSON.parse(this.dbObj)
-        // console.log(this.db)
+        this.db = JSON.parse(this.dbObj)
+        console.log(this.db)
 
         if(this.user.username === this.email) {
           console.log("Login successful...")
