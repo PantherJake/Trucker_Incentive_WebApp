@@ -91,24 +91,24 @@ export default {
             })
         this.user = JSON.parse(this.userObj)
 
-        // try {
-        //   this.dbObj = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
-        //     method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        //     mode: 'cors', // no-cors, *cors, same-origin
-        //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        //     credentials: 'same-origin', // include, *same-origin, omit
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //       'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-        //       'username': this.user.username
-        //     },
-        //   }).then(response => this.dbObj = JSON.stringify(response))
-        // } catch (error) {
-        //   console.log(error)
-        //   this.errorMessage="Error fetching user data from database"
-        // }
+        try {
+          this.dbObj = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+              'username': this.user.username
+            },
+          }).then(response => this.dbObj = response.json)
+        } catch (error) {
+          console.log(error)
+          this.errorMessage="Error fetching user data from database"
+        }
 
-        // console.log(this.dbObj)
+        console.log(this.dbObj)
         // this.db = JSON.parse(this.dbObj)
         // console.log(this.db)
 
