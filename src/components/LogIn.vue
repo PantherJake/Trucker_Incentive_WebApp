@@ -109,9 +109,8 @@ export default {
         }
         console.log(this.dbObj)        
         console.log(this.dbObj.body)
-        console.log(this.dbObj.statusCode)
 
-        if(this.user.username === this.email) {
+        if(this.user.username === this.email && this.dbObj.statusCode === '200') {
           console.log("Login successful...")
           this.isAuth = true
         }
