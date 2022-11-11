@@ -92,7 +92,7 @@ export default {
         this.user = JSON.parse(this.userObj)
 
         try {
-          this.dbObj = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+          this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -108,7 +108,7 @@ export default {
           this.errorMessage="Error fetching user data from database"
         }
 
-        console.log(this.dbObj.body)
+        console.log(this.response.body)
 
         if(this.user.username === this.email) {
           console.log("Login successful...")
