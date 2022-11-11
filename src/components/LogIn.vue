@@ -107,8 +107,9 @@ export default {
           console.log(error)
           this.errorMessage="Error fetching user data from database"
         }
-
+        console.log(this.dbObj)        
         console.log(this.dbObj.body)
+        console.log(this.dbObj.statusCode)
 
         if(this.user.username === this.email) {
           console.log("Login successful...")
