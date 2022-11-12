@@ -69,6 +69,7 @@ export default {
 
       userObj: '',
       user: [],
+      dbObj: '',
 
       isRemember: false,
       isValid: false,
@@ -102,7 +103,45 @@ export default {
       this.isNotValid = true;
 
       try {
-        console.log("Initiating cognito authentication...")
+        console.log("Initiating database connection");
+        this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                orgid: "1",
+                role_id: "3",
+                fname: this.fname,
+                mname: this.mname,
+                lname: this.lname,
+                email: this.username,
+                dl_num: this.DLnumber,
+                address: this.address
+              },
+              header: {
+                username: this.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established")
+      console.log(this.dbObj.statusCode)
+
+      try {
+        console.log("Initiating cognito authentication")
         await Auth.signUp({
           username: this.username,
           password: this.password,
@@ -114,47 +153,21 @@ export default {
             middle_name: this.mname,
             phone_number: this.phone
           },
-        })
-        .then(response => this.userObj = JSON.stringify(response))
-        .catch(e => this.errorMessage = e)
-
+        }).then(response => this.userObj = JSON.stringify(response)).catch(e => this.errorMessage = e)
         if(this.userObj) this.user = JSON.parse(this.userObj)
-        console.log("Pending user...")
-
-        if(this.user.user.username === this.username) {
+        console.log("Cognito connection established")
+        
+        if(this.dbObj.statusCode === 400) {
+          this.dbError = this.dbObj.body.message
+        }
+        if(this.user.user.username === this.username && this.dbObj.statusCode === 200) {
+          console.log("User is pending")
           this.isValid = true;
           this.isNotValid = false;
         }
       } catch (error) {
         console.log(error);
         this.errorMessage = error;
-      }
-
-      try {
-        console.log("Initiating database connection...");
-        const response = fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/users", {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-          },
-          body: JSON.stringify({
-            fname: this.fname,
-            mname: this.mname,
-            lname: this.lname,
-            roleID: 1,
-            email: this.username,
-            orgID: 1
-          })
-        });
-        console.log("Established, user is in...");
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-        this.dbError = error;
       }
     }
   },
