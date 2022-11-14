@@ -83,7 +83,7 @@ export default {
 
     try {
       console.log("Getting rank information from DB")
-      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
+      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/1/drivers/3/rank", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -114,7 +114,7 @@ export default {
     }
     try{
       console.log("Getting point information from DB")
-      this.pntObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/points", {
+      this.pntObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/1/drivers/3/points", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
