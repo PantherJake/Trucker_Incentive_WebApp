@@ -60,7 +60,10 @@ export default {
       name: '',
 
       rankObj: '',
-      rank: []
+      rank: [],
+
+      pntObj: '',
+      points: []
     }
   },
   async created() {
@@ -75,19 +78,67 @@ export default {
       console.log("FATAL: No user authenticated")
       await router.push('/login')
     }
+// Max functions
+//    need to specify which organization they want to see the Point data or if we should just show all of it!
 
     try {
-      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers/?orgid=1&limit=10", {
+      console.log("Getting rank information from DB")
+      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+          'username': this.user.username
         },
-      }).then(response => this.rankObj = JSON.stringify(response));
+        body: JSON.stringify({
+          // path: {},
+          params: {
+            querystring: {
+              orgid: "1", //this.user.orgid, // testing 1
+              driverid: "3"//this.user.user_id // testing 3
+            },
+            header: {
+              username: this.username
+            }
+          },
+        })
+      }).then((response) => response.json()).catch(e => console.log(e));
       this.rank = JSON.parse(this.rankObj)
+      console.log(this.rankObj)
       console.log(this.rank)
+    } catch (error) {
+      console.log(error);
+    }
+    try{
+      console.log("Getting point information from DB")
+      this.pntObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/points", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+          'username': this.user.username
+        },
+        body: JSON.stringify({
+          // path: {},
+          params: {
+            querystring: {
+              driverid: "3" //this.user.user_id // testing 3
+            },
+            header: {
+              username: this.username
+            }
+          },
+        })
+      }).then((response) => response.json()).catch(e => console.log(e));
+      this.points = JSON.parse(this.pntObj)
+      console.log(this.pntObj)
+      console.log(this.points)
     } catch (error) {
       console.log(error);
     }
