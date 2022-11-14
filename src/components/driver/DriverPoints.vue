@@ -93,18 +93,18 @@ export default {
           'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
           'username': this.user.username
         },
-        body: JSON.stringify({
-          // path: {},
-          params: {
-            querystring: {
-              orgid: "1", //this.user.orgid, // testing 1
-              driverid: "3"//this.user.user_id // testing 3
-            },
-            header: {
-              username: this.username
-            }
-          },
-        })
+        // body: JSON.stringify({
+        //   // path: {},
+        //   params: {
+        //     querystring: {
+        //       orgid: "1", //this.user.orgid, // testing 1
+        //       driverid: "3"//this.user.user_id // testing 3
+        //     },
+        //     header: {
+        //       username: this.username
+        //     }
+        //   },
+        // })
       }).then((response) => response.json()).catch(e => console.log(e));
       this.rank = JSON.parse(this.rankObj)
       console.log(this.rankObj)
@@ -124,17 +124,17 @@ export default {
           'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
           'username': this.user.username
         },
-        body: JSON.stringify({
-          // path: {},
-          params: {
-            querystring: {
-              driverid: "3" //this.user.user_id // testing 3
-            },
-            header: {
-              username: this.username
-            }
-          },
-        })
+        // body: JSON.stringify({
+        //   // path: {},
+        //   params: {
+        //     querystring: {
+        //       driverid: "3" //this.user.user_id // testing 3
+        //     },
+        //     header: {
+        //       username: this.username
+        //     }
+        //   },
+        // })
       }).then((response) => response.json()).catch(e => console.log(e));
       this.points = JSON.parse(this.pntObj)
       console.log(this.pntObj)
