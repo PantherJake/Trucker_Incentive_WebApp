@@ -138,7 +138,7 @@ export default {
 
             })
 
-        this.AuditLogin()
+
         console.log(this.state)
         this.user = JSON.parse(this.userObj)
 
@@ -166,6 +166,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.AuditLogin()
     },
     forgotPassword() {
       this.errorMessage = ''
