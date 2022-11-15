@@ -11,7 +11,7 @@
           <div class="container">
             <label>Email : </label>
             <input type="text" v-model="username" placeholder="Enter Email" required>
-            <label>Password : (At least 1 uppercase, 1 lowercase and 1 special character)</label>
+            <label>Password : (At least 1 uppercase, 1 lowercase and 1 special character and at least 8 characters long)</label>
             <input type="password" v-model="password" placeholder="Enter Password"  required>
 
             <label>Organization ID: (needs to be a number) </label>
