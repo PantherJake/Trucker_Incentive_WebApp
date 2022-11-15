@@ -111,7 +111,7 @@ export default {
       console.log(this.dbObj.body.users)
       // console.log(this.db)
       // console.log(this.user.username)
-      // console.log(this.dbObj.body.users[`${this.user.username}`])
+      console.log(this.dbObj.body.users[`${this.user.username}`]['user_id'])
     }
 
     this.driverID = this.dbObj.body.users[`${this.user.username}`]["user_id"]
