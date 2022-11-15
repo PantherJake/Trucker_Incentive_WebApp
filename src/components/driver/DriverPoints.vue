@@ -20,7 +20,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body.Rank}} </h1>
+  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body.Ranking.Rank}} </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a href="/driverdashboard">Home</a>
@@ -34,13 +34,15 @@
   </div>
   <br>
   <div class="mainbox">
-    <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
-    {{this.topObj.body}}
+    <p class="mainbox-text">My Points</p>
+    {{this.pntObj.body.Points}}
+    {{this.dbObj.body.users}}
   </div>
   <div class="mainbox">
-    <p class="mainbox-text">My Points</p>
-    {{this.pntObj.body}}
+    <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
+    {{this.topObj.body.Ranking}}
   </div>
+
   </body>
   </html>
 </template>
@@ -69,7 +71,8 @@ export default {
       topObj: '',
       top: [],
 
-      dbObj: ''
+      dbObj: '',
+      db: []
     }
   },
   async created() {
@@ -104,8 +107,11 @@ export default {
       this.errorMessage="Error fetching user data from database"
     }
     if(this.dbObj.statusCode === 200) {
+      // db = JSON.parse(dbObj.body.users)
       console.log("User data retrieved succesfully:")
-      console.log(this.dbObj)
+      console.log(this.dbObj.body.users)
+      console.log(this.email)
+      console.log(this.dbObj.body.users[0])
     }
 
 
