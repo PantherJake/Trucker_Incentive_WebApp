@@ -20,7 +20,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body.Ranking.rank}} </h1>
+  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body["Ranking"]}} </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a href="/driverdashboard">Home</a>
@@ -35,7 +35,8 @@
   <br>
   <div class="mainbox">
     <p class="mainbox-text">My Points</p>
-    {{this.pntObj.body.Points}}
+    {{this.pntObj.body["Points"]}}
+    <br>
     {{this.dbObj.body.users}}
   </div>
   <div class="mainbox">
@@ -109,8 +110,8 @@ export default {
     if(this.dbObj.statusCode === 200) {
       console.log("User data retrieved succesfully:")
       console.log(this.dbObj.body.users)
-      console.log(this.user.username)
-      console.log(this.dbObj.body.users[String(this.user.username)])
+      // console.log(this.user.username)
+      console.log(this.dbObj.body.users["sirhilgenmax@gmx.com"])
     }
 
 
@@ -136,7 +137,7 @@ export default {
     if(this.rankObj.statusCode === 200) {
       console.log("Successfully got the rank:")
     }
-    console.log(this.rankObj.body.Ranking)
+    console.log(this.rankObj.body["Ranking"]["rank"])
     //function to get top 10 drivers of a driver
 
     // issues!
