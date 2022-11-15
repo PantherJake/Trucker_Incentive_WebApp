@@ -20,7 +20,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body.Ranking.Rank}} </h1>
+  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body.Ranking.rank}} </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a href="/driverdashboard">Home</a>
@@ -107,11 +107,10 @@ export default {
       this.errorMessage="Error fetching user data from database"
     }
     if(this.dbObj.statusCode === 200) {
-      // db = JSON.parse(dbObj.body.users)
       console.log("User data retrieved succesfully:")
       console.log(this.dbObj.body.users)
-      console.log(this.email)
-      console.log(this.dbObj.body.users[0])
+      console.log(this.user.username)
+      console.log(this.dbObj.body.users[String(this.user.username)])
     }
 
 
@@ -137,7 +136,7 @@ export default {
     if(this.rankObj.statusCode === 200) {
       console.log("Successfully got the rank:")
     }
-    console.log(this.rankObj)
+    console.log(this.rankObj.body.Ranking)
     //function to get top 10 drivers of a driver
 
     // issues!
