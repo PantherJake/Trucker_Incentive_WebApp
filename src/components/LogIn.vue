@@ -122,20 +122,23 @@ export default {
 
     async loginAccount() {
       this.errorMessage = '';
+      this.state = "Success"
+      this.message = "Successful login"
       try {
         console.log("Attempting login...");
         await Auth.signIn(this.email, this.password)
             .then(response => this.userObj = JSON.stringify(response))
+
             .catch(e => {
               console.log(e)
               this.errorMessage="Username or password incorrect"
               this.state = "failure"
               this.message = this.errorMessage
+              console.log(this.state)
               // this.AuditLogin()
 
             })
-        this.state = "Success"
-        this.message = "Successful login"
+
         // this.AuditLogin()
         console.log(this.state)
         this.user = JSON.parse(this.userObj)
