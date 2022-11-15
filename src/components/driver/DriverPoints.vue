@@ -63,7 +63,12 @@ export default {
       rank: [],
 
       pntObj: '',
-      points: []
+      points: [],
+
+      topObj: '',
+      top: [],
+
+      dbObj: ''
     }
   },
   async created() {
@@ -82,6 +87,28 @@ export default {
 //    need to specify which organization they want to see the Point data or if we should just show all of it!
 
     try {
+      this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+          'username': this.user.username
+        },
+      }).then((response) => response.json()).catch(e => console.log(e))
+    } catch (error) {
+      console.log(error)
+      this.errorMessage="Error fetching user data from database"
+    }
+    if(this.dbObj.statusCode === 200) {
+      console.log("User data retrieved succesfully...")
+    }
+
+
+//    function to get rank of a driver:
+    try {
       console.log("Getting rank information from DB")
       this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -93,18 +120,6 @@ export default {
           'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
           'username': this.user.username
         },
-        // body: JSON.stringify({
-        //   // path: {},
-        //   params: {
-        //     querystring: {
-        //       orgid: "1", //this.user.orgid, // testing 1
-        //       driverid: "3"//this.user.user_id // testing 3
-        //     },
-        //     header: {
-        //       username: this.username
-        //     }
-        //   },
-        // })
       }).then((response) => response.json()).catch(e => console.log(e));
       // this.rank = JSON.parse(this.rankObj)
       console.log(this.rankObj)
@@ -112,6 +127,31 @@ export default {
     } catch (error) {
       console.log(error);
     }
+    if(this.rankObj.statusCode === 200)
+      console.log("Successfully got the rank")
+    //function to get top 10 drivers of a driver
+    try {
+      console.log("Getting rank information from DB")
+      this.topObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+          'username': this.user.username
+        },
+      }).then((response) => response.json()).catch(e => console.log(e));
+      // this.rank = JSON.parse(this.rankObj)
+      console.log(this.topObj)
+      // console.log(this.rank)
+    } catch (error) {
+      console.log(error);
+    }
+    if(this.topObj.statusCode === 200)
+      console.log("Successfully got the top drivers")
+    //function to get points of a driver for many organizations
     try{
       console.log("Getting point information from DB")
       this.pntObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/points", {
@@ -132,6 +172,8 @@ export default {
     } catch (error) {
       console.log(error);
     }
+    if(this.pntObj.statusCode === 200)
+      console.log("Successfully got the Points json!")
   },
   methods: {
     async signOut() {
