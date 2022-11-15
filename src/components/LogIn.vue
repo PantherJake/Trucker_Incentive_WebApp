@@ -106,6 +106,7 @@ export default {
                 state: this.state,
                 message: this.message
               },
+              path: {},
               header: {
                 username: this.username
               }
