@@ -189,13 +189,13 @@ export default {
     },
     pushDashboard() {
       router.push("/driverdashboard")
-      // if(this.dbObj.body.users[1].user_role_id === 3){
+      // if(this.dbObj.body.users[1].role_id === 3){
       //   router.push("/driverdashboard")
       // }
-      // if(this.dbObj.body.users[1].user_role_id === 2){
+      // if(this.dbObj.body.users[1].role_id === 2){
       //   router.push("/sponsordashboard")
       // }
-      // if(this.dbObj.body.users[1].user_role_id === 1){
+      // if(this.dbObj.body.users[1].role_id === 1){
       //   router.push("/admindashboard")
       // }
 
