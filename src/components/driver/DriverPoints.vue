@@ -106,10 +106,10 @@ export default {
       this.errorMessage="Error fetching user data from database"
     }
     if(this.dbObj.statusCode === 200) {
-      this.db = JSON.parse(this.dbObj)
+      // this.db = JSON.parse(this.dbObj)
       console.log("User data retrieved succesfully:")
-      // console.log(this.db.body.users)
-      console.log(this.db)
+      console.log(this.dbObj.body.users)
+      // console.log(this.db)
       // console.log(this.user.username)
       // console.log(this.db.body.users["sirhilgenmax@gmx.com"])
     }
