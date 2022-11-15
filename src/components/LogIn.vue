@@ -188,17 +188,16 @@ export default {
       this.loginVisible = true
     },
     pushDashboard() {
-      console.log(this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
-      // router.push("/driverdashboard")
-      if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 3){
-        router.push("/driverdashboard")
-      }
-      if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 2){
-        router.push("/sponsordashboard")
-      }
-      if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 1){
-        router.push("/admindashboard")
-      }
+      router.push("/driverdashboard")
+      // if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 3){
+      //   router.push("/driverdashboard")
+      // }
+      // if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 2){
+      //   router.push("/sponsordashboard")
+      // }
+      // if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 1){
+      //   router.push("/admindashboard")
+      // }
 
     },
     pushLogin() {
