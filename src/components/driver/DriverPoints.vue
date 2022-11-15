@@ -54,8 +54,8 @@ export default {
   name: 'DriverPoints',
   data() {
     return {
-      orgID: '1', // need to attach that to current user
-      driverID: '3', // need to attach that to current user
+      orgID: '', // need to attach that to current user
+      driverID: '', // need to attach that to current user
 
       userObj: '',
       user: [],
@@ -111,9 +111,11 @@ export default {
       console.log(this.dbObj.body.users)
       // console.log(this.db)
       // console.log(this.user.username)
-      console.log(this.dbObj.body.users[`${this.user.username}`])
+      // console.log(this.dbObj.body.users[`${this.user.username}`])
     }
 
+    this.driverID = this.dbObj.body.users[`${this.user.username}`]["user_id"]
+    this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
 
 //    function to get rank of a driver:
     try {
