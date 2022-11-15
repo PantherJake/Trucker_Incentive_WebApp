@@ -63,16 +63,16 @@ export default {
       user: [],
       name: '',
 
-      rankObj: '',
+      rankObj: {},
       rank: [],
 
-      pntObj: '',
+      pntObj: {},
       points: [],
 
-      topObj: '',
+      topObj: {},
       top: [],
 
-      dbObj: '',
+      dbObj: {},
       db: []
     }
   },
