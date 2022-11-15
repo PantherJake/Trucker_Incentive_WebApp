@@ -109,6 +109,8 @@ export default {
       // this.db = JSON.parse(this.dbObj)
       console.log("User data retrieved succesfully:")
       console.log(this.dbObj.body.users)
+      const test = JSON.parse(this.dbObj.body.users)
+      console.log(test)
       // console.log(this.db)
       // console.log(this.user.username)
       // console.log(this.db.body.users["sirhilgenmax@gmx.com"])
