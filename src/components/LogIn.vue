@@ -75,10 +75,51 @@ export default {
       new_password: '',
       code: '',
 
+      userid: '1', // needs to be the user who is trying to log in...
+      state: '',
+      message: '',
+
+
       errorMessage: '',
     }
   },
   methods: {
+    async AuditLogin(){
+      try {
+        console.log("Initiating database connection for logging audit");
+        this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/audits", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                userid: this.userid,
+                operation: "LogIn",
+                state: this.state,
+                message: this.message
+              },
+              header: {
+                username: this.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established")
+      console.log(this.dbObj.statusCode)
+    },
+
     async loginAccount() {
       this.errorMessage = '';
       try {
@@ -88,7 +129,14 @@ export default {
             .catch(e => {
               console.log(e)
               this.errorMessage="Username or password incorrect"
+              this.state = "failure"
+              this.message = this.errorMessage
+              // this.AuditLogin()
             })
+        this.state = "Success"
+        this.message = "Successful login"
+        // this.AuditLogin()
+        console.log(this.state)
         this.user = JSON.parse(this.userObj)
 
         try {
