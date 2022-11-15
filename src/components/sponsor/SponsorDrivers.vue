@@ -9,7 +9,7 @@
           <div class="dot-text"><a href="#profile">Profile</a></div>
         </div>
         <center> <img src="../../assets/appLogoSmall.png" /> </center>
-        <center><h1> Driver Incentive Home </h1></center>
+        <center><h1> Sponsor HomePage </h1></center>
             <center><div class="topnav">
                 <a href="/sponsordashboard">Home</a>
                 <a href="/sponsordashboard/points">Points</a>
@@ -21,6 +21,7 @@
             </ul></center>
             <center><div class="mainbox">
               <center><p>Welcome to the Drivers Page for the Driver Incentive Application!</p></center>
+              {{this.AppObj.body}}
             </div></center>
       </body>     
     </html> 
@@ -80,12 +81,8 @@ export default {
       this.errorMessage="Error fetching user data from database"
     }
     if(this.dbObj.statusCode === 200) {
-      // this.db = JSON.parse(this.dbObj)
       console.log("User data retrieved succesfully:")
       console.log(this.dbObj.body.users)
-      // console.log(this.db)
-      // console.log(this.user.username)
-      // console.log(this.db.body.users["sirhilgenmax@gmx.com"])
     }
     //function to get points of a driver for many organizations
     try{
@@ -102,9 +99,6 @@ export default {
         },
       }).then((response) => response.json()).catch(e => console.log(e));
       console.log(this.AppObj)
-      // this.points = JSON.parse(this.pntObj)
-
-      // console.log(this.points)
     } catch (error) {
       console.log(error);
     }
