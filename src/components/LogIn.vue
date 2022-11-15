@@ -167,7 +167,10 @@ export default {
         console.log(error);
       }
       this.AuditLogin()
+      // this.pushDashboard(this.dbObj)
+      localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
     },
+
     forgotPassword() {
       this.errorMessage = ''
       Auth.forgotPassword(this.email2)
@@ -188,16 +191,17 @@ export default {
       this.loginVisible = true
     },
     pushDashboard() {
-      router.push("/driverdashboard")
-      // if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 3){
-      //   router.push("/driverdashboard")
-      // }
-      // if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 2){
-      //   router.push("/sponsordashboard")
-      // }
-      // if(this.dbObj.body.users[`${this.user.username}`]["user_role_id"] === 1){
-      //   router.push("/admindashboard")
-      // }
+      // router.push("/driverdashboard")
+      // console.log(localStorage.getItem('role_id'))
+      if(parseInt(localStorage.getItem('role_id')) === 3){
+        router.push("/driverdashboard")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 2){
+        router.push("/sponsordashboard")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 1){
+        router.push("/admindashboard")
+      }
 
     },
     pushLogin() {
