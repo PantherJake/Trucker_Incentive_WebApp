@@ -8,6 +8,11 @@
 <div class="dot">
   <div class="dot-text"><a href="#profile">Profile</a></div>
 </div>
+<div class="dot" @click="signOut">
+  <router-link :to="{ name: 'LogInPage' }">
+    <div class="dot-text">Sign Out</div>
+  </router-link>
+</div>
 <center> <img src="../../assets/appLogoSmall.png" /> </center>
 <center><h1> Driver Incentive Home </h1></center>
 <center><div class="topnav">
@@ -25,6 +30,79 @@
 </body>
 </html>
 </template>
+
+<script>
+import {Auth} from "aws-amplify";
+import router from "@/router";
+
+export default {
+  name: 'DriverPoints',
+  data() {
+    return {
+      orgID: '', // need to attach that to current user
+      driverID: '', // need to attach that to current user
+
+      userObj: '',
+      user: [],
+      name: '',
+
+      AppObj: '',
+      applications: [],
+
+      dbObj: '',
+      db: [],
+      topObj : ''
+    }
+  },
+  async created() {
+    try {
+      this.userObj = await Auth.currentAuthenticatedUser()
+          .then(response => this.userObj = JSON.stringify(response))
+          .catch(e => console.log(e))
+      this.user = JSON.parse(this.userObj)
+      this.name = this.user.attributes.given_name
+    } catch(e) {
+      console.log(e)
+      console.log("FATAL: No user authenticated")
+      await router.push('/login')
+    }
+// Max functions
+//    need to specify which organization they want to see the Point data or if we should just show all of it!
+
+    try {
+      this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+          'username': this.user.username
+        },
+      }).then((response) => response.json()).catch(e => console.log(e))
+    } catch (error) {
+      console.log(error)
+      this.errorMessage="Error fetching user data from database"
+    }
+    if(this.dbObj.statusCode === 200) {
+      console.log("User data retrieved succesfully:")
+      console.log(this.dbObj.body.users)
+    }
+    this.driverID = this.dbObj.body.users[`${this.user.username}`]["user_id"]
+    this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
+  },
+  methods: {
+    async signOut() {
+      try {
+        await Auth.signOut();
+      } catch (error) {
+        console.log('error signing out: ', error);
+      }
+    }
+  }
+}
+</script>
 
 <style>
 Body {
