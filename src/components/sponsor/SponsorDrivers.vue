@@ -8,6 +8,11 @@
         <div class="dot">
           <div class="dot-text"><a href="#profile">Profile</a></div>
         </div>
+        <div class="dot" @click="signOut">
+          <router-link :to="{ name: 'LogInPage' }">
+            <div class="dot-text">Sign Out</div>
+          </router-link>
+        </div>
         <center> <img src="../../assets/appLogoSmall.png" /> </center>
         <center><h1> Sponsor HomePage </h1></center>
             <center><div class="topnav">
@@ -192,12 +197,14 @@ ul.breadcrumb li+li:before {
   text-align: center;
   font-weight: bold;
 }
-.mainbox{
-  background-color:#7ed957;
-  width: 600px;
-  height: 300px;
+.mainbox {
+  background-color: #7ed957;
+  width: 800px;
+  height: 25rem;
   padding: 5px 5px 5px 5px;
   border-style: solid;
-  border-color:#c9e265;
+  border-color: #c9e265;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style> 
