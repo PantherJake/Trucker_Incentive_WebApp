@@ -123,7 +123,7 @@ export default {
     async loginAccount() {
       this.errorMessage = '';
       this.state = "Success"
-      this.message = "Successful login"
+      this.message = "Successful login" //+ String(this.user.username)
       try {
         console.log("Attempting login...");
         await Auth.signIn(this.email, this.password)
@@ -132,14 +132,12 @@ export default {
             .catch(e => {
               console.log(e)
               this.errorMessage="Username or password incorrect"
-              this.state = "failure"
+              this.state = "Failure"
               this.message = this.errorMessage
-              console.log(this.state)
-              // this.AuditLogin()
 
             })
 
-        // this.AuditLogin()
+        this.AuditLogin()
         console.log(this.state)
         this.user = JSON.parse(this.userObj)
 
