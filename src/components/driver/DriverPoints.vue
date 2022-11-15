@@ -83,7 +83,7 @@ export default {
 
     try {
       console.log("Getting rank information from DB")
-      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/1/drivers/3/rank", {
+      this.rankObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/rank", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -106,15 +106,15 @@ export default {
         //   },
         // })
       }).then((response) => response.json()).catch(e => console.log(e));
-      this.rank = JSON.parse(this.rankObj)
+      // this.rank = JSON.parse(this.rankObj)
       console.log(this.rankObj)
-      console.log(this.rank)
+      // console.log(this.rank)
     } catch (error) {
       console.log(error);
     }
     try{
       console.log("Getting point information from DB")
-      this.pntObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/1/drivers/3/points", {
+      this.pntObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/points", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -124,21 +124,11 @@ export default {
           'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
           'username': this.user.username
         },
-        // body: JSON.stringify({
-        //   // path: {},
-        //   params: {
-        //     querystring: {
-        //       driverid: "3" //this.user.user_id // testing 3
-        //     },
-        //     header: {
-        //       username: this.username
-        //     }
-        //   },
-        // })
       }).then((response) => response.json()).catch(e => console.log(e));
-      this.points = JSON.parse(this.pntObj)
       console.log(this.pntObj)
-      console.log(this.points)
+      // this.points = JSON.parse(this.pntObj)
+
+      // console.log(this.points)
     } catch (error) {
       console.log(error);
     }
