@@ -11,8 +11,11 @@
           <div class="container">
             <label>Email : </label>
             <input type="text" v-model="username" placeholder="Enter Email" required>
-            <label>Password : </label>
+            <label>Password : (At least 1 uppercase, 1 lowercase and 1 special character)</label>
             <input type="password" v-model="password" placeholder="Enter Password"  required>
+
+            <label>Organization ID: (needs to be a number) </label>
+            <input type="text" v-model="orgid" placeholder="Enter Organization ID"  required>
 
             <label>First name : </label>
             <input type="text" v-model="fname" placeholder="Enter First Name" required>
@@ -22,7 +25,7 @@
             <input type="text" v-model="lname" placeholder="Enter Last Name" required>
             <label>Drivers License # : </label>
             <input type="text" v-model="DLnumber" placeholder="Enter DL#" required>
-            <label>Phone Number : </label>
+            <label>Phone Number : (need country code +1 in front)</label>
             <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>
             <label>Home Address : </label>
             <input type="text" v-model="address" placeholder="Home Address" required>
@@ -66,6 +69,7 @@ export default {
       phone: '',
       address: '',
       role: '',
+      orgid: '',
 
       userObj: '',
       user: [],
@@ -118,7 +122,7 @@ export default {
             path: {},
             params: {
               querystring: {
-                orgid: "1",
+                orgid: this.orgid,
                 role_id: "3",
                 fname: this.fname,
                 mname: this.mname,

@@ -54,8 +54,8 @@ export default {
   name: 'DriverPoints',
   data() {
     return {
-      orgID: '1',
-      driverID: '3',
+      orgID: '1', // need to attach that to current user
+      driverID: '3', // need to attach that to current user
 
       userObj: '',
       user: [],
