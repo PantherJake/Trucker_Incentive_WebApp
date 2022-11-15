@@ -20,7 +20,7 @@
     </router-link>
   </div>
   <img class="logo" src="../../assets/appLogoSmall.png" alt=""/>
-  <h1> {{this.name}}'s Points Information: (Rank: {{this.rankObj.body["Ranking"]}} </h1>
+  <h1> {{this.name}}'s Points Information: {{this.rankObj.body}} </h1>
   <div class="topnav">
     <router-link :to="{ name: 'DriverDashboardPage'}">
       <a href="/driverdashboard">Home</a>
@@ -35,13 +35,11 @@
   <br>
   <div class="mainbox">
     <p class="mainbox-text">My Points</p>
-    {{this.pntObj.body["Points"]}}
-    <br>
-    {{this.dbObj.body.users}}
+    {{this.pntObj}}
   </div>
   <div class="mainbox">
     <p class="mainbox-text">Top 10 Drivers by Point Amount</p>
-    {{this.topObj.body.Ranking}}
+    {{this.topObj}}
   </div>
 
   </body>
@@ -63,7 +61,7 @@ export default {
       user: [],
       name: '',
 
-      rankObj: {},
+      rankObj: '',
       rank: [],
 
       pntObj: '',
@@ -73,7 +71,7 @@ export default {
       top: [],
 
       dbObj: '',
-      db: {}
+      db: []
     }
   },
   async created() {
@@ -110,10 +108,10 @@ export default {
     if(this.dbObj.statusCode === 200) {
       this.db = JSON.parse(this.dbObj)
       console.log("User data retrieved succesfully:")
-      console.log(this.db.body.users)
+      // console.log(this.db.body.users)
       console.log(this.db)
       // console.log(this.user.username)
-      console.log(this.db.body.users["sirhilgenmax@gmx.com"])
+      // console.log(this.db.body.users["sirhilgenmax@gmx.com"])
     }
 
 
@@ -139,7 +137,7 @@ export default {
     if(this.rankObj.statusCode === 200) {
       console.log("Successfully got the rank:")
     }
-    console.log(this.rankObj.body["Ranking"]["rank"])
+    console.log(this.rankObj)
     //function to get top 10 drivers of a driver
 
     // issues!
