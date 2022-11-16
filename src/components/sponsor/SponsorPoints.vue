@@ -135,14 +135,15 @@ export default {
   },
   methods: {
     async changePts(){
-      //TODO: fix API call since the Gateway does not get the info even though I pass the right stuff
+//TODO: fix API call since the Gateway does not get the info even though I pass the right stuff
       console.log(this.driverptsid)
       console.log(this.value)
       console.log(this.reason)
       console.log(this.orgID)
+      console.log(this.user.username)
       try{
         console.log("Preparing to change pts on the DB")
-        this.chnObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/points", {
+        this.chnObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverptsid + "/points", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -150,7 +151,7 @@ export default {
           headers: {
             'Content-Type': 'application/json',
             'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-            'username': this.username
+            'username': this.user.username
           },
           body: JSON.stringify({
             path: {},
@@ -163,7 +164,7 @@ export default {
               },
               path: {},
               header: {
-                username: this.username
+                username: this.user.username
               }
             },
           })
