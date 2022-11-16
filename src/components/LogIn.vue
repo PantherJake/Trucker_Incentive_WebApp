@@ -75,39 +75,16 @@ export default {
       new_password: '',
       code: '',
 
-      userid: '', // needs to be the user who is trying to log in...
+      userid: '1', // needs to be the user who is trying to log in...
       state: '',
       message: '',
-      operation: '',
 
 
       errorMessage: '',
     }
   },
   methods: {
-
-    async me(){
-      try {
-        this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
-          method: 'GET', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-            'username': this.email
-          },
-        }).then((response) => response.json()).catch(e => console.log(e))
-      } catch (error) {
-        console.log(error)
-        this.errorMessage="Error fetching user data from database"
-      }
-      return this.dbObj
-    },
-
     async AuditLogin(){
-
       try {
         console.log("Initiating database connection for logging audit");
         this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/audits", {
@@ -125,7 +102,7 @@ export default {
             params: {
               querystring: {
                 userid: this.userid,
-                operation: this.operation,
+                operation: "LogIn",
                 state: this.state,
                 message: this.message
               },
@@ -141,12 +118,11 @@ export default {
         this.dbError = "Could not establish database connection, please contact support";
       }
       console.log("Connection established")
-      // console.log(this.dbObj.statusCode)
+      console.log(this.dbObj.statusCode)
     },
 
     async loginAccount() {
       this.errorMessage = '';
-      this.operation = "LogIn"
       this.state = "Success"
       this.message = "Successful login" //+ String(this.user.username)
       try {
@@ -159,12 +135,11 @@ export default {
               this.errorMessage="Username or password incorrect"
               this.state = "Failure"
               this.message = this.errorMessage
-              // this.user = JSON.parse(this.userObj)
 
             })
-        //TODO: need to find a way to get the email if the password is wrong
 
-        // console.log(this.state)
+
+        console.log(this.state)
         this.user = JSON.parse(this.userObj)
 
         try {
@@ -191,8 +166,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-
-      this.userid = this.dbObj.body.users[`${this.user.username}`]["user_id"]
       this.AuditLogin()
       // this.pushDashboard(this.dbObj)
       localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
@@ -214,22 +187,12 @@ export default {
             console.log(err)
             this.errorMessage="Code was incorrect"
           });
-      //TODO: need a way to get the email down here
-      // this.dbObj = this.me()
-      // console.log("Me function:")
-      // console.log(this.dbObj)
-      // console.log("EMAIL:")
-      // console.log(this.user.username)
-      // this.userid = this.dbObj.body.users[`${this.user.username}`]["user_id"]
-
-      this.operation = "Password Reset"
-      this.state = "completed"
-      this.message = "User had to reset password since they forgot their password"
-      this.AuditLogin()
       this.newVisible = false
       this.loginVisible = true
     },
     pushDashboard() {
+      // router.push("/driverdashboard")
+      // console.log(localStorage.getItem('role_id'))
       if(parseInt(localStorage.getItem('role_id')) === 3){
         router.push("/driverdashboard")
       }
@@ -239,6 +202,7 @@ export default {
       if(parseInt(localStorage.getItem('role_id')) === 1){
         router.push("/admindashboard")
       }
+
     },
     pushLogin() {
       this.isAuth = false;
