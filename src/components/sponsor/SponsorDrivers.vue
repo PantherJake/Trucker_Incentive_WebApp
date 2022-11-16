@@ -30,9 +30,10 @@
               <button class="driverchange" @click="approveDriver()">Approve</button>
               <button class="driverchange" @click="rejectDriver()">Reject</button>
               <button class="driverchange" @click="removeDriver()">Remove</button>
-              <br>
+              <br> {{this.stateObj.body}}<br>
+              <br>Applications:<br>
 <!--              <br> {{this.chnObj.body.message}}-->
-              {{this.AppObj.body}}
+              {{this.AppObj.body['Applications']}}
             </div></center>
       </body>     
     </html> 
@@ -50,9 +51,7 @@ export default {
       driverID: '', // need to attach that to current user
       reason: '',
 
-      approveObj: '',
-      rejectObj: '',
-      removeObj: '',
+      stateObj: '',
 
       userObj: '',
       user: [],
@@ -136,7 +135,7 @@ export default {
       console.log(this.user.username)
       try{
         console.log("Preparing to change pts on the DB")
-        this.rejectObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverid + "/application/reject", {
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverid + "/application/reject", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -168,7 +167,7 @@ export default {
         this.dbError = "Could not establish database connection, please contact support";
       }
       console.log("Connection established! Driver approved!")
-      console.log(this.rejectObj)
+      console.log(this.stateObj)
     },
     async removeDriver(){
       console.log(this.driverid)
@@ -177,7 +176,7 @@ export default {
       console.log(this.user.username)
       try{
         console.log("Preparing to change pts on the DB")
-        this.removeObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverid + "/application/cancel", {
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverid + "/application/cancel", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -209,7 +208,7 @@ export default {
         this.dbError = "Could not establish database connection, please contact support";
       }
       console.log("Connection established! Driver approved!")
-      console.log(this.removeObj)
+      console.log(this.stateObj)
     },
     async approveDriver(){
 //TODO: need to figure out how to send data to API with passthrough
@@ -220,7 +219,7 @@ export default {
       console.log(this.user.username)
       try{
         console.log("Preparing to change pts on the DB")
-        this.approveObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverid + "/application/approve", {
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverid + "/application/approve", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -253,7 +252,7 @@ export default {
         this.dbError = "Could not establish database connection, please contact support";
       }
       console.log("Connection established! Driver approved!")
-      console.log(this.approveObj)
+      console.log(this.stateObj)
     },
     async signOut() {
       try {
