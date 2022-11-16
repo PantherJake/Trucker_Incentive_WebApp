@@ -192,7 +192,7 @@ export default {
     },
     pushDashboard() {
       // router.push("/driverdashboard")
-      // console.log(localStorage.getItem('role_id'))
+      console.log(localStorage.getItem('role_id'))
       if(parseInt(localStorage.getItem('role_id')) === 3){
         router.push("/driverdashboard")
       }
