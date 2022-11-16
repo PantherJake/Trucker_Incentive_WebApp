@@ -14,20 +14,19 @@
     </router-link>
   </div>
   <center> <img src="../../assets/appLogoSmall.png" /> </center>
-  <center><h1> Admin HomePage </h1></center>
+  <center><h1> Sponsor Audit Page </h1></center>
   <center><div class="topnav">
-    <a href="/admindashboard">Home</a>
-    <a href="/admindashboard/points">Points</a>
-    <a href="/admindashboard/catalog">Catalog</a>
-    <a href="/admindashboard/drivers">Driver</a>
-    <a class="active" href="/admindashboard/audits">Audits</a>
+    <a href="/sponsordashboard">Home</a>
+    <a href="/sponsordashboard/catalog">Catalog</a>
+    <a href="/sponsordashboard/drivers">Driver</a>
+    <a class="active" href="/sponsordashboard/audits">Audits</a>
   </div></center>
   <center><ul class="breadcrumb">
-    <li><a href="/admindashboard/audits">Audit</a></li>
+    <li><a href="/sponsordashboard/audits">Audit</a></li>
   </ul></center>
   <center><div class="mainbox">
     <center><p>Welcome to the Audit Page for the Driver Incentive Application!</p></center>
-    <input v-model="auditorgID" placeholder="Organization ID"/>
+<!--    <input v-model="auditorgID" placeholder="Organization ID"/>-->
     <select class="mediaInput" name="searchOption" v-model="this.audittype" id="searchOption">
       <option value="LogIn">LogIn</option>
       <option value="changePoints">change Points</option>
@@ -55,7 +54,6 @@ export default {
     return {
       orgID: '', // need to attach that to current user
       driverID: '', // need to attach that to current user
-      auditorgID: '',
       userObj: '',
       user: [],
       name: '',
@@ -113,7 +111,7 @@ export default {
     async AuditLogs(){
       try {
         console.log("Initiating database connection for logging audit");
-        this.auditObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.auditorgID + "/users/1/audits", {
+        this.auditObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/users/1/audits", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -127,7 +125,7 @@ export default {
             path: {},
             params: {
               querystring: {
-                orgid: this.auditorgID,
+                orgid: this.orgID,
                 operation: this.audittype,
                 datesort: "desc",
               },

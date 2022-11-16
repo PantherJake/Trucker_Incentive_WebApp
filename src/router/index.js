@@ -17,7 +17,8 @@ const routes = [
     {path: '/sponsordashboard/drivers', name:'SponsorDriversPage', component: ()=>import('@/components/sponsor/SponsorDrivers')},
     {path: '/admindashboard/catalog', name:'AdminCatalogPage', component: ()=>import('@/components/admin/AdminCatalog')},
     {path: '/admindashboard/drivers', name:'AdminDriversPage', component: ()=>import('@/components/admin/AdminDrivers')},
-    {path: '/admindashboard/audits', name:'AdminAuditsPage', component: ()=>import('@/components/admin/AdminAudit')}
+    {path: '/admindashboard/audits', name:'AdminAuditsPage', component: ()=>import('@/components/admin/AdminAudit')},
+    {path: '/sponsordashboard/audits', name:'SponsorAuditsPage', component: ()=>import('@/components/sponsor/SponsorAudit')}
 ]
 
 const router = createRouter({

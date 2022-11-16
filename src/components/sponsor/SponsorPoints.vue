@@ -20,6 +20,7 @@
                 <a class="active" href="/sponsordashboard/points">Points</a>
                 <a href="/sponsordashboard/catalog">Catalog</a>
                 <a href="/sponsordashboard/drivers">Drivers</a>
+                <a href="/sponsordashboard/audits">Audits</a>
             </div></center>
             <center><ul class="breadcrumb">
               <li><a href="/sponsordashboard/points">Points</a></li>
