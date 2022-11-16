@@ -14,7 +14,7 @@
           </router-link>
         </div>
         <center> <img src="../../assets/appLogoSmall.png" /> </center>
-        <center><h1> Driver Incentive Home </h1></center>
+        <center><h1> Sponsor HomePage </h1></center>
             <center><div class="topnav">
                 <a href="/sponsordashboard">Home</a>
                 <a class="active" href="/sponsordashboard/points">Points</a>
@@ -121,6 +121,9 @@ export default {
 
   },
   methods: {
+    async changePts(){
+
+    },
     async signOut() {
       try {
         await Auth.signOut();

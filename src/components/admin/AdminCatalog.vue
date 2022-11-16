@@ -14,7 +14,7 @@
     </router-link>
   </div>
   <center> <img src="../../assets/appLogoSmall.png" /> </center>
-  <center><h1> Driver Incentive Home </h1></center>
+  <center><h1> Admin HomePage </h1></center>
   <center><div class="topnav">
     <a href="/admindashboard">Home</a>
     <a href="/admindashboard/points">Points</a>

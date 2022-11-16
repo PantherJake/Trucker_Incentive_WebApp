@@ -14,7 +14,7 @@
   </router-link>
 </div>
 <center> <img src="../../assets/appLogoSmall.png" /> </center>
-<center><h1> Driver Incentive Home </h1></center>
+<center><h1> Sponsor HomePage </h1></center>
 <center><div class="topnav">
   <a class="active" href="/sponsordashboard">Home</a>
   <a href="/sponsordashboard/points">Points</a>
@@ -26,6 +26,8 @@
 </ul></center>
 <center><div class="mainbox">
   <center><p>Welcome to the Home Page for the Driver Incentive Application!</p></center>
+  Top Drivers:
+  {{this.topObj.body["Ranking"]}}-->
 </div></center>
 </body>
 </html>
@@ -91,6 +93,29 @@ export default {
     }
     this.driverID = this.dbObj.body.users[`${this.user.username}`]["user_id"]
     this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
+
+    try {
+      console.log("Getting topOBJ information from DB")
+      this.topObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/topdrivers", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+          'username': this.user.username
+        },
+      }).then((response) => response.json()).catch(e => console.log(e));
+      // this.rank = JSON.parse(this.rankObj)
+      console.log(this.topObj)
+      // console.log(this.rank)
+    } catch (error) {
+      console.log(error);
+    }
+    if(this.topObj.statusCode === 200)
+      console.log("Successfully got the top drivers")
+    console.log(this.topObj.body["Ranking"])
   },
   methods: {
     async signOut() {
