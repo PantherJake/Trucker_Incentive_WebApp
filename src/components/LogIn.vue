@@ -191,17 +191,17 @@ export default {
       this.loginVisible = true
     },
     pushDashboard() {
-      router.push("/driverdashboard")
-      console.log(localStorage.getItem('role_id'))
-      // if(parseInt(localStorage.getItem('role_id')) === 3){
-      //   router.push("/driverdashboard")
-      // }
-      // if(parseInt(localStorage.getItem('role_id')) === 2){
-      //   router.push("/sponsordashboard")
-      // }
-      // if(parseInt(localStorage.getItem('role_id')) === 1){
-      //   router.push("/admindashboard")
-      // }
+      // router.push("/driverdashboard")
+      // console.log(localStorage.getItem('role_id'))
+      if(parseInt(localStorage.getItem('role_id')) === 3){
+        router.push("/driverdashboard")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 2){
+        router.push("/sponsordashboard")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 1){
+        router.push("/admindashboard")
+      }
 
     },
     pushLogin() {
