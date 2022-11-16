@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     async changePts(){
-//TODO: fix API call since the Gateway does not get the info even though I pass the right stuff
+//TODO: need to figure out how to send data to API with passthrough
       console.log(this.driverptsid)
       console.log(this.value)
       console.log(this.reason)
