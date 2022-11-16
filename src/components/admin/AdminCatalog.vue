@@ -20,6 +20,7 @@
     <a href="/admindashboard/points">Points</a>
     <a class="active" href="/admindashboard/catalog">Catalog</a>
     <a href="/admindashboard/drivers">Drivers</a>
+    <a href="/admindashboard/audits">Audits</a>
   </div></center>
   <center><ul class="breadcrumb">
     <li><a href="/admindashboard/catalog">Catalog</a></li>

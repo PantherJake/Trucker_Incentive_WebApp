@@ -19,14 +19,26 @@
     <a href="/admindashboard">Home</a>
     <a href="/admindashboard/points">Points</a>
     <a href="/admindashboard/catalog">Catalog</a>
-    <a class="active" href="/admindashboard/drivers">Drivers</a>
-    <a href="/admindashboard/audits">Audits</a>
+    <a href="/admindashboard/drivers">Driver</a>
+    <a class="active" href="/admindashboard/audits">Audits</a>
   </div></center>
   <center><ul class="breadcrumb">
-    <li><a href="/admindashboard/drivers">Drivers</a></li>
+    <li><a href="/admindashboard/audits">Audit</a></li>
   </ul></center>
   <center><div class="mainbox">
-    <center><p>Welcome to the Drivers Page for the Driver Incentive Application!</p></center>
+    <center><p>Welcome to the Audit Page for the Driver Incentive Application!</p></center>
+    <input v-model="auditorgID" placeholder="Organization ID"/>
+    <select class="mediaInput" name="searchOption" v-model="this.audittype" id="searchOption">
+      <option value="LogIn">LogIn</option>
+      <option value="changePoints">change Points</option>
+      <option value="Driver Application">Driver Application</option>
+      <option value="CreateUser">User creations</option>
+      <option value="changeuserstate">User state changes</option>
+      <option value="changeProfile">Profile Changes</option>
+      <option value="addOrganization">addOrganization</option>
+    </select>
+    <button class="Get Audits" @click="AuditLogs()">Get Audits</button>
+    <br>{{this.auditObj.body}}
   </div></center>
   </body>
   </html>
@@ -37,15 +49,17 @@ import {Auth} from "aws-amplify";
 import router from "@/router";
 
 export default {
-  name: 'DriverPoints',
+  name: 'AuditsPage',
   data() {
     return {
       orgID: '', // need to attach that to current user
       driverID: '', // need to attach that to current user
-
+      auditorgID: '',
       userObj: '',
       user: [],
       name: '',
+      audittype: '',
+      auditObj: '',
 
       AppObj: '',
       applications: [],
@@ -92,28 +106,45 @@ export default {
     // this.driverID = this.dbObj.body.users[`${this.user.username}`]["user_id"]
     this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
     //function to get points of a driver for many organizations
-    try{
-      console.log("Getting Application information from DB")
-      this.AppObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/application", {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-          'username': this.user.username
-        },
-      }).then((response) => response.json()).catch(e => console.log(e));
-      console.log(this.AppObj)
-    } catch (error) {
-      console.log(error);
-    }
-    if(this.AppObj.statusCode === 200) {
-      console.log("Successfully got the Applications json!")
-    }
   },
   methods: {
+
+    async AuditLogs(){
+      try {
+        console.log("Initiating database connection for logging audit");
+        this.auditObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.auditorgID + "/users/1/audits", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                orgid: this.auditorgID,
+                operation: this.audittype,
+                datesort: "desc",
+              },
+              path: {},
+              header: {
+                username: this.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established")
+      console.log(this.auditObj.statusCode)
+    },
+
     async signOut() {
       try {
         await Auth.signOut();
