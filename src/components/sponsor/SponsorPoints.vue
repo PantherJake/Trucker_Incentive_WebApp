@@ -30,6 +30,12 @@
             </div>
             <div class="mainbox">
               <center><p class="mainbox-text">changing Points</p></center>
+<!--              TODO: If you can make this a option menut with the drivers name and then pass me the driverid that would be best -- Max-->
+              <input v-model="driverptsid" placeholder="Driver to change Points"/>
+              <input v-model="value" placeholder="+/- Value"/>
+              <input v-model="reason" placeholder="Reasoning behind it"/>
+              <button @click="changePts()">Submit</button>
+              <br> {{this.chnObj.body.message}}
             </div>
       </body>     
     </html> 
@@ -54,7 +60,12 @@ export default {
       applications: [],
 
       dbObj: '',
-      db: []
+      db: [],
+      chnObj: '',
+      value: '',
+      reason: '',
+      driverptsid: ''
+
     }
   },
   async created() {
@@ -119,10 +130,50 @@ export default {
       console.log("Successfully got the top drivers")
     console.log(this.topObj.body["Ranking"])
 
+    this.changePts()
+
   },
   methods: {
     async changePts(){
-
+      //TODO: fix API call since the Gateway does not get the info even though I pass the right stuff
+      console.log(this.driverptsid)
+      console.log(this.value)
+      console.log(this.reason)
+      console.log(this.orgID)
+      try{
+        console.log("Preparing to change pts on the DB")
+        this.chnObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/" + this.driverID + "/points", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                driverid: this.driverptsid,
+                value: this.value,
+                reason: this.reason,
+                orgid: this.orgID
+              },
+              path: {},
+              header: {
+                username: this.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established")
+      console.log(this.chnObj)
     },
     async signOut() {
       try {
