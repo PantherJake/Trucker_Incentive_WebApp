@@ -78,6 +78,7 @@ export default {
       userid: '1', // needs to be the user who is trying to log in...
       state: '',
       message: '',
+      allowme: true,
 
 
       errorMessage: '',
@@ -135,13 +136,12 @@ export default {
               this.errorMessage="Username or password incorrect"
               this.state = "Failure"
               this.message = this.errorMessage
-
+              this.allowme = false
             })
 
 
         console.log(this.state)
         this.user = JSON.parse(this.userObj)
-
         try {
           this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -162,13 +162,19 @@ export default {
         if(this.user.username === this.email && this.dbObj.statusCode === 200) {
           console.log("Login successful...")
           this.isAuth = true
+          localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+        }
+        if(this.user.username === this.email && this.dbObj.statusCode === 403 && this.allowme == true){
+          console.log(this.dbObj.body)
+          this.errorMessage = this.dbObj.body
+          this.isAuth = false
         }
       } catch (error) {
         console.log(error);
       }
-      this.AuditLogin()
+      // this.AuditLogin()
       // this.pushDashboard(this.dbObj)
-      localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+      // localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
     },
 
     forgotPassword() {
