@@ -8,6 +8,7 @@ const routes = [
     {path: '/profile', name:'ProfilePage', component: ()=>import('@/views/ProfilePage')},
     {path: '/cart', name:'CartPage', component: ()=>import('@/views/CartPage')},
     {path: '/driverdashboard', name:'DriverDashboardPage', component: ()=>import('@/views/DriverDashboardPage')},
+    {path: '/driverpending', name:'DriverPendingPage', component: ()=>import('@/components/driver/DriverPending')},
     {path: '/sponsordashboard', name:'SponsorDashboardPage', component: ()=>import('@/views/SponsorDashboardPage')},
     {path: '/admindashboard', name:'AdminDashboardPage', component: ()=>import('@/views/AdminDashboardPage')},
     {path: '/driverdashboard/points', name:'DriverPointsPage', component: ()=>import('@/components/driver/DriverPoints')},

@@ -163,11 +163,14 @@ export default {
           console.log("Login successful...")
           this.isAuth = true
           localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+          localStorage.setItem('status', this.dbObj.statusCode)
         }
-        if(this.user.username === this.email && this.dbObj.statusCode === 403 && this.allowme == true){
+        if(this.user.username === this.email && this.dbObj.statusCode === 400 && this.allowme == true){
           console.log(this.dbObj.body)
-          this.errorMessage = this.dbObj.body
-          this.isAuth = false
+          // router.push("/driverpending")
+          localStorage.setItem('status', this.dbObj.statusCode)
+          // this.errorMessage = this.dbObj.body
+          this.isAuth = true
         }
       } catch (error) {
         console.log(error);
@@ -199,6 +202,10 @@ export default {
     pushDashboard() {
       // router.push("/driverdashboard")
       // console.log(localStorage.getItem('role_id'))
+      if(parseInt(localStorage.getItem('status')) == 400){
+        console.log("Made it here")
+        router.push("/driverpending")
+      }
       if(parseInt(localStorage.getItem('role_id')) === 3){
         router.push("/driverdashboard")
       }
