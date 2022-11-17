@@ -64,9 +64,11 @@ export default {
       isAuth: false,
 
       email: '',
+      audit:'',
       password: '',
       userObj: '',
       user: [],
+      operation: '',
 
       dbObj: '',
       db: [],
@@ -75,7 +77,7 @@ export default {
       new_password: '',
       code: '',
 
-      userid: '1', // needs to be the user who is trying to log in...
+      userid: '', // needs to be the user who is trying to log in...
       state: '',
       message: '',
       allowme: true,
@@ -85,10 +87,54 @@ export default {
     }
   },
   methods: {
+    async me(){
+      try {
+        this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.email
+          },
+        }).then((response) => response.json()).catch(e => console.log(e))
+      } catch (error) {
+        console.log(error)
+        this.errorMessage="Error fetching user data from database"
+      }
+      this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
+      // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
+      console.log(this.userid)
+    },
     async AuditLogin(){
       try {
-        console.log("Initiating database connection for logging audit");
-        this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/audits", {
+        try {
+          this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+              'username': this.email
+            },
+          }).then((response) => response.json()).catch(e => console.log(e))
+        } catch (error) {
+          console.log(error)
+          this.errorMessage="Error fetching user data from database"
+        }
+        this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
+        // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
+        console.log(this.userid)
+        console.log(this.email)
+        // console.log(localStorage.getItem('userid'))
+        console.log(this.userid)
+        console.log(this.operation)
+        // console.log("Initiating database connection for logging audit");
+        this.audit = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/audits", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -96,14 +142,14 @@ export default {
           headers: {
             'Content-Type': 'application/json',
             'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-            'username': this.username
+            'username': this.email
           },
           body: JSON.stringify({
             path: {},
             params: {
               querystring: {
                 userid: this.userid,
-                operation: "LogIn",
+                operation: this.operation,
                 state: this.state,
                 message: this.message
               },
@@ -118,8 +164,8 @@ export default {
         console.log(error);
         this.dbError = "Could not establish database connection, please contact support";
       }
-      console.log("Connection established")
-      console.log(this.dbObj.statusCode)
+      console.log("Audit log:")
+      console.log(this.audit.statusCode)
     },
 
     async loginAccount() {
@@ -137,27 +183,18 @@ export default {
               this.state = "Failure"
               this.message = this.errorMessage
               this.allowme = false
+              console.log(this.email)
+              this.operation = "LogIn"
+              this.AuditLogin()
             })
 
 
         console.log(this.state)
         this.user = JSON.parse(this.userObj)
-        try {
-          this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'application/json',
-              'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-              'username': this.user.username
-            },
-          }).then((response) => response.json()).catch(e => console.log(e))
-        } catch (error) {
-          console.log(error)
-          this.errorMessage="Error fetching user data from database"
-        }
+
+        this.me()
+        this.operation = "LogIn"
+        this.AuditLogin()
 
         if(this.user.username === this.email && this.dbObj.statusCode === 200) {
           console.log("Login successful...")
@@ -166,18 +203,13 @@ export default {
           localStorage.setItem('status', this.dbObj.statusCode)
         }
         if(this.user.username === this.email && this.dbObj.statusCode === 400 && this.allowme == true){
-          console.log(this.dbObj.body)
-          // router.push("/driverpending")
           localStorage.setItem('status', this.dbObj.statusCode)
-          // this.errorMessage = this.dbObj.body
           this.isAuth = true
         }
       } catch (error) {
         console.log(error);
       }
-      // this.AuditLogin()
-      // this.pushDashboard(this.dbObj)
-      // localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+
     },
 
     forgotPassword() {
@@ -195,7 +227,14 @@ export default {
           .catch(err => {
             console.log(err)
             this.errorMessage="Code was incorrect"
+            console.log("Part 2")
           });
+      this.state = "completed"
+      this.message = "User " + this.email2 + " has changed their password"
+      this.email = this.email2
+      this.operation = "PasswordChange"
+      // this.me()
+      this.AuditLogin()
       this.newVisible = false
       this.loginVisible = true
     },
@@ -203,7 +242,7 @@ export default {
       // router.push("/driverdashboard")
       // console.log(localStorage.getItem('role_id'))
       if(parseInt(localStorage.getItem('status')) == 400){
-        console.log("Made it here")
+        // console.log("Made it here")
         router.push("/driverpending")
       }
       if(parseInt(localStorage.getItem('role_id')) === 3){
