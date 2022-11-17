@@ -39,7 +39,7 @@
   </div>
   <div class="mainbox">
     <p class="mainbox-text">Your Ranking: </p>
-    Rank: {{this.rankObj.body["Ranking"]["rank"]}} in Organization {{this.orgID}}
+    Rank: {{this.rankObj.body}}
   </div>
 
   </body>
