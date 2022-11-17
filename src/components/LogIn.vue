@@ -106,6 +106,14 @@ export default {
       }
       this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
       // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
+      localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+      localStorage.setItem('status', this.dbObj.statusCode)
+      if(this.user.username === this.email && this.dbObj.statusCode === 400 && this.allowme == true){
+        console.log(this.email)
+        console.log(this.dbObj.statusCode)
+        localStorage.setItem('status', this.dbObj.statusCode)
+        this.isAuth = true
+      }
       console.log(this.userid)
     },
     async AuditLogin(){
@@ -127,6 +135,8 @@ export default {
           this.errorMessage="Error fetching user data from database"
         }
         this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
+        localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+
         // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
         console.log(this.userid)
         console.log(this.email)
@@ -194,7 +204,10 @@ export default {
 
         this.me()
         this.operation = "LogIn"
-        this.AuditLogin()
+        console.log(this.dbObj.statusCode)
+        if(parseInt(localStorage.getItem('status')) === 200){
+          this.AuditLogin()
+        }
 
         if(this.user.username === this.email && this.dbObj.statusCode === 200) {
           console.log("Login successful...")
@@ -203,6 +216,8 @@ export default {
           localStorage.setItem('status', this.dbObj.statusCode)
         }
         if(this.user.username === this.email && this.dbObj.statusCode === 400 && this.allowme == true){
+          console.log(this.email)
+          console.log(this.dbObj.statusCode)
           localStorage.setItem('status', this.dbObj.statusCode)
           this.isAuth = true
         }
@@ -240,7 +255,8 @@ export default {
     },
     pushDashboard() {
       // router.push("/driverdashboard")
-      // console.log(localStorage.getItem('role_id'))
+      console.log(localStorage.getItem('role_id'))
+      console.log(localStorage.getItem('status'))
       if(parseInt(localStorage.getItem('status')) == 400){
         // console.log("Made it here")
         router.push("/driverpending")
