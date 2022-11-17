@@ -48,7 +48,7 @@
       </div>
 
       <div >
-        <input style="margin-top: 10rem;" v-model="orgid" placeholder="OrgID"/>
+        <input style="margin-top: 8rem;" v-model="orgid" placeholder="OrgID"/>
         <button class="delete" @click="deleteAccount()" > Delete Account</button>
       </div>
     </div>
@@ -97,33 +97,34 @@ export default {
       console.log("FATAL: No user authenticated")
       await router.push('/login')
     }
-
-    //  me function
-    try {
-      this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-          'username': this.user.username
-        },
-      }).then((response) => response.json()).catch(e => console.log(e))
-    } catch (error) {
-      console.log(error)
-      this.errorMessage = "Error fetching user data from database"
-    }
-    if (this.dbObj.statusCode === 200) {
-      console.log("User data retrieved succesfully:")
-      console.log(this.dbObj.body.users)
-    }
-    this.userid= this.dbObj.body.users[`${this.user.username}`]["user_id"]
-    this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
-
+    this.me()
   },
   methods: {
+    async me(){
+      //  me function
+      try {
+        this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.user.username
+          },
+        }).then((response) => response.json()).catch(e => console.log(e))
+      } catch (error) {
+        console.log(error)
+        this.errorMessage = "Error fetching user data from database"
+      }
+      if (this.dbObj.statusCode === 200) {
+        console.log("User data retrieved succesfully:")
+        console.log(this.dbObj.body.users)
+      }
+      this.userid= this.dbObj.body.users[`${this.user.username}`]["user_id"]
+      this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
+    },
     async changeProfile(){
       console.log(this.user.username)
       console.log(this.fname)
@@ -169,6 +170,7 @@ export default {
       }
       console.log(this.stateObj)
       this.errorMessage = this.stateObj.body
+      this.me()
     },
 
     async deleteAccount() {
