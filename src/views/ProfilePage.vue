@@ -11,10 +11,33 @@
       <div>
         Email : {{ this.email }}
       </div>
-      <div>
-        <button>Change Password</button>
+      <div >
+        <button @click="this.Profilevisible = false; this.forgotVisible = true;">Change Password? </button>
       </div>
-      <div>
+
+      <form v-show="this.forgotVisible">
+        <div class="container">
+          <br/><label>Email : </label>
+          <input type="text" v-model="email" placeholder="Enter Email" required><br/>
+          <br/>
+          {{ this.errorMessage }}
+          <button type="button" @click="this.forgotPassword()">Send Reset Code</button>
+          <button @click="this.forgotVisible = false; this.Profilevisible = true;">Cancel</button>
+        </div>
+      </form>
+      <form v-show="this.newVisible">
+        <div class="container">
+          <br/><label>New Password : </label>
+          <br/><input type="text" v-model="new_password" placeholder="Enter New Password" required>
+          <br/><br/><label>Confirmation Code (Sent to Email) : </label>
+          <br/><input type="text" v-model="code" placeholder="Confirmation Code" required>
+          <br/><br/>{{ this.errorMessage }}
+          <button type="button" @click="this.newPassword()">Change Password</button>
+          <button @click="this.newVisible = false; this.Profilevisible = true;">Cancel</button>
+        </div>
+      </form>
+
+      <div v-show="this.Profilevisible">
         <label>Changing Profile Information : </label><br/><br/>
         <table style = "border-collapse: collapse;">
           <tr>
@@ -47,7 +70,7 @@
         <br/><br/>{{this.errorMessage}}
       </div>
 
-      <div >
+      <div v-show="this.Profilevisible">
         <input style="margin-top: 8rem;" v-model="orgid" placeholder="OrgID"/>
         <button class="delete" @click="deleteAccount()" > Delete Account</button>
       </div>
@@ -68,6 +91,12 @@ export default {
   data() {
     return {
       name: '',
+      Profilevisible: true,
+      forgotVisible: false,
+      newVisible: false,
+      email2: '',
+      new_password: '',
+      code: '',
       email: '',
       userObj: '',
       user: [],
@@ -82,7 +111,9 @@ export default {
       dbObj: '',
       stateObj: '',
       errorMessage: '',
-      driverinfo: false
+      driverinfo: false,
+      audit: '',
+      // data: ''
     }
   },
   async created() {
@@ -101,6 +132,95 @@ export default {
     this.me()
   },
   methods: {
+    async AuditLogin(){
+      try {
+        try {
+          this.dbObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/me", {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+              'username': this.email
+            },
+          }).then((response) => response.json()).catch(e => console.log(e))
+        } catch (error) {
+          console.log(error)
+          this.errorMessage="Error fetching user data from database"
+        }
+        console.log(this.dbObj.body.users)
+        localStorage.setItem('status', this.dbObj.statusCode)
+        this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
+        localStorage.setItem('role_id', this.dbObj.body.users[`${this.email}`]["user_role_id"])
+
+        // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
+        console.log("Audit function")
+        console.log(this.userid)
+        console.log(this.email)
+        // console.log(localStorage.getItem('userid'))
+        console.log(this.userid)
+        console.log(this.operation)
+        // console.log("Initiating database connection for logging audit");
+        this.audit = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/audits", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.email
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                userid: this.userid,
+                operation: this.operation,
+                state: this.state,
+                message: this.message
+              },
+              path: {},
+              header: {
+                username: this.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Audit log:")
+      console.log(this.audit.statusCode)
+    },
+
+    forgotPassword() {
+      this.errorMessage = ''
+      Auth.forgotPassword(this.email)
+          .then(data => console.log(data))
+          .catch(err => this.errorMessage=err);
+      this.forgotVisible = false
+      this.newVisible = true
+    },
+    newPassword() {
+      this.errorMessage = ''
+      Auth.forgotPasswordSubmit(this.email, this.code, this.new_password)
+          .then(data => console.log(data))
+          .catch(err => {
+            console.log(err)
+            this.errorMessage="Code was incorrect"
+          });
+      this.state = "completed"
+      this.message = "User " + this.email + " has changed their password"
+      this.operation = "PasswordChange"
+      this.AuditLogin()
+      this.newVisible = false
+      this.Profilevisible = true
+    },
+
     async pushDashboard(){
       // this.me()
       console.log(localStorage.getItem('role_id'))
@@ -283,7 +403,6 @@ p {
   border-color: #c9e265;
   margin-left: auto;
   margin-right: auto;
-
 }
 table, th, td {
   border: 1px solid black;
