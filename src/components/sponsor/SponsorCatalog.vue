@@ -6,7 +6,9 @@
   </head>
   <body>
   <div class="dot">
-    <div class="dot-text"><a href="#profile">Profile</a></div>
+    <router-link :to="{ name: 'ProfilePage' }">
+      <div class="dot-text">Profile</div>
+    </router-link>
   </div>
   <div class="dot" @click="signOut">
     <router-link :to="{ name: 'LogInPage' }">

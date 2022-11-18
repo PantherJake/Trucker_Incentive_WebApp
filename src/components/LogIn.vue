@@ -104,17 +104,21 @@ export default {
         console.log(error)
         this.errorMessage="Error fetching user data from database"
       }
-      this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
-      // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
-      localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
-      localStorage.setItem('status', this.dbObj.statusCode)
       if(this.user.username === this.email && this.dbObj.statusCode === 400 && this.allowme == true){
         console.log(this.email)
         console.log(this.dbObj.statusCode)
         localStorage.setItem('status', this.dbObj.statusCode)
         this.isAuth = true
       }
-      console.log(this.userid)
+      else{
+        this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
+        // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
+        localStorage.setItem('role_id', this.dbObj.body.users[`${this.email}`]["user_role_id"])
+        localStorage.setItem('status', this.dbObj.statusCode)
+      }
+
+
+      // console.log(this.userid)
     },
     async AuditLogin(){
       try {
@@ -134,10 +138,13 @@ export default {
           console.log(error)
           this.errorMessage="Error fetching user data from database"
         }
+        console.log(this.dbObj.body.users)
+        localStorage.setItem('status', this.dbObj.statusCode)
         this.userid = this.dbObj.body.users[`${this.email}`]["user_id"]
-        localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+        localStorage.setItem('role_id', this.dbObj.body.users[`${this.email}`]["user_role_id"])
 
         // localStorage.setItem('userid', this.dbObj.body.users[`${this.email}`]["user_id"])
+        console.log("Audit function")
         console.log(this.userid)
         console.log(this.email)
         // console.log(localStorage.getItem('userid'))
@@ -209,20 +216,20 @@ export default {
           this.AuditLogin()
         }
 
-        if(this.user.username === this.email && this.dbObj.statusCode === 200) {
+        if(this.user.username === this.email && parseInt(localStorage.getItem('status')) === 200) {
           console.log("Login successful...")
           this.isAuth = true
-          localStorage.setItem('role_id', this.dbObj.body.users[`${this.user.username}`]["user_role_id"])
+          localStorage.setItem('role_id', this.dbObj.body.users[`${this.email}`]["user_role_id"])
           localStorage.setItem('status', this.dbObj.statusCode)
         }
-        if(this.user.username === this.email && this.dbObj.statusCode === 400 && this.allowme == true){
+        if(this.user.username === this.email && parseInt(localStorage.getItem('status')) === 400 && this.allowme == true){
           console.log(this.email)
           console.log(this.dbObj.statusCode)
           localStorage.setItem('status', this.dbObj.statusCode)
           this.isAuth = true
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
 
     },
@@ -255,19 +262,24 @@ export default {
     },
     pushDashboard() {
       // router.push("/driverdashboard")
+      console.log("CHECK STATUS")
       console.log(localStorage.getItem('role_id'))
-      console.log(localStorage.getItem('status'))
-      if(parseInt(localStorage.getItem('status')) == 400){
+      console.log(this.dbObj.statusCode)
+      if(parseInt(this.dbObj.statusCode) == 400){
         // console.log("Made it here")
         router.push("/driverpending")
       }
+      // localStorage.removeItem('status')
       if(parseInt(localStorage.getItem('role_id')) === 3){
+        localStorage.removeItem('role_id')
         router.push("/driverdashboard")
       }
       if(parseInt(localStorage.getItem('role_id')) === 2){
+        localStorage.removeItem('role_id')
         router.push("/sponsordashboard")
       }
       if(parseInt(localStorage.getItem('role_id')) === 1){
+        localStorage.removeItem('role_id')
         router.push("/admindashboard")
       }
 

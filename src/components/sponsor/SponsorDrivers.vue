@@ -5,9 +5,11 @@
       <title> Driver Dashboard </title>    
     </head>    
       <body>
-        <div class="dot">
-          <div class="dot-text"><a href="#profile">Profile</a></div>
-        </div>
+      <div class="dot">
+        <router-link :to="{ name: 'ProfilePage' }">
+          <div class="dot-text">Profile</div>
+        </router-link>
+      </div>
         <div class="dot" @click="signOut">
           <router-link :to="{ name: 'LogInPage' }">
             <div class="dot-text">Sign Out</div>

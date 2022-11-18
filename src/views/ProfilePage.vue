@@ -23,23 +23,23 @@
           </tr>
           <tr>
             <td><input  v-model="fname" placeholder="First Name"/><br/></td>
-            <td class="formlabel"><label >{{this.dbObj.body.users[`${this.user.username}`]['fname']}}:</label></td>
+            <td class="formlabel"><label >{{this.dbObj.body.users[`${this.user.username}`]['fname']}}</label></td>
           </tr>
           <tr>
             <td><input v-model="mname" placeholder="Middle Name"/><br/></td>
-            <td class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['mname']}}: </label></td>
+            <td class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['mname']}} </label></td>
           </tr>
           <tr>
             <td><input v-model="lname" placeholder="Last Name"/><br/></td>
-            <td class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['lname']}}:</label></td>
+            <td class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['lname']}}</label></td>
           </tr>
-          <tr>
-            <td><input class = "tab1" v-model="dlnum" placeholder="Driver License"/><br/></td>
-            <td class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['dl']}}:&nbsp; </label></td>
+          <tr v-show=this.driverinfo>
+            <td><input v-show=this.driverinfo class = "tab1" v-model="dlnum" placeholder="Driver License"/><br/></td>
+            <td v-show=this.driverinfo class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['dl']}} </label></td>
           </tr>
-          <tr>
-            <td><input v-model="address" placeholder="Address"/><br/></td>
-            <td class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['address']}}:&nbsp; </label></td>
+          <tr v-show=this.driverinfo>
+            <td><input v-show=this.driverinfo v-model="address" placeholder="Address"/><br/></td>
+            <td v-show=this.driverinfo class="formlabel"><label>{{this.dbObj.body.users[`${this.user.username}`]['address']}} </label></td>
           </tr>
         </table>
 
@@ -52,9 +52,9 @@
         <button class="delete" @click="deleteAccount()" > Delete Account</button>
       </div>
     </div>
-    <router-link :to="{ name: 'DriverDashboardPage'}">
-      <button>Return to Dashboard</button>
-    </router-link>
+<!--    <router-link :to="{ name: 'DriverDashboardPage'}">-->
+      <button @click="pushDashboard()">Return to Dashboard</button>
+<!--    </router-link>-->
   </body>
   </html>
 </template>
@@ -81,7 +81,8 @@ export default {
       dlnum: '',
       dbObj: '',
       stateObj: '',
-      errorMessage: ''
+      errorMessage: '',
+      driverinfo: false
     }
   },
   async created() {
@@ -100,6 +101,25 @@ export default {
     this.me()
   },
   methods: {
+    async pushDashboard(){
+      // this.me()
+      console.log(localStorage.getItem('role_id'))
+      console.log(localStorage.getItem('status'))
+      if(parseInt(localStorage.getItem('status')) == 400){
+        // console.log("Made it here")
+        router.push("/driverpending")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 3){
+        router.push("/driverdashboard")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 2){
+        console.log("Go into sponsor")
+        router.push("/sponsordashboard")
+      }
+      if(parseInt(localStorage.getItem('role_id')) === 1){
+        router.push("/admindashboard")
+      }
+    },
     async me(){
       //  me function
       try {
@@ -122,8 +142,13 @@ export default {
         console.log("User data retrieved succesfully:")
         console.log(this.dbObj.body.users)
       }
-      this.userid= this.dbObj.body.users[`${this.user.username}`]["user_id"]
-      this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
+      this.userid= this.dbObj.body.users[`${this.email}`]["user_id"]
+      this.orgID = this.dbObj.body.users[`${this.email}`]["org_id"]
+      localStorage.setItem('role_id', this.dbObj.body.users[`${this.email}`]["user_role_id"])
+      localStorage.setItem('status', this.dbObj.statusCode)
+      if(parseInt(localStorage.getItem('role_id')) === 3){
+        this.driverinfo = true
+      }
     },
     async changeProfile(){
       console.log(this.user.username)

@@ -5,9 +5,11 @@
       <title> Sponsor Dashboard </title>    
     </head>    
       <body>
-        <div class="dot">
-          <div class="dot-text"><a href="#profile">Profile</a></div>
-        </div>
+      <div class="dot">
+        <router-link :to="{ name: 'ProfilePage' }">
+          <div class="dot-text">Profile</div>
+        </router-link>
+      </div>
         <div class="dot" @click="signOut">
           <router-link :to="{ name: 'LogInPage' }">
             <div class="dot-text">Sign Out</div>
@@ -17,7 +19,6 @@
         <center><h1> Admin HomePage </h1></center>
             <center><div class="topnav">
                 <a class="active" href="/admindashboard">Home</a>
-                <a href="/admindashboard/points">Points</a>
                 <a href="/admindashboard/catalog">Catalog</a>
                 <a href="/admindashboard/drivers">Drivers</a>
                 <a href="/admindashboard/audits">Audits</a>
