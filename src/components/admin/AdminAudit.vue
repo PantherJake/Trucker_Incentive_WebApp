@@ -45,7 +45,6 @@
   </body>
   </html>
 </template>
-
 <script>
 import {Auth} from "aws-amplify";
 import router from "@/router";
