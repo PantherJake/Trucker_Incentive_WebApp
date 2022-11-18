@@ -282,7 +282,6 @@ export default {
         localStorage.removeItem('role_id')
         router.push("/admindashboard")
       }
-
     },
     pushLogin() {
       this.isAuth = false;
