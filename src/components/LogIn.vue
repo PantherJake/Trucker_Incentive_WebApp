@@ -191,6 +191,8 @@ export default {
       this.message = "Successful login" //+ String(this.user.username)
       try {
         console.log("Attempting login...");
+        // console.log(this.password)
+        // console.log(this.email)
         await Auth.signIn(this.email, this.password)
             .then(response => this.userObj = JSON.stringify(response))
 

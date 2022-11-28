@@ -1,80 +1,80 @@
 <template>
-    <html>
-    <head>  
-      <meta name="viewport" content="width=device-width, initial-scale=1">  
-      <title> Sponsor Dashboard </title>    
-    </head>    
-      <body>
-      <div class="dot">
-        <router-link :to="{ name: 'ProfilePage' }">
-          <div class="dot-text">Profile</div>
-        </router-link>
-      </div>
-        <div class="dot" @click="signOut">
-          <router-link :to="{ name: 'LogInPage' }">
-            <div class="dot-text">Sign Out</div>
-          </router-link>
-        </div>
-        <center> <img src="../../assets/appLogoSmall.png" /> </center>
-        <center><h1> Admin HomePage </h1></center>
-            <center><div class="topnav">
-                <a class="active" href="/admindashboard">Home</a>
-                <a href="/admindashboard/create">Create</a>
-                <a href="/admindashboard/catalog">Catalog</a>
-                <a href="/admindashboard/drivers">Drivers</a>
-                <a href="/admindashboard/audits">Audits</a>
-            </div></center>
-            <center><ul class="breadcrumb">
-              <li><a href="/admindashboard">Home</a></li>
-            </ul></center>
-<!--          <form v-if="this.isNotValid">-->
-<!--            <center><div>-->
-<!--              <select class="mediaInput" name="Select Type of user" v-model="this.userType" id="searchOption">-->
-<!--                <option value="3">Driver</option>-->
-<!--                <option value="2">Sponsor</option>-->
-<!--                <option value="1">Admin</option>-->
-<!--              </select>-->
-<!--              <button class="searchButton" @click="getType()">Submit</button>-->
+  <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Admin Create User Page </title>
+  </head>
+  <body>
+  <div class="dot">
+    <router-link :to="{ name: 'ProfilePage' }">
+      <div class="dot-text">Profile</div>
+    </router-link>
+  </div>
+  <div class="dot" @click="signOut">
+    <router-link :to="{ name: 'LogInPage' }">
+      <div class="dot-text">Sign Out</div>
+    </router-link>
+  </div>
+  <center> <img src="../../assets/appLogoSmall.png" /> </center>
+  <center><h1> Admin HomePage </h1></center>
+  <center><div class="topnav">
+    <a href="/admindashboard">Home</a>
+    <a class="active" href="/admindashboard/create">Create</a>
+    <a href="/admindashboard/catalog">Catalog</a>
+    <a href="/admindashboard/drivers">Drivers</a>
+    <a href="/admindashboard/audits">Audits</a>
+  </div></center>
+  <center><ul class="breadcrumb">
+    <li><a href="/admindashboard">Create a User</a></li>
+  </ul></center>
+  <form v-if="this.isNotValid">
+    <center><div>
+      <select class="mediaInput" name="Select Type of user" v-model="this.userType" id="searchOption">
+        <option value="3">Driver</option>
+        <option value="2">Sponsor</option>
+        <option value="1">Admin</option>
+      </select>
+      <button class="searchButton" @click="getType()">Submit</button>
 
-<!--            </div>-->
-<!--            </center>-->
-<!--            <center><div v-show=this.show_input  class="mainbox">-->
-<!--              <label>Email : </label>-->
-<!--              <input type="text" v-model="useremail" placeholder="Enter Email" required>-->
-<!--              <label>Password : (At least 1 uppercase, 1 lowercase and 1 special character and at least 8 characters long)</label>-->
-<!--              <input type="password" v-model="password" placeholder="Enter Password"  required>-->
-<!--              <label>Organization ID: (needs to be a number) </label>-->
-<!--              <input type="text" v-model="createOrgID" placeholder="Enter Organization ID"  required>-->
-<!--              <label>First name : </label>-->
-<!--              <input type="text" v-model="fname" placeholder="Enter First Name" required>-->
-<!--              <label>Middle name : </label>-->
-<!--              <input type="text" v-model="mname" placeholder="Enter Middle Name" required>-->
-<!--              <label>Last name : </label>-->
-<!--              <input type="text" v-model="lname" placeholder="Enter Last Name" required>-->
-<!--              <label v-show=this.driverinfo >Drivers License # : </label>-->
-<!--              <input v-show=this.driverinfo type="text" v-model="DLnumber" placeholder="Enter DL#" required>-->
-<!--              <label>Phone Number : (need country code +1 in front)</label>-->
-<!--              <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>-->
-<!--              <label v-show=this.driverinfo>Home Address : </label>-->
-<!--              <input v-show=this.driverinfo type="text" v-model="address" placeholder="Home Address" required>-->
-<!--              {{ this.errorMessage }}-->
-<!--              <br>-->
-<!--              {{ this.dbError }}-->
+    </div>
+    </center>
+    <center><div v-show=this.show_input  class="mainbox">
+      <label>Email : </label>
+      <input type="text" v-model="useremail" placeholder="Enter Email" required>
+      <label>Password : (At least 1 uppercase, 1 lowercase and 1 special character and at least 8 characters long)</label>
+      <input type="password" v-model="password" placeholder="Enter Password"  required>
+      <label>Organization ID: (needs to be a number) </label>
+      <input type="text" v-model="createOrgID" placeholder="Enter Organization ID"  required>
+      <label>First name : </label>
+      <input type="text" v-model="fname" placeholder="Enter First Name" required>
+      <label>Middle name : </label>
+      <input type="text" v-model="mname" placeholder="Enter Middle Name" required>
+      <label>Last name : </label>
+      <input type="text" v-model="lname" placeholder="Enter Last Name" required>
+      <label v-show=this.driverinfo >Drivers License # : </label>
+      <input v-show=this.driverinfo type="text" v-model="DLnumber" placeholder="Enter DL#" required>
+      <label>Phone Number : (need country code +1 in front)</label>
+      <input type="text" v-model="phone" placeholder="Home/Mobile Phone" required>
+      <label v-show=this.driverinfo>Home Address : </label>
+      <input v-show=this.driverinfo type="text" v-model="address" placeholder="Home Address" required>
+      {{ this.errorMessage }}
+      <br>
+      {{ this.dbError }}
 
-<!--              <button type="button" @click="createAccount()">Create User</button>-->
-<!--            </div></center>-->
-<!--          </form>-->
-<!--        <form v-else>-->
-<!--          <div class="container">-->
-<!--            <label>Verification Code : </label>-->
-<!--            <input type="text" v-model="code" placeholder="Enter verification code" required>-->
-<!--            {{ this.errorMessage }}-->
-<!--            <button type="button" @click="verifyEmail()">Submit</button>-->
-<!--            <button type="button" @click="resendConfirmationCode()">Resend Code</button>-->
-<!--          </div>-->
-<!--        </form>-->
-      </body>     
-    </html> 
+      <button type="button" @click="createAccount()">Create User</button>
+    </div></center>
+  </form>
+  <form v-else>
+    <div class="container">
+      <label>Verification Code : </label>
+      <input type="text" v-model="code" placeholder="Enter verification code" required>
+      {{ this.errorMessage }}
+      <button type="button" @click="verifyEmail()">Submit</button>
+      <button type="button" @click="resendConfirmationCode()">Resend Code</button>
+    </div>
+  </form>
+  </body>
+  </html>
 </template>
 
 <script>
@@ -334,27 +334,27 @@ export default {
 }
 </script>
 
-<style>   
-Body {  
-  font-family: Calibri, Helvetica, sans-serif;  
-  background-color: #008037; 
-  font-size: 20px; 
-}           
-.topnav {      
-    background-color: #7ed957;  
-    border-style: solid;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    filter: drop-shadow(10px 8px 8px black);
-}   
-.topnav a {      
-    color: black;
-    padding: 14px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-} 
+<style>
+Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: #008037;
+  font-size: 20px;
+}
+.topnav {
+  background-color: #7ed957;
+  border-style: solid;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  filter: drop-shadow(10px 8px 8px black);
+}
+.topnav a {
+  color: black;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
 .topnav a:hover {
   background-color: #ddd;
   color: black;
@@ -446,4 +446,4 @@ input[type=text], input[type=password] {
   width: 10rem;
   height: 4rem;
 }
-</style> 
+</style>

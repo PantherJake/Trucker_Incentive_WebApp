@@ -19,6 +19,7 @@
   <center><h1> Admin HomePage </h1></center>
   <center><div class="topnav">
     <a href="/admindashboard">Home</a>
+    <a href="/admindashboard/create">Create</a>
     <a href="/admindashboard/catalog">Catalog</a>
     <a class="active" href="/admindashboard/drivers">Drivers</a>
     <a href="/admindashboard/audits">Audits</a>
@@ -27,7 +28,22 @@
     <li><a href="/admindashboard/drivers">Drivers</a></li>
   </ul></center>
   <center><div class="mainbox">
-    <center><p>Welcome to the Drivers Page for the Driver Incentive Application!</p></center>
+    <br>Applications for Organization:
+    <input v-model="DriverorgID" placeholder="OrganizationID"/> <br>
+    <button @click="getApplications()">Get Applications</button>
+<!--        {{this.AppObj.body['Applications']}}-->
+    {{this.data}} <br>
+
+    <input v-model="driverID" placeholder="DriverID"/>
+    <input v-model="reason" placeholder="Reasoning behind it"/>
+    <button class="driverchange" @click="approveDriver()">Approve</button>
+    <button class="driverchange" @click="rejectDriver()">Reject</button>
+    <button class="driverchange" @click="removeDriver()">Remove</button>
+    {{this.response}}
+<!--    <br> {{this.stateObj.body}}<br>-->
+
+    <!--              <br> {{this.chnObj.body.message}}-->
+
   </div></center>
   </body>
   </html>
@@ -41,9 +57,11 @@ export default {
   name: 'DriverPoints',
   data() {
     return {
+      DriverorgID: '',
       orgID: '', // need to attach that to current user
       driverID: '', // need to attach that to current user
 
+      data: 'Please specify your Organization ID!',
       userObj: '',
       user: [],
       name: '',
@@ -52,7 +70,9 @@ export default {
       applications: [],
 
       dbObj: '',
-      db: []
+      db: [],
+      stateObj: '',
+      response: ' '
     }
   },
   async created() {
@@ -93,26 +113,6 @@ export default {
     // this.driverID = this.dbObj.body.users[`${this.user.username}`]["user_id"]
     this.orgID = this.dbObj.body.users[`${this.user.username}`]["org_id"]
     //function to get points of a driver for many organizations
-    try{
-      console.log("Getting Application information from DB")
-      this.AppObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgID + "/drivers/application", {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
-          'username': this.user.username
-        },
-      }).then((response) => response.json()).catch(e => console.log(e));
-      console.log(this.AppObj)
-    } catch (error) {
-      console.log(error);
-    }
-    if(this.AppObj.statusCode === 200) {
-      console.log("Successfully got the Applications json!")
-    }
   },
   methods: {
     async signOut() {
@@ -121,7 +121,168 @@ export default {
       } catch (error) {
         console.log('error signing out: ', error);
       }
-    }
+    },
+
+    async getApplications(){
+      try{
+        console.log("Getting Application information from DB")
+        this.AppObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.DriverorgID + "/drivers/application", {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.user.username
+          },
+        }).then((response) => response.json()).catch(e => console.log(e));
+        console.log(this.AppObj)
+      } catch (error) {
+        console.log(error);
+      }
+      if(this.AppObj.statusCode === 200) {
+        console.log("Successfully got the Applications json!")
+        console.log(this.AppObj.body)
+        this.data = this.AppObj.body['Applications']
+      }
+      localStorage.setItem('orgid', this.DriverorgID)
+
+    },
+
+    async rejectDriver(){
+      console.log(this.driverid)
+      console.log(this.reason)
+      console.log(this.DriverorgID)
+      console.log(localStorage.getItem('orgid'))
+      console.log(this.user.username)
+      try{
+        console.log("Preparing to change pts on the DB")
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.DriverorgID + "/drivers/" + this.driverid + "/application/reject", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.user.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                state: "rejected",
+                reason: this.reason// only for rejected or canceled
+              },
+              path: {
+                orgid: localStorage.getItem("orgid"),
+                userid: this.driverID
+              },
+              header: {
+                username: this.user.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established! Driver approved!")
+      console.log(this.stateObj)
+      this.response = this.stateObj.body
+      this.getApplications()
+    },
+    async removeDriver(){
+      console.log(this.driverid)
+      console.log(this.reason)
+      console.log(this.orgID)
+      console.log(this.user.username)
+      try{
+        console.log("Preparing to change pts on the DB")
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.DriverorgID + "/drivers/" + this.driverid + "/application/cancel", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.user.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                state: "removed",
+                reason: this.reason// only for rejected or canceled
+              },
+              path: {
+                orgid: localStorage.getItem("orgid"),
+                userid: this.driverID
+              },
+              header: {
+                username: this.user.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established! Driver approved!")
+      console.log(this.stateObj)
+      this.response = this.stateObj.body
+      this.getApplications()
+    },
+    async approveDriver(){
+//TODO: need to figure out how to send data to API with passthrough
+      console.log(this.driverid)
+      console.log(this.reason)
+      // console.log(this.orgID)
+      console.log(localStorage.getItem("orgid"))
+      console.log(this.user.username)
+      try{
+        console.log("Preparing to change pts on the DB")
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.DriverorgID + "/drivers/" + this.driverid + "/application/approve", {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'tbXzQvy3PQTJr0PDVlXm5qjjUaKgZVc1wbTzEkva',
+            'username': this.user.username
+          },
+          body: JSON.stringify({
+            path: {},
+            params: {
+              querystring: {
+                // orgid: localStorage.getItem("orgid"),
+                state: "active",
+                reason: this.reason// only for rejected or canceled
+              },
+              path: {
+                orgid: localStorage.getItem("orgid"),
+                userid: this.driverID
+              },
+              header: {
+                username: this.user.username
+              }
+            },
+          })
+        }).then((response) => response.json()).catch(e => console.log(e));
+      } catch (error) {
+        console.log(error);
+        this.dbError = "Could not establish database connection, please contact support";
+      }
+      console.log("Connection established! Driver approved!")
+      console.log(this.stateObj)
+      this.response = this.stateObj.body
+      this.getApplications()
+    },
   }
 }
 </script>
@@ -208,5 +369,12 @@ export default {
     padding: 5px 5px 5px 5px;
     border-style: solid;
     border-color:#c9e265;
+  }
+  .driverchange {
+    margin-top: 0;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    width: 6rem;
+    height: 3rem;
   }
 </style>

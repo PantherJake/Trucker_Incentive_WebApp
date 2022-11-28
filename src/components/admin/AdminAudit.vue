@@ -19,6 +19,7 @@
   <center><h1> Admin HomePage </h1></center>
   <center><div class="topnav">
     <a href="/admindashboard">Home</a>
+    <a href="/admindashboard/create">Create</a>
     <a href="/admindashboard/catalog">Catalog</a>
     <a href="/admindashboard/drivers">Driver</a>
     <a class="active" href="/admindashboard/audits">Audits</a>

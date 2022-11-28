@@ -317,15 +317,16 @@ export default {
       this.errorMessage = this.stateObj.body
       this.me()
     },
-
     async deleteAccount() {
+      this.me()
+      console.log("DELETE")
       console.log(this.userid)
       console.log(this.reason)
       console.log(this.orgid)
       console.log(this.user.username)
       try {
         console.log("Preparing to remove account from the DB")
-        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgid + "/drivers/" + this.userid + "/application/cancel", {
+        this.stateObj = await fetch("https://niiertdkbf.execute-api.us-east-1.amazonaws.com/prod/orgs/" + this.orgid + "/users/" + this.userid + "/delete", {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: 'cors', // no-cors, *cors, same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
